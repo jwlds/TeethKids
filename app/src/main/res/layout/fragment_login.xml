@@ -96,13 +96,21 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Não tem uma conta? Cadastre-se"
+            android:text="@string/register_link_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnLogin"
+            app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+        <TextView
+            android:id="@+id/labelRegister"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Não tem um conta? t"
+            app:layout_constraintStart_toEndOf="@+id/btnRegister"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
-            />
 
         <ProgressBar
             android:id="@+id/loading"

@@ -9,10 +9,13 @@ data class RegistrationData(
     var dateBrith: String? = null,
     var numberPhone: String? = null,
     var cro: String? = null,
-    var andress1: String? = null,
-    var andress2: String? = null,
-    var andress3: String? = null,
     var university: String? = null,
     var graduationDate: String? = null,
-    var photo: Bitmap? = null
+    var photo: Bitmap? = null,
+    var street: String? = null,
+    var neighborhood: String? = null,
+    var zipcode: String? = null,
+    var state: String? = null,
+    var city: String? = null,
+    var numberStreet: String? = null
 )

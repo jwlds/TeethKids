@@ -5,7 +5,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.ktx.Firebase
 
-class FirebaseRoom {
+class FirebaseHelper {
 
     companion object {
         fun getDatabase() =  FirebaseFirestore.getInstance()

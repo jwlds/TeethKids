@@ -1,20 +1,11 @@
 package com.example.teethkids.dao
 
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.view.isVisible
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.findNavController
-import com.example.teethkids.R
-import com.example.teethkids.database.FirebaseRoom
-import com.example.teethkids.database.FirebaseRoom.Companion.getDatabase
-import com.example.teethkids.database.FirebaseRoom.Companion.getFunctions
-import com.example.teethkids.database.FirebaseRoom.Companion.getIdUser
+import com.example.teethkids.database.FirebaseHelper
+import com.example.teethkids.database.FirebaseHelper.Companion.getFunctions
+import com.example.teethkids.database.FirebaseHelper.Companion.getIdUser
 import com.example.teethkids.model.RegistrationData
-import com.example.teethkids.utils.RegistrationDataHolder
 import com.example.teethkids.utils.Utils
 import com.example.teethkids.utils.Utils.getFirebaseErrorMessage
-import com.google.firebase.FirebaseNetworkException
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseUser
 
 class AuthenticationDAO {
@@ -26,7 +17,7 @@ class AuthenticationDAO {
         password: String,
         onSuccess: (FirebaseUser) -> Unit,
         onFailure: (String) -> Unit) {
-        FirebaseRoom.getAuth().signInWithEmailAndPassword(email, password)
+        FirebaseHelper.getAuth().signInWithEmailAndPassword(email, password)
             .addOnSuccessListener { result ->
                 onSuccess(result.user!!)
             }
@@ -41,28 +32,37 @@ class AuthenticationDAO {
         onSuccess: () -> Unit,
         onFailure: (String) -> Unit
     ) {
-        FirebaseRoom.getAuth().createUserWithEmailAndPassword(data.email!!, data.password!!)
+        FirebaseHelper.getAuth().createUserWithEmailAndPassword(data.email!!, data.password!!)
             .addOnSuccessListener {
                 val currentUser = getIdUser().toString()
-               Utils.uploadProfileImage(data.photo!!,currentUser)
+               Utils.uploadProfileImage(data.photo,currentUser)
                    .addOnSuccessListener { url ->
                        val userData = hashMapOf(
-                           "id" to currentUser,
+                           "authUid" to currentUser,
                            "email" to data.email,
                            "name" to data.name,
                            "dateBrith" to data.dateBrith,
                            "numberPhone" to data.numberPhone,
                            "cro" to data.cro,
-                           "andress1" to data.andress1,
-                           "andress2" to data.andress2,
-                           "andress3" to data.andress3,
                            "university" to data.university,
                            "graduationDate" to data.graduationDate,
+                           "urlImg" to url.toString()
                        )
-                       val createUser = getFunctions().getHttpsCallable("createUser")
+                       val andressData = hashMapOf(
+                           "userId" to currentUser,
+                           "zipeCode" to data.zipcode,
+                           "street" to data.street,
+                           "number" to data.numberStreet,
+                           "neighborhood" to data.neighborhood,
+                           "city" to data.city,
+                           "state" to data.state
+
+                       )
+                       val createUser = getFunctions().getHttpsCallable("createUserTest")
                        val data = hashMapOf(
                            "userId" to currentUser,
-                           "userData" to userData
+                           "userData" to userData,
+                           "andressData" to andressData
                        )
                        createUser.call(data)
                            .addOnSuccessListener {
@@ -85,7 +85,7 @@ class AuthenticationDAO {
         onSuccess: () -> Unit,
         onFailure: (String) -> Unit)
     {
-        FirebaseRoom.getAuth().sendPasswordResetEmail(email)
+        FirebaseHelper.getAuth().sendPasswordResetEmail(email)
             .addOnSuccessListener {
                 onSuccess()
             }
@@ -93,5 +93,10 @@ class AuthenticationDAO {
                 onFailure(getFirebaseErrorMessage(exception))
             }
     }
+
+
+
+    //logout
+    fun logout() =  FirebaseHelper.getAuth().signOut()
 
 }

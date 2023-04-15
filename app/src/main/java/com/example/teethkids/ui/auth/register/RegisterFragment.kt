@@ -1,45 +1,22 @@
 package com.example.teethkids.ui.auth.register
 
-import android.Manifest
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.ImageDecoder
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
-import android.provider.Settings
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.teethkids.R
 import com.example.teethkids.dao.AuthenticationDAO
-import com.example.teethkids.database.FirebaseRoom.Companion.getAuth
-import com.example.teethkids.database.FirebaseRoom.Companion.getDatabase
-import com.example.teethkids.database.FirebaseRoom.Companion.getIdUser
 import com.example.teethkids.databinding.FragmentRegisterBinding
 import com.example.teethkids.ui.adapter.viewPagerAdapter.StageRegisterAdapter
 import com.example.teethkids.utils.RegistrationDataHolder
 import com.example.teethkids.utils.Utils
-import com.google.android.gms.tasks.Task
-import com.google.firebase.FirebaseNetworkException
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.FirebaseAuthUserCollisionException
-import com.google.firebase.auth.FirebaseAuthWeakPasswordException
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
-import java.io.ByteArrayOutputStream
 
 
-class RegisterFragment : Fragment(){
+class RegisterFragment : Fragment(),View.OnClickListener{
 
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
@@ -57,13 +34,14 @@ class RegisterFragment : Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // Inicialize o ViewPager2 e o adapter
+
+
         viewPager = binding.SlideViewPager
         viewPager.isUserInputEnabled = false;
         adapter = StageRegisterAdapter(this)
         viewPager.adapter = adapter
 
-        // Adicione os fragmentos para cada etapa do registro ao adapter
+
         adapter.addFragment(EmailPasswordFragment())
         adapter.addFragment(ProfileFragment())
         adapter.addFragment(AndressFragment())
@@ -73,13 +51,6 @@ class RegisterFragment : Fragment(){
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                // Ocultar botão "Voltar" na primeira etapa
-                if (position == 0) {
-                    binding.btnBack.visibility = View.GONE
-                } else {
-                    binding.btnBack.visibility = View.VISIBLE
-                }
-                // Alterar o texto do botão "Avançar" na última etapa
                 if (position == adapter.itemCount - 1) {
                     binding.btnNext.setText(R.string.finish)
                 } else {
@@ -87,30 +58,16 @@ class RegisterFragment : Fragment(){
                 }
             }
         })
-        binding.btnBack.setOnClickListener {
-            val currentItem = viewPager.currentItem
-            viewPager.setCurrentItem(currentItem - 1, true)
-        }
 
-        binding.btnNext.setOnClickListener {
-            val currentItem = viewPager.currentItem
-            if (currentItem == adapter.itemCount - 1) {
-                binding.loading.isVisible = true
-                val registrationData = RegistrationDataHolder.registrationData
-                    val auth = AuthenticationDAO()
-                    auth.registerAccount(
-                        registrationData,
-                       onSuccess = {
-                            binding.loading.isVisible = false
-                            Utils.showToast(requireContext(),"Login realizado com sucesso!")
-                          //  findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
-                        },
-                        onFailure = { exception ->
-                            binding.loading.isVisible = false
-                           Utils.showSnackbar(requireView(),exception)
-                       }
-                   )
-            } else {
+        binding.btnNext.setOnClickListener(this)
+        binding.btnBack.setOnClickListener(this)
+
+    }
+
+
+    override fun onClick(v: View?) {
+        when(v!!.id) {
+            R.id.btnNext -> {
                 val currentItem = viewPager.currentItem
                 when (val currentFragment = adapter.fragments[currentItem]) {
                     is EmailPasswordFragment -> if (currentFragment.isValid())
@@ -122,15 +79,40 @@ class RegisterFragment : Fragment(){
                     is EducationFragment -> if (currentFragment.isValid())
                         viewPager.setCurrentItem(currentItem + 1, true)
                     is PhotoFragment -> if (currentFragment.isValid())
-                        viewPager.setCurrentItem(currentItem + 1, true)
+                    {
+                        binding.loading.isVisible = true
+                        val registrationData = RegistrationDataHolder.registrationData
+                        val auth = AuthenticationDAO()
+                        auth.registerAccount(
+                            registrationData,
+                            onSuccess = {
+                                binding.loading.isVisible = false
+                                Utils.showToast(requireContext(),"Login realizado com sucesso!")
+                                //  findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+                            },
+                            onFailure = { exception ->
+                                binding.loading.isVisible = false
+                                Utils.showSnackbar(requireView(),exception)
+                            }
+                        )
+                    }
                     else -> Utils.showToast(requireContext(),"Preecha todos os campos")
 
                 }
             }
+            R.id.btnBack -> {
+                val currentItem = viewPager.currentItem
+                if(currentItem == 0){
+                    findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+                }
+                else {
+                    viewPager.setCurrentItem(currentItem - 1, true)
+                }
+
+            }
         }
-
-
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

@@ -6,9 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import android.graphics.Color
+import androidx.core.content.ContextCompat
 import com.example.teethkids.R
 import com.example.teethkids.databinding.FragmentAndressBinding
 import com.example.teethkids.utils.RegistrationDataHolder
+import com.google.api.Context
 
 
 class AndressFragment : Fragment(){
@@ -28,20 +31,52 @@ class AndressFragment : Fragment(){
 //        binding.btnBack.setOnClickListener(this)
 //        binding.btnNext.setOnClickListener(this)
     }
-
     fun isValid(): Boolean {
-        val edtAndress1 = binding.edtAndress1.text.toString().trim()
-        val edtAndress2 = binding.edtAndress2.text.toString().trim()
-        val edtAndress3 = binding.edtAndress3.text.toString().trim()
+        val zipe = binding.edtZipe.text.toString().trim()
+        val street = binding.edtStreet.text.toString().trim()
+        val number  = binding.edtNumber.text.toString().trim()
+        val neighborhood = binding.edtNumber.text.toString().trim()
+        val city = binding.edtCity.text.toString().trim()
+        val state = binding.edtState.text.toString().trim()
 
-        if (edtAndress1.isNotEmpty() || edtAndress2.isNotEmpty() || edtAndress3.isNotEmpty()) {
-            RegistrationDataHolder.registrationData.andress1 = binding.edtAndress1.text.toString().trim()
-            RegistrationDataHolder.registrationData.andress2 = binding.edtAndress2.text.toString().trim()
-            RegistrationDataHolder.registrationData.andress3 = binding.edtAndress3.text.toString().trim()
-            return true
+        if (zipe.isEmpty()) {
+            binding.edtZipe.error = "Cep não pode ser vazio"
+           // binding.edtZipe.
+            return false
         }
-        return false
+
+        if (street.isEmpty()) {
+            binding.edtStreet.error = "Rua não pode ser vazio"
+            return false
+        }
+
+        if (number.isEmpty()) {
+            binding.edtNumber.error = "Numero não pode ser vazio"
+            return false
+        }
+        if (neighborhood.isEmpty()) {
+            binding.edtNeighbBorhood.error = "Bairro não pode ser vazio"
+            return false
+        }
+
+        if (city.isEmpty()) {
+            binding.edtCity.error = "Cidade não pode ser vazio"
+            return false
+        }
+        if (state.isEmpty()) {
+            binding.edtState.error = "Estado não pode ser vazio"
+            return false
+        }
+
+        RegistrationDataHolder.registrationData.zipcode = zipe
+        RegistrationDataHolder.registrationData.street  = street
+        RegistrationDataHolder.registrationData.numberStreet = number
+        RegistrationDataHolder.registrationData.neighborhood = neighborhood
+        RegistrationDataHolder.registrationData.city = city
+        RegistrationDataHolder.registrationData.state = state
+        return true
     }
+
 
 //    override fun onClick(v: View?) {
 //        when(v!!.id) {

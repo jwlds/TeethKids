@@ -1,14 +1,15 @@
 package com.example.teethkids.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.teethkids.R
-import com.example.teethkids.database.FirebaseRoom.Companion.getAuth
+import com.example.teethkids.database.FirebaseHelper.Companion.getAuth
 import com.example.teethkids.databinding.FragmentHomeBinding
-import com.example.teethkids.databinding.FragmentRecoverAccountBinding
+import com.example.teethkids.ui.auth.AuthenticateActivity
 
 class HomeFragment : Fragment(),View.OnClickListener{
 
@@ -34,7 +35,12 @@ class HomeFragment : Fragment(),View.OnClickListener{
     override fun onClick(v: View?) {
 
         when(v!!.id) {
-            R.id.btnlo -> getAuth().signOut()
+            R.id.btnlo -> {
+                getAuth().signOut()
+                val intent = Intent(activity, AuthenticateActivity::class.java)
+                startActivity(intent)
+                activity?.finish()
+            }
         }
     }
 

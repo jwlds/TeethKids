@@ -138,9 +138,10 @@ class PhotoFragment : Fragment(),View.OnClickListener{
         ) == PackageManager.PERMISSION_GRANTED
 
     fun isValid(): Boolean {
-        if (bitmap === null) {
+        if (bitmap == null) {
+       //     Utils.showSnackbar(requireView(),"Precisamos de uma foto")
             Utils.showToast(requireContext(), "Precisamos de uma foto sua")
-            return false
+            return true
         }
         RegistrationDataHolder.registrationData.photo = bitmap
         return true

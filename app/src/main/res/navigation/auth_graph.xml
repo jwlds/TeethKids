@@ -13,9 +13,6 @@
         <action
             android:id="@+id/action_splashFragment_to_authenticate"
             app:destination="@id/authenticate" />
-        <action
-            android:id="@+id/action_splashFragment_to_homeFragment2"
-            app:destination="@id/homeFragment2" />
     </fragment>
     <navigation android:id="@+id/authenticate"
         app:startDestination="@id/loginFragment">
@@ -38,9 +35,6 @@
                 android:id="@+id/action_recoverAccountFragment_to_loginFragment"
                 app:destination="@id/loginFragment" />
         </fragment>
-        <action
-            android:id="@+id/action_global_homeFragment2"
-            app:destination="@id/homeFragment2" />
         <fragment
             android:id="@+id/registerFragment"
             android:name="com.example.teethkids.ui.auth.register.RegisterFragment"
@@ -50,13 +44,4 @@
                 app:destination="@id/loginFragment" />
         </fragment>
     </navigation>
-    <fragment
-        android:id="@+id/homeFragment2"
-        android:name="com.example.teethkids.ui.home.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_homeFragment2_to_authenticate"
-            app:destination="@id/authenticate" />
-    </fragment>
 </navigation>

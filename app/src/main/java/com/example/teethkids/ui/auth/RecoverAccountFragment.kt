@@ -9,7 +9,6 @@ import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.example.teethkids.R
 import com.example.teethkids.dao.AuthenticationDAO
-import com.example.teethkids.database.FirebaseRoom.Companion.getAuth
 import com.example.teethkids.databinding.FragmentRecoverAccountBinding
 import com.example.teethkids.utils.Utils
 

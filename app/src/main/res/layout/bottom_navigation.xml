@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottomAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:fabCradleMargin="10dp"
+        app:fabCradleRoundedCornerRadius="50dp">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/transparent_background"
+            app:labelVisibilityMode="labeled"
+            app:menu="@menu/bottom_navigation_menu" />
+
+    </com.google.android.material.bottomappbar.BottomAppBar>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:src="@drawable/baseline_warning_24"
+        app:layout_anchor="@id/bottomAppBar"
+        app:maxImageSize="40dp"
+        android:id="@+id/fab"/>
+
+
+    <!--        <include-->
+    <!--            android:id="@+id/bottomBar"-->
+    <!--            layout="@layout/bottombar" />-->
+
+    <!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+    <!--            android:id="@+id/fab2"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:src="@drawable/baseline_warning_24"-->
+    <!--            app:layout_anchor="@+id/bottomBar"-->
+    <!--            app:layout_anchorGravity="top|center" />-->
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

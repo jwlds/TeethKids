@@ -1,5 +1,6 @@
 package com.example.teethkids.ui.auth
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.teethkids.R
 import com.example.teethkids.dao.AuthenticationDAO
 import com.example.teethkids.databinding.FragmentLoginBinding
+import com.example.teethkids.ui.home.MainActivity
 import com.example.teethkids.utils.Utils
 
 
@@ -46,7 +48,9 @@ class LoginFragment : Fragment(),View.OnClickListener{
                         onSuccess = {
                             binding.loading.isVisible = false
                             Utils.showToast(requireContext(),"Login realizado com sucesso!")
-                            findNavController().navigate(R.id.action_global_homeFragment2)
+                            val intent = Intent(activity, MainActivity::class.java)
+                            startActivity(intent)
+                            activity?.finish()
                         },
                         onFailure = { exception ->
                             binding.loading.isVisible = false
