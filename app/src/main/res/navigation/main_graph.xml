@@ -21,7 +21,7 @@
         app:startDestination="@id/loginFragment">
         <fragment
             android:id="@+id/registerFragment"
-            android:name="com.example.teethkids.ui.auth.RegisterFragment"
+            android:name="com.example.teethkids.ui.auth.register.RegisterFragment"
             android:label="RegisterFragment" >
             <action
                 android:id="@+id/action_registerFragment_to_loginFragment"
@@ -52,7 +52,7 @@
     </navigation>
     <fragment
         android:id="@+id/homeFragment2"
-        android:name="com.example.teethkids.ui.HomeFragment"
+        android:name="com.example.teethkids.ui.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action

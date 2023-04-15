@@ -1,4 +1,4 @@
-package com.example.teethkids.ui
+package com.example.teethkids.ui.home
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
