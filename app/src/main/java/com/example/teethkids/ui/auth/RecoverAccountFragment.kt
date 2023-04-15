@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.example.teethkids.R
+import com.example.teethkids.dao.AuthenticationDAO
 import com.example.teethkids.database.FirebaseRoom.Companion.getAuth
 import com.example.teethkids.databinding.FragmentRecoverAccountBinding
 import com.example.teethkids.utils.Utils
@@ -35,9 +36,18 @@ class RecoverAccountFragment : Fragment(), View.OnClickListener{
         when(v!!.id) {
             R.id.btnRecover -> {
                 try {
-
                     binding.loading.isVisible = true
-                    recoverAccount(binding.edtEmail.text.toString().trim())
+                    val auth = AuthenticationDAO()
+                    auth.recoverAccount(binding.edtEmail.text.toString().trim(),
+                        onSuccess = {
+                            binding.loading.isVisible = false
+                            Utils.showSnackbar(requireView(),"Um link para recuperar a sua senha foi enviado para o seu email, por favor, verifique a sua caixa de entrada")
+                        },
+                        onFailure = { exception ->
+                            binding.loading.isVisible = false
+                            Utils.showSnackbar(requireView(),exception)
+                        }
+                    )
                 } catch (arg: IllegalArgumentException) {
                     Utils.showToast(requireContext(),"Digite o email !")
                 }
@@ -48,19 +58,6 @@ class RecoverAccountFragment : Fragment(), View.OnClickListener{
         }
     }
 
-    private fun recoverAccount(email: String) {
-        getAuth().sendPasswordResetEmail(email)
-            .addOnCompleteListener(requireActivity()) { task ->
-                if (task.isSuccessful) {
-                    binding.loading.isVisible = false
-                    Utils.showToast(requireContext(),"A senha foi enviada com sucesso no seu email!")
-                }
-                else {
-                    binding.loading.isVisible = false
-                    Utils.showToast(requireContext(),"ERRO")
-                }
-            }
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

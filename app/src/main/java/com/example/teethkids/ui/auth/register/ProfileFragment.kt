@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
+import androidx.navigation.fragment.findNavController
 import com.example.teethkids.R
 import com.example.teethkids.databinding.FragmentProfileBinding
+import com.example.teethkids.utils.RegistrationDataHolder
 import java.util.*
 
 
@@ -27,6 +29,9 @@ class ProfileFragment : Fragment(),DatePickerDialog.OnDateSetListener{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.edtDateBirth.setOnClickListener { showDatePicker() }
+//        binding.btnBack.setOnClickListener(this)
+//        binding.btnNext.setOnClickListener(this)
+
     }
 
     private fun showDatePicker() {
@@ -74,9 +79,14 @@ class ProfileFragment : Fragment(),DatePickerDialog.OnDateSetListener{
             binding.edtCro.error = "CRO inválido"
             return false
         }
-
+        RegistrationDataHolder.registrationData.name = binding.edtName.text.toString().trim()
+        RegistrationDataHolder.registrationData.dateBrith = binding.edtDateBirth.text.toString().trim()
+        RegistrationDataHolder.registrationData.numberPhone = binding.edtNumberPhone.text.toString().trim()
+        RegistrationDataHolder.registrationData.cro = binding.edtCro.text.toString().trim()
         return true
     }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()

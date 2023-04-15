@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         tools:context=".ui.auth.register.AndressFragment">
 
+
         <TextView
             android:id="@+id/labelTitle"
             android:layout_width="0dp"
@@ -56,7 +57,7 @@
                 android:id="@+id/edtAndress1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
+                android:inputType="text"
                 android:hint="Nome Completo"
                 />
 
@@ -74,7 +75,8 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtAndress2"
-                android:hint="Data de nascimento"
+                android:hint="Andress 2"
+                android:inputType="text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusable="false" />
@@ -100,8 +102,7 @@
                 android:id="@+id/edtAndress3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType=""
-                android:maxLength="11"
+                android:inputType="text"
                 android:hint="Insira seu telefone"
 
                 />

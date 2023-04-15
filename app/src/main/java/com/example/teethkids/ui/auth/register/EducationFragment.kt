@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
+import androidx.navigation.fragment.findNavController
 import com.example.teethkids.R
 import com.example.teethkids.databinding.FragmentEducationBinding
+import com.example.teethkids.utils.RegistrationDataHolder
 import java.util.*
 
 
@@ -55,9 +57,12 @@ class EducationFragment : Fragment(),DatePickerDialog.OnDateSetListener{
             binding.edtGraduationDate.error = "Data de nascimento não pode ser vazio"
             return false
         }
-
+        RegistrationDataHolder.registrationData.university = binding.edtInstitution.text.toString().trim()
+        RegistrationDataHolder.registrationData.graduationDate = binding.edtGraduationDate.text.toString().trim()
         return true
     }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()

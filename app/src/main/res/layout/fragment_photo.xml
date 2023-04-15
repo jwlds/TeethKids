@@ -10,8 +10,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
         tools:context=".ui.auth.register.PhotoFragment">
+
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgUser"
@@ -53,21 +53,6 @@
 
 
 
-        <ProgressBar
-            android:id="@+id/loading"
-            android:indeterminateTint="@color/blue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="180dp"
-            android:visibility="invisible"
-            tools:visibility="visible"
-            android:foregroundGravity="center_horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-
-            />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

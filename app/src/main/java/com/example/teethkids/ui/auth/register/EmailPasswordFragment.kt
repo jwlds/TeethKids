@@ -6,11 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.teethkids.R
 import com.example.teethkids.databinding.FragmentEmailPasswordBinding
+import com.example.teethkids.utils.RegistrationDataHolder
 
 
-class EmailPasswordFragment : Fragment() {
+class EmailPasswordFragment : Fragment(){
     private var _binding: FragmentEmailPasswordBinding? = null
     private val binding get() = _binding!!
 
@@ -25,10 +25,10 @@ class EmailPasswordFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
     }
 
-    fun isValid(): Boolean {
+ fun isValid(): Boolean {
+
         val email = binding.edtEmail.text.toString().trim()
         val password = binding.edtPassword.text.toString().trim()
         val confirmPassword = binding.edtPassword2.text.toString().trim()
@@ -50,13 +50,18 @@ class EmailPasswordFragment : Fragment() {
             binding.edtPassword2.requestFocus()
             return false
         }
-
-        return true
+     RegistrationDataHolder.registrationData.email = binding.edtEmail.text.toString().trim()
+     RegistrationDataHolder.registrationData.password = binding.edtPassword.text.toString().trim()
+     return true
     }
+
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
 
 }

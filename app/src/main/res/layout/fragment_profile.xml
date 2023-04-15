@@ -14,6 +14,8 @@
         android:layout_height="wrap_content"
         tools:context=".ui.auth.register.ProfileFragment">
 
+
+
         <TextView
             android:id="@+id/labelTitle"
             android:layout_width="0dp"

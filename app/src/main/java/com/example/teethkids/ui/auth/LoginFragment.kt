@@ -8,11 +8,9 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.example.teethkids.R
-import com.example.teethkids.database.FirebaseRoom.Companion.getAuth
+import com.example.teethkids.dao.AuthenticationDAO
 import com.example.teethkids.databinding.FragmentLoginBinding
 import com.example.teethkids.utils.Utils
-import com.google.firebase.FirebaseNetworkException
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 
 
 class LoginFragment : Fragment(),View.OnClickListener{
@@ -41,8 +39,20 @@ class LoginFragment : Fragment(),View.OnClickListener{
             R.id.btnLogin -> {
                 try {
                     binding.loading.isVisible = true
-                    login(binding.edtEmail.text.toString().trim(),
-                        binding.edtPassword.text.toString().trim())
+                    val auth = AuthenticationDAO()
+                    auth.login(
+                        binding.edtEmail.text.toString().trim(),
+                        binding.edtPassword.text.toString().trim(),
+                        onSuccess = {
+                            binding.loading.isVisible = false
+                            Utils.showToast(requireContext(),"Login realizado com sucesso!")
+                            findNavController().navigate(R.id.action_global_homeFragment2)
+                        },
+                        onFailure = { exception ->
+                            binding.loading.isVisible = false
+                            Utils.showSnackbar(requireView(),exception)
+                        }
+                    )
                 } catch (arg: IllegalArgumentException)
                 {
                     Utils.showToast(requireContext(),"Preecha todos os dados!")
@@ -60,24 +70,7 @@ class LoginFragment : Fragment(),View.OnClickListener{
 
     }
 
-    private fun login(email: String,password: String){
-        getAuth().signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(requireActivity()) { task ->
-                if (task.isSuccessful) {
-                    binding.loading.isVisible = false
-                    Utils.showToast(requireContext(),"Login realizado com sucesso!")
-                      findNavController().navigate(R.id.action_global_homeFragment2)
-                }
-            }.addOnFailureListener { exeception ->
-                val messageError = when (exeception) {
-                    is FirebaseNetworkException -> "Falha na conexao com a internet"
-                    is FirebaseAuthInvalidCredentialsException -> "Login ou Senha estão invalidos"
-                    else -> "ERRO N SEI"
-                }
-                binding.loading.isVisible = false
-                Utils.showToast(requireContext(),messageError)
-            }
-    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
