@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.teethkids.ui.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/profileMainFragment"
+        android:name="com.example.teethkids.ui.home.ProfileMainFragment"
+        android:label="fragment_profile_main"
+        tools:layout="@layout/fragment_profile_main" >
+        <action
+            android:id="@+id/action_profileMainFragment_to_myAndressesFragment"
+            app:destination="@id/myAndressesFragment" />
+        <action
+            android:id="@+id/action_profileMainFragment_to_personalInformationFragment"
+            app:destination="@id/personalInformationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.teethkids.ui.home.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.example.teethkids.ui.home.NotificationFragment"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification" />
+    <fragment
+        android:id="@+id/myAndressesFragment"
+        android:name="com.example.teethkids.ui.home.options.MyAddressesFragment"
+        android:label="MyAndressesFragment" >
+        <action
+            android:id="@+id/action_myAndressesFragment_to_profileMainFragment"
+            app:destination="@id/profileMainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/personalInformationFragment"
+        android:name="com.example.teethkids.ui.home.options.PersonalInformationFragment"
+        android:label="PersonalInformationFragment" >
+        <action
+            android:id="@+id/action_personalInformationFragment_to_profileMainFragment"
+            app:destination="@id/profileMainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/emergencyFragment"
+        android:name="com.example.teethkids.ui.home.EmergencyFragment"
+        android:label="fragment_emergency"
+        tools:layout="@layout/fragment_emergency" />
+</navigation>

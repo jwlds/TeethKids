@@ -2,6 +2,7 @@ package com.example.teethkids.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,8 +12,11 @@ import androidx.navigation.fragment.findNavController
 import com.example.teethkids.R
 import com.example.teethkids.dao.AuthenticationDAO
 import com.example.teethkids.databinding.FragmentLoginBinding
+import com.example.teethkids.service.FirebaseMessagingService
 import com.example.teethkids.ui.home.MainActivity
+import com.example.teethkids.utils.RegistrationDataHolder
 import com.example.teethkids.utils.Utils
+import com.google.firebase.messaging.FirebaseMessaging
 
 
 class LoginFragment : Fragment(),View.OnClickListener{
@@ -39,7 +43,7 @@ class LoginFragment : Fragment(),View.OnClickListener{
     override fun onClick(v: View?) {
         when(v!!.id) {
             R.id.btnLogin -> {
-                try {
+                if(isValid()) {
                     binding.loading.isVisible = true
                     val auth = AuthenticationDAO()
                     auth.login(
@@ -57,7 +61,7 @@ class LoginFragment : Fragment(),View.OnClickListener{
                             Utils.showSnackbar(requireView(),exception)
                         }
                     )
-                } catch (arg: IllegalArgumentException)
+                } else
                 {
                     Utils.showToast(requireContext(),"Preecha todos os dados!")
                 }
@@ -73,6 +77,25 @@ class LoginFragment : Fragment(),View.OnClickListener{
 
 
     }
+
+    fun isValid(): Boolean {
+
+        val email = binding.edtEmail.text.toString().trim()
+        val password = binding.edtPassword.text.toString().trim()
+
+        if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            binding.edtEmail.error = "Digite um e-mail válido"
+            binding.edtEmail.requestFocus()
+            return false
+        }
+        if (password.isEmpty() || password.length < 6) {
+            binding.edtPassword.error = "A senha deve ter pelo menos 6 caracteres"
+            binding.edtPassword.requestFocus()
+            return false
+        }
+        return true
+    }
+
 
 
 

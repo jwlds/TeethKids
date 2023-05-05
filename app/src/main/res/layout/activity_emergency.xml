@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.emergencies.EmergencyActivity"
+    android:fillViewport="true">
+
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
+
+
+
+        <TextView
+            android:id="@+id/tvName"
+            android:gravity="center"
+            android:layout_marginTop="80dp"
+            android:textSize="20sp"
+            tools:text="Nome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+            />
+        <TextView
+            android:id="@+id/tvPhone"
+            android:gravity="center"
+            android:layout_marginTop="8dp"
+            android:textSize="20sp"
+            tools:text="Nome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/tvName"
+            app:layout_constraintEnd_toEndOf="@+id/tvName"
+            app:layout_constraintTop_toBottomOf="@+id/tvName"
+
+
+            />
+        <TextView
+            android:id="@+id/tvStatus"
+            android:gravity="center"
+            android:layout_marginTop="8dp"
+            android:textSize="20sp"
+            tools:text="Nome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/tvPhone"
+            app:layout_constraintEnd_toEndOf="@+id/tvPhone"
+            app:layout_constraintTop_toBottomOf="@+id/tvPhone"
+
+
+            />
+        <TextView
+            android:id="@+id/tvDate"
+            android:gravity="center"
+            android:layout_marginTop="8dp"
+            android:textSize="20sp"
+            tools:text="Nome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/tvStatus"
+            app:layout_constraintEnd_toEndOf="@+id/tvStatus"
+            app:layout_constraintTop_toBottomOf="@+id/tvStatus"
+
+
+            />
+
+        <ImageView
+            android:id="@+id/img1"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="300dp"
+            android:src="@drawable/sirene_gif"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.947"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/img2"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="300dp"
+            android:src="@drawable/sirene_gif"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <Button
+            android:id="@+id/btnCancel"
+            style="@style/Widget.Material3.Button.ElevatedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="28dp"
+            android:layout_marginBottom="40dp"
+            android:text="Recusar"
+            android:textColor="@color/red"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/btnAccept"
+            style="@style/Widget.Material3.Button.ElevatedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:text="Aceita"
+            android:textColor="@color/green"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnCancel"
+            app:layout_constraintHorizontal_bias="0.413"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ProgressBar android:id="@+id/loading"
+        android:indeterminateTint="@color/blue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="230dp"
+        android:visibility="invisible"
+        tools:visibility="visible"
+        android:foregroundGravity="center_horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</ScrollView>

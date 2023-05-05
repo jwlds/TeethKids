@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.DatePicker
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.isVisible
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.teethkids.R
 import com.example.teethkids.dao.AuthenticationDAO
@@ -20,6 +21,7 @@ import com.example.teethkids.databinding.FragmentPersonalInformationBinding
 import com.example.teethkids.databinding.FragmentProfileMainBinding
 import com.example.teethkids.ui.home.MainActivity
 import com.example.teethkids.utils.Utils
+import com.example.teethkids.viewmodel.UserViewModel
 import com.google.firebase.firestore.auth.User
 import java.util.*
 
@@ -27,7 +29,7 @@ import java.util.*
 class PersonalInformationFragment : Fragment(),View.OnClickListener, DatePickerDialog.OnDateSetListener{
     private var _binding: FragmentPersonalInformationBinding? = null
     private val binding get() = _binding!!
-
+    private lateinit var userViewModel: UserViewModel
 
 
     override fun onCreateView(
@@ -40,6 +42,15 @@ class PersonalInformationFragment : Fragment(),View.OnClickListener, DatePickerD
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+
+        userViewModel.user.observe(viewLifecycleOwner) { user ->
+            Utils.loadImageFromUrl(user.urlImg, binding.imgProfile)
+            binding.edtName.setText(user.name)
+            binding.edtDateBirth.setText(user.dateBrith)
+            binding.edtNumberPhone.setText(user.numberPhone)
+            binding.edtCro.setText(user.cro)
+        }
         binding.btnUpdate.setOnClickListener(this)
         binding.edtDateBirth.setOnClickListener { showDatePicker() }
         binding.toolbar.screenName.text = "Meus dados"

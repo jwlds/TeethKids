@@ -9,15 +9,7 @@ class UserDao {
 
     private val collection = getDatabase().collection("profiles")
 
-//    suspend fun getUserById(id: String): User? {
-//        val userDoc = getDatabase().collection("users").document(id).get().await()
-//        return if (userDoc.exists()) {
-//            val userData = userDoc.toObject(User::class.java)
-//            userData?.copy(authUid = userDoc.id)
-//        } else {
-//            null
-//        }
-//    }
+
 
     fun updateUser(
         authUid: String,
@@ -41,6 +33,14 @@ class UserDao {
 //        }
         }
 
-
     }
+
+    fun updateStatus(authUid: String, status: Boolean, onSuccess: () -> Unit) {
+        val userRef = collection.document(authUid)
+        userRef.update("status", status)
+            .addOnSuccessListener {
+                onSuccess()
+            }
+    }
+
 }

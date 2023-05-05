@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".ui.auth.register.OTPVerificationFragment">
+
+        <ImageView
+            android:id="@+id/imageViewOtp"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginTop="80dp"
+            android:src="@drawable/icon_send_otp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/labelTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="OTP Vericação"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/imageViewOtp"
+            app:layout_constraintEnd_toEndOf="@+id/imageViewOtp"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewOtp"/>
+
+        <TextView
+            android:id="@+id/labelotp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="Enviaremos um código  neste número de celular"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/labelTitle"
+            app:layout_constraintEnd_toEndOf="@+id/labelTitle"
+            app:layout_constraintTop_toBottomOf="@+id/labelTitle"/>
+
+
+        <TextView
+            android:id="@+id/phoneView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            tools:text="(19) 99999 - 9999"
+            app:layout_constraintStart_toStartOf="@+id/labelotp"
+            app:layout_constraintEnd_toEndOf="@+id/labelotp"
+            app:layout_constraintTop_toBottomOf="@+id/labelotp"
+
+            />
+
+        <EditText
+            android:id="@+id/inputCode1"
+            android:layout_width="40dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="84dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:imeOptions="actionNext"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textSize="24sp"
+
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/phoneView"
+            app:layout_constraintTop_toBottomOf="@+id/phoneView" />
+
+        <EditText
+            android:id="@+id/inputCode2"
+            android:layout_width="40dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:imeOptions="actionNext"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textSize="24sp"
+
+            android:textStyle="bold"
+
+            app:layout_constraintStart_toEndOf="@+id/inputCode1"
+            app:layout_constraintTop_toBottomOf="@+id/phoneView" />
+        <EditText
+            android:id="@+id/inputCode3"
+            android:layout_width="40dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:imeOptions="actionNext"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textSize="24sp"
+
+            android:textStyle="bold"
+
+            app:layout_constraintStart_toEndOf="@+id/inputCode2"
+            app:layout_constraintTop_toBottomOf="@+id/phoneView" />
+
+        <EditText
+            android:id="@+id/inputCode4"
+            android:layout_width="40dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:imeOptions="actionNext"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textSize="24sp"
+
+            android:textStyle="bold"
+
+            app:layout_constraintStart_toEndOf="@+id/inputCode3"
+            app:layout_constraintTop_toBottomOf="@+id/phoneView" />
+
+        <EditText
+            android:id="@+id/inputCode5"
+            android:layout_width="40dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:imeOptions="actionNext"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textSize="24sp"
+
+            android:textStyle="bold"
+
+            app:layout_constraintStart_toEndOf="@+id/inputCode4"
+            app:layout_constraintTop_toBottomOf="@+id/phoneView" />
+
+        <EditText
+            android:id="@+id/inputCode6"
+            android:layout_width="40dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:imeOptions="actionNext"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textSize="24sp"
+
+            android:textStyle="bold"
+
+            app:layout_constraintStart_toEndOf="@+id/inputCode5"
+            app:layout_constraintTop_toBottomOf="@+id/phoneView" />
+
+        <TextView
+            android:id="@+id/btnSend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginRight="90dp"
+            android:text="Não recebeu o codigo? "
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            app:layout_constraintTop_toBottomOf="@+id/inputCode1" />
+        <TextView
+            android:id="@+id/labelSend"
+            android:layout_width="0dp"
+            android:textColor="@color/blue"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Cadastre-se"
+            app:layout_constraintStart_toEndOf="@+id/btnSend"
+            app:layout_constraintTop_toBottomOf="@+id/inputCode1" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:height="60dp"
+            android:backgroundTint="@color/blue"
+            android:text="Vericar"
+            app:layout_constraintStart_toStartOf="@+id/labelotp"
+            app:layout_constraintEnd_toEndOf="@+id/labelotp"
+            app:layout_constraintTop_toBottomOf="@+id/btnSend"
+
+            />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

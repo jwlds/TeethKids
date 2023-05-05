@@ -10,18 +10,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.teethkids.R
 import com.example.teethkids.dao.AuthenticationDAO
-import com.example.teethkids.dao.UserDao
-import com.example.teethkids.database.FirebaseHelper
 import com.example.teethkids.databinding.FragmentProfileMainBinding
-import com.example.teethkids.databinding.FragmentRecoverAccountBinding
 import com.example.teethkids.ui.adapter.recyclerviewadapter.OptionsAdapter
 import com.example.teethkids.ui.auth.AuthenticateActivity
-import com.example.teethkids.ui.home.options.MyAndressesFragment
+import com.example.teethkids.utils.Utils.loadImageFromUrl
 import com.example.teethkids.viewmodel.UserViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 class ProfileMainFragment : Fragment(),View.OnClickListener{
@@ -45,6 +38,7 @@ class ProfileMainFragment : Fragment(),View.OnClickListener{
 
         userViewModel.user.observe(viewLifecycleOwner) { user ->
             binding.toolbar.userName.text = user.name
+            loadImageFromUrl(user.urlImg,binding.toolbar.profileImage)
         }
 
         binding.toolbar.btnLogout.setOnClickListener(this)

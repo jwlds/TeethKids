@@ -93,10 +93,11 @@
 
         <TextView
             android:id="@+id/btnRegister"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/register_link_text"
+            android:layout_marginRight="90dp"
+            android:text="Não tem um conta? "
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -104,9 +105,10 @@
         <TextView
             android:id="@+id/labelRegister"
             android:layout_width="0dp"
+            android:textColor="@color/blue"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Não tem um conta? t"
+            android:text="Cadastre-se"
             app:layout_constraintStart_toEndOf="@+id/btnRegister"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnLogin" />

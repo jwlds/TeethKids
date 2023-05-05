@@ -87,15 +87,15 @@
             app:layout_constraintTop_toBottomOf="@+id/dateBirthLayout"
             >
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.santalu.maskara.widget.MaskEditText
                 android:id="@+id/edtNumberPhone"
+                android:hint="Telefone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="phone"
-                android:maxLength="11"
-                android:hint="Telefone"
-
-                />
+                android:inputType="number"
+                app:mask="(__) _____ - ____"
+                app:maskCharacter="_"
+                app:maskStyle="completable" />
 
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -112,18 +112,39 @@
             app:layout_constraintTop_toBottomOf="@+id/inputNumberPhoneLayout"
             >
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.santalu.maskara.widget.MaskEditText
                 android:id="@+id/edtCro"
+                android:hint="Cro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:maxLength="11"
-                android:hint="Cro"
-
-                />
+                app:mask="__.____"
+                app:maskCharacter="_"
+                app:maskStyle="completable" />
 
 
         </com.google.android.material.textfield.TextInputLayout>
+
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:id="@+id/InputLayoutDescription"-->
+<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:hint="Escreva"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/inputCroLayout"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/inputCroLayout"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/inputCroLayout" >-->
+
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/etDescription"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:inputType="textMultiLine"-->
+<!--                android:lines="5"-->
+<!--                android:maxLength="100" />-->
+
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
 
         <Button
             android:id="@+id/btnUpdate"
@@ -137,6 +158,8 @@
 
 
             />
+
+
 
         <ProgressBar
             android:id="@+id/loading"

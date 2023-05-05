@@ -3,6 +3,7 @@ package com.example.teethkids.model
 import android.graphics.Bitmap
 
 data class User(
+    var status: Boolean = false,
     var authUid: String = "",
     var cro: String = "",
     var dateBrith: String = "",

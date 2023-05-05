@@ -1,6 +1,7 @@
 package com.example.teethkids.ui.auth.register
 
 import android.Manifest
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -39,8 +40,30 @@ class PhotoFragment : Fragment(),View.OnClickListener{
     private var bitmap: Bitmap? = null
 
     companion object {
-        private val PERMISSION_GALLERY = Manifest.permission.READ_EXTERNAL_STORAGE
+        private const val PERMISSION_GALLERY = Manifest.permission.READ_EXTERNAL_STORAGE
+        private const val PERMISSION_CAMERA = Manifest.permission.CAMERA
     }
+
+    private val requestCamera =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { permission ->
+            when {
+                permission -> {
+                    openCamera()
+                }
+                else -> {
+                    showDialogPermissionCamera()
+                }
+            }
+        }
+
+    private val resultCamera =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                bitmap =  result.data?.extras?.get("data") as Bitmap?
+                binding.imgUser.setImageBitmap(bitmap)
+            }
+        }
+
 
     private val requestGallery =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { permission ->
@@ -91,6 +114,20 @@ class PhotoFragment : Fragment(),View.OnClickListener{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.btnGallery.setOnClickListener(this)
+        binding.btnCamera.setOnClickListener(this)
+    }
+
+    private fun checkPermissionCamera() {
+        val permissionCamera = checkPermission(PERMISSION_CAMERA)
+
+        when {
+            permissionCamera -> {
+                openCamera()
+            }
+            shouldShowRequestPermissionRationale(PERMISSION_CAMERA) -> showDialogPermissionCamera()
+
+            else -> requestCamera.launch(PERMISSION_CAMERA)
+        }
     }
 
     private fun checkPermissionGallery() {
@@ -111,6 +148,27 @@ class PhotoFragment : Fragment(),View.OnClickListener{
         }
     }
 
+    private fun showDialogPermissionCamera() {
+        val builder = AlertDialog.Builder(requireContext())
+            .setTitle("Atenção")
+            .setMessage("Precisamos do acesso à câmera do seu dispositivo, deseja permitir agora?")
+            .setPositiveButton("Sim") { _, _ ->
+                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                intent.data = Uri.fromParts("package", requireActivity().packageName, null)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+                dialog.dismiss()
+            }
+            .setNegativeButton("Não") { _, _ ->
+                dialog.dismiss()
+            }
+        dialog = builder.create()
+        dialog.show()
+    }
+
+
+
+
     private fun showDialogPermisson() {
         val builder = AlertDialog.Builder(requireContext())
             .setTitle("Atenção")
@@ -129,6 +187,11 @@ class PhotoFragment : Fragment(),View.OnClickListener{
         dialog = builder.create()
         dialog.show()
 
+    }
+
+    private fun openCamera() {
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        resultCamera.launch(intent)
     }
 
     private fun checkPermission(permission: String) =
@@ -156,6 +219,7 @@ class PhotoFragment : Fragment(),View.OnClickListener{
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.btnGallery -> checkPermissionGallery()
+            R.id.btnCamera -> checkPermissionCamera()
         }
     }
 }

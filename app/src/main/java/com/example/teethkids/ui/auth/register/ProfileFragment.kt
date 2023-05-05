@@ -51,8 +51,8 @@ class ProfileFragment : Fragment(),DatePickerDialog.OnDateSetListener{
     fun isValid(): Boolean {
         val name = binding.edtName.text.toString().trim()
         val dateBirth = binding.edtDateBirth.text.toString().trim()
-        val phoneNumber = binding.edtNumberPhone.text.toString().trim()
-        val cro = binding.edtCro.text.toString().trim()
+        val phoneNumber = binding.edtNumberPhone.unMasked
+        val cro = binding.edtCro.unMasked
 
         if (name.isEmpty()) {
             binding.edtName.error = "Nome não pode ser vazio"
@@ -67,22 +67,16 @@ class ProfileFragment : Fragment(),DatePickerDialog.OnDateSetListener{
         if (phoneNumber.isEmpty()) {
             binding.edtNumberPhone.error = "Telefone não pode ser vazio"
             return false
-        } else if (phoneNumber.length < 11) {
-            binding.edtNumberPhone.error = "Telefone inválido"
-            return false
         }
 
         if (cro.isEmpty()) {
             binding.edtCro.error = "CRO não pode ser vazio"
             return false
-        } else if (cro.length < 11) {
-            binding.edtCro.error = "CRO inválido"
-            return false
         }
-        RegistrationDataHolder.registrationData.name = binding.edtName.text.toString().trim()
-        RegistrationDataHolder.registrationData.dateBrith = binding.edtDateBirth.text.toString().trim()
-        RegistrationDataHolder.registrationData.numberPhone = binding.edtNumberPhone.text.toString().trim()
-        RegistrationDataHolder.registrationData.cro = binding.edtCro.text.toString().trim()
+        RegistrationDataHolder.registrationData.name = name
+        RegistrationDataHolder.registrationData.dateBrith = dateBirth
+        RegistrationDataHolder.registrationData.numberPhone = phoneNumber
+        RegistrationDataHolder.registrationData.cro = cro
         return true
     }
 

@@ -7,6 +7,7 @@ import com.example.teethkids.model.RegistrationData
 import com.example.teethkids.utils.Utils
 import com.example.teethkids.utils.Utils.getFirebaseErrorMessage
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.messaging.FirebaseMessaging
 
 class AuthenticationDAO {
 
@@ -34,6 +35,12 @@ class AuthenticationDAO {
     ) {
         FirebaseHelper.getAuth().createUserWithEmailAndPassword(data.email!!, data.password!!)
             .addOnSuccessListener {
+                getFcmToken(onSuccess = { token ->
+                    data.fcmToken = token
+                },
+                onFailure = {
+
+                })
                 val currentUser = getIdUser().toString()
                Utils.uploadProfileImage(data.photo,currentUser)
                    .addOnSuccessListener { url ->
@@ -46,9 +53,12 @@ class AuthenticationDAO {
                            "cro" to data.cro,
                            "university" to data.university,
                            "graduationDate" to data.graduationDate,
-                           "urlImg" to url.toString()
+                           "urlImg" to url.toString(),
+                           "status" to false,
+                           "fcmToken" to data.fcmToken
                        )
-                       val andressData = hashMapOf(
+                       val addressData = hashMapOf(
+                           "addressId" to data.addressId,
                            "userId" to currentUser,
                            "zipeCode" to data.zipcode,
                            "street" to data.street,
@@ -62,7 +72,7 @@ class AuthenticationDAO {
                        val data = hashMapOf(
                            "userId" to currentUser,
                            "userData" to userData,
-                           "andressData" to andressData
+                           "andressData" to addressData
                        )
                        createUser.call(data)
                            .addOnSuccessListener {
@@ -75,6 +85,16 @@ class AuthenticationDAO {
                    }
             .addOnFailureListener { exception ->
                 onFailure(getFirebaseErrorMessage(exception))
+            }
+    }
+
+    private fun getFcmToken(onSuccess: (String) -> Unit, onFailure: (Exception) -> Unit) {
+        FirebaseMessaging.getInstance().token
+            .addOnSuccessListener { token ->
+                onSuccess(token)
+            }
+            .addOnFailureListener { exception ->
+                onFailure(exception)
             }
     }
 
@@ -93,6 +113,8 @@ class AuthenticationDAO {
                 onFailure(getFirebaseErrorMessage(exception))
             }
     }
+
+
 
 
 

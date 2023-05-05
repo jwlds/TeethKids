@@ -44,7 +44,7 @@ class RegisterFragment : Fragment(),View.OnClickListener{
 
         adapter.addFragment(EmailPasswordFragment())
         adapter.addFragment(ProfileFragment())
-        adapter.addFragment(AndressFragment())
+        adapter.addFragment(AddressFragment())
         adapter.addFragment(EducationFragment())
         adapter.addFragment(PhotoFragment())
 
@@ -74,7 +74,7 @@ class RegisterFragment : Fragment(),View.OnClickListener{
                         viewPager.setCurrentItem(currentItem + 1, true)
                     is ProfileFragment -> if (currentFragment.isValid())
                         viewPager.setCurrentItem(currentItem + 1, true)
-                    is AndressFragment -> if (currentFragment.isValid())
+                    is AddressFragment -> if (currentFragment.isValid())
                         viewPager.setCurrentItem(currentItem + 1, true)
                     is EducationFragment -> if (currentFragment.isValid())
                         viewPager.setCurrentItem(currentItem + 1, true)
@@ -87,8 +87,8 @@ class RegisterFragment : Fragment(),View.OnClickListener{
                             registrationData,
                             onSuccess = {
                                 binding.loading.isVisible = false
-                                Utils.showToast(requireContext(),"Login realizado com sucesso!")
-                                //  findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+                                Utils.showSnackbar(requireView(),"Cadastro realizado com sucesso!")
+                                findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
                             },
                             onFailure = { exception ->
                                 binding.loading.isVisible = false

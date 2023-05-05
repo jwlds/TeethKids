@@ -1,7 +1,11 @@
 package com.example.teethkids.model
 
 import android.graphics.Bitmap
+import android.os.Parcelable
+import com.example.teethkids.database.FirebaseHelper
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class RegistrationData(
     var email: String? = "",
     var password: String? = "",
@@ -17,5 +21,11 @@ data class RegistrationData(
     var zipcode: String? = null,
     var state: String? = null,
     var city: String? = null,
-    var numberStreet: String? = null
-)
+    var numberStreet: String? = null,
+    var fcmToken: String? = null,
+    var addressId: String = ""
+) : Parcelable {
+    init {
+        this.addressId = FirebaseHelper.getDatabase().collection("address").document().id
+    }
+}

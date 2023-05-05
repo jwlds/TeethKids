@@ -1,10 +1,16 @@
 package com.example.teethkids.utils
 
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
 import android.widget.Toast
+import com.bumptech.glide.Glide
+import com.example.teethkids.model.Address
 import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.FirebaseException
@@ -13,7 +19,10 @@ import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import de.hdodenhof.circleimageview.CircleImageView
 import java.io.ByteArrayOutputStream
+import java.text.SimpleDateFormat
+import java.util.*
 
 object Utils {
 
@@ -23,8 +32,39 @@ object Utils {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
+
+    fun closeKeyboard(activity: Activity) {
+        val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val view = activity.currentFocus ?: View(activity)
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    fun getCurrentDateTime(): String {
+        val calendar = Calendar.getInstance()
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
+        return dateFormat.format(calendar.time)
+    }
+
+
     fun showSnackbar(view: View, message: String) {
         Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show()
+    }
+
+    fun formatAddress(address: Address): String {
+        return "${address.street}, ${address.number}, ${address.neighborhood}, ${address.zipeCode}, ${address.city}, ${address.state}"
+    }
+
+    fun loadImageFromUrl(url: String, view: CircleImageView) {
+        Glide.with(view.context)
+            .load(url)
+            .into(view)
+    }
+
+
+    fun loadImageFromUrlIv(url: String, view: ImageView) {
+        Glide.with(view.context)
+            .load(url)
+            .into(view)
     }
 
     fun uploadProfileImage(img: Bitmap?, userId: String): Task<Uri> {

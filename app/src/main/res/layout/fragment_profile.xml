@@ -23,7 +23,7 @@
             android:layout_marginTop="30dp"
             android:gravity="center"
             android:textSize="24sp"
-            android:text="Quem é vocẽ?"
+            android:text="Quem é você?"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -55,6 +55,7 @@
             android:id="@+id/dateBirthLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:layout_constraintEnd_toEndOf="@id/inputNameLayout"
             app:layout_constraintStart_toStartOf="@id/inputNameLayout"
@@ -81,21 +82,20 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:layout_constraintEnd_toEndOf="@+id/dateBirthLayout"
             app:layout_constraintStart_toStartOf="@+id/dateBirthLayout"
-            app:layout_constraintTop_toBottomOf="@+id/dateBirthLayout"
-            >
+            app:layout_constraintTop_toBottomOf="@+id/dateBirthLayout">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.santalu.maskara.widget.MaskEditText
                 android:id="@+id/edtNumberPhone"
+                android:hint="Insira seu telefone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="phone"
-                android:maxLength="11"
-                android:hint="Insira seu telefone"
-
-                />
-
+                android:inputType="number"
+                app:mask="(__) _____-____"
+                app:maskCharacter="_"
+                app:maskStyle="completable" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputCroLayout"
@@ -109,15 +109,15 @@
             app:layout_constraintTop_toBottomOf="@+id/inputNumberPhoneLayout"
             >
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.santalu.maskara.widget.MaskEditText
                 android:id="@+id/edtCro"
+                android:hint="Insira seu cro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:maxLength="11"
-                android:hint="Insira seu CRO"
-
-                />
+                app:mask="__.____"
+                app:maskCharacter="_"
+                app:maskStyle="completable" />
 
 
         </com.google.android.material.textfield.TextInputLayout>
