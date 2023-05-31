@@ -17,7 +17,9 @@
         tools:layout="@layout/fragment_profile_main" >
         <action
             android:id="@+id/action_profileMainFragment_to_myAndressesFragment"
-            app:destination="@id/myAndressesFragment" />
+            app:destination="@id/myAndressesFragment"
+
+            />
         <action
             android:id="@+id/action_profileMainFragment_to_personalInformationFragment"
             app:destination="@id/personalInformationFragment" />

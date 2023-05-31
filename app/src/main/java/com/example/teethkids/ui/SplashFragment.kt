@@ -15,10 +15,11 @@ import com.example.teethkids.databinding.FragmentSplashBinding
 import com.example.teethkids.ui.home.MainActivity
 
 
+// Tela de splash do app.
 class SplashFragment : Fragment() {
+
     private var _binding: FragmentSplashBinding? = null
     private val binding get() = _binding!!
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,9 +32,12 @@ class SplashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Aguarda 3 segundos e chama o método checkAuth()
         Handler(Looper.getMainLooper()).postDelayed(this::checkAuth,3000)
     }
 
+
+    // Verifica se o usuário está autenticado
     private fun checkAuth(){
         if(isAuth()) {
             val intent = Intent(activity, MainActivity::class.java)
@@ -44,8 +48,6 @@ class SplashFragment : Fragment() {
         }
 
     }
-
-
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -24,11 +24,14 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:layout_marginTop="92dp"
+        app:endIconMode="custom"
         app:startIconDrawable="@drawable/baseline_gps_fixed_24"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:layout_constraintEnd_toEndOf="@id/titleTextView"
         app:layout_constraintStart_toStartOf="@id/titleTextView"
         app:layout_constraintTop_toBottomOf="@id/titleTextView">
+
+
         <com.santalu.maskara.widget.MaskEditText
             android:id="@+id/edtZipe"
             android:hint="Insira seu cep"

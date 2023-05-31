@@ -29,12 +29,15 @@
             </intent-filter>
         </service>
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.home.MainActivity"
             android:exported="false" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.emergencies.EmergencyActivity"
             android:exported="false" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.auth.AuthenticateActivity"
             android:exported="true">
             <intent-filter>

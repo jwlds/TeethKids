@@ -2,25 +2,16 @@ package com.example.teethkids.service
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.provider.Settings.Global.putString
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.navigation.NavDeepLinkBuilder
-import androidx.navigation.NavOptions
 import com.example.teethkids.R
 import com.example.teethkids.database.FirebaseHelper.Companion.getDatabase
 import com.example.teethkids.database.FirebaseHelper.Companion.getIdUser
 import com.example.teethkids.model.Emergency
-import com.example.teethkids.ui.emergencies.EmergencyActivity
 import com.example.teethkids.ui.home.MainActivity
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.SetOptions
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import org.json.JSONArray
@@ -28,7 +19,22 @@ import org.json.JSONArray
 class FirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onNewToken(token: String) {
-        // test
+        Log.d("sendRegistrationToServer", "Refreshed token: $token")
+        sendRegistrationToServer(token)
+    }
+
+    private fun sendRegistrationToServer(token: String) {
+        val authUid = getIdUser()
+        if (authUid != null) {
+            val userRef = getDatabase().collection("profiles").document(authUid)
+            userRef.update("fcmToken", token)
+                .addOnSuccessListener {
+                    Log.d("sendRegistrationToServer", "Refreshed token: $token")
+                }
+                .addOnFailureListener { exception ->
+                    Log.d("sendRegistrationToServer", "Erro Refreshed token: $exception")
+                }
+        }
     }
 
 

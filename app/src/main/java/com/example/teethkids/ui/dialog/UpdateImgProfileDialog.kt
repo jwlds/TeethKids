@@ -41,7 +41,6 @@ class UpdateImgProfileDialog() : BottomSheetDialogFragment(),OnClickListener{
 
     private var bitmap: Bitmap? = null
 
-
     companion object {
         private const val PERMISSION_GALLERY = Manifest.permission.READ_EXTERNAL_STORAGE
         private const val PERMISSION_CAMERA = Manifest.permission.CAMERA

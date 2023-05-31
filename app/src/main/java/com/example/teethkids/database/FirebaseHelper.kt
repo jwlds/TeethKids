@@ -17,7 +17,7 @@ class FirebaseHelper {
         // Obtém a instância do serviço de autenticação do Firebase
         fun getAuth() = Firebase.auth
 
-        // Obtém o ID do usuário autenticado
+        // Obtém o Uid do usuário autenticado
         fun getIdUser() = getAuth().uid
 
         // Verifica se há um usuário autenticado

@@ -45,6 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="92dp"
+            app:endIconMode="custom"
             app:startIconDrawable="@drawable/baseline_gps_fixed_24"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:layout_constraintEnd_toEndOf="@id/labelTitle"

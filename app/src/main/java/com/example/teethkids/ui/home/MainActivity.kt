@@ -25,11 +25,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         FirebaseApp.initializeApp(this);
-        getFCMToken()
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
         supportFragmentManager.findFragmentById(binding.contentMain.navHostFragment.id) as NavHostFragment
+
         val navHostFragment = supportFragmentManager.findFragmentById(binding.contentMain.navHostFragment.id) as NavHostFragment
         navController = navHostFragment.navController
         binding.bottomNavigationView.setupWithNavController(navController)
@@ -50,20 +54,4 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
-    private fun getFCMToken() {
-        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val token = task.result
-                // Exibe o token no Logcat
-                Log.d("23", "FCM Token: $token")
-            } else {
-                // Lidar com o erro de obtenção do token
-                Log.w("23", "Erro ao obter o FCM Token", task.exception)
-            }
-        }
-    }
-
-
-
 }
