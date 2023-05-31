@@ -1,14 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.options.HelpFragment">
+    android:fillViewport="true">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/aboutAppTexts"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        tools:context=".ui.home.options.HelpFragment">
 
-</FrameLayout>
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_back"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+            <ImageView
+                android:id="@+id/infoIcon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/outline_info_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/aboutApp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:text="Sobre o App"
+                android:textColor="#353535"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/infoIcon"
+                app:layout_constraintStart_toEndOf="@+id/infoIcon"
+                app:layout_constraintTop_toTopOf="@id/infoIcon" />
+
+            <TextView
+                android:id="@+id/appNameTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Nome do aplicativo"
+                android:textColor="#353535"
+                android:textSize="16dp"
+                app:layout_constraintStart_toStartOf="@id/aboutApp"
+                app:layout_constraintTop_toBottomOf="@id/aboutApp" />
+
+            <TextView
+                android:id="@+id/appNameString"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dental Emergency - Pro"
+                android:textSize="14dp"
+                app:layout_constraintStart_toStartOf="@id/appNameTv"
+                app:layout_constraintTop_toBottomOf="@id/appNameTv" />
+
+            <TextView
+                android:id="@+id/appVersion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Versão do aplicativo"
+                android:textColor="#353535"
+                android:textSize="16dp"
+                app:layout_constraintStart_toStartOf="@id/appNameString"
+                app:layout_constraintTop_toBottomOf="@id/appNameString" />
+
+            <TextView
+                android:id="@+id/appVersionString"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1.3.0"
+                android:textSize="14dp"
+                app:layout_constraintStart_toStartOf="@id/appVersion"
+                app:layout_constraintTop_toBottomOf="@id/appVersion" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/appVersionString" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+            <ImageView
+                android:id="@+id/securityIcon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="16dp"
+                android:src="@drawable/outline_enhanced_encryption_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/securityLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:text="Segurança"
+                android:textColor="#353535"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/securityIcon"
+                app:layout_constraintStart_toEndOf="@id/securityIcon"
+                app:layout_constraintTop_toTopOf="@id/securityIcon" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listHelp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/securityLabel"
+                tools:ignore="UnknownIdInLayout"
+                tools:listitem="@layout/help_item"
+                android:layout_marginTop="8dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

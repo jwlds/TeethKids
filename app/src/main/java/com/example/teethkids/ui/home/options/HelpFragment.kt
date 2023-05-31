@@ -5,8 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.teethkids.R
 import com.example.teethkids.databinding.FragmentHelpBinding
+import com.example.teethkids.ui.adapter.recyclerviewadapter.ListHelpOptionAdapter
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.functions.FunctionsComponent_MainModule_BindProjectIdFactory
 
 
@@ -25,6 +28,23 @@ class HelpFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.toolbar.screenName.text = "Ajuda"
+        binding.toolbar.btnBack.setOnClickListener {
+            findNavController().navigate(R.id.action_helpFragment_to_profileMainFragment)
+        }
+        binding.listHelp.setHasFixedSize(true)
+        val adapter = ListHelpOptionAdapter(requireContext()) { option ->
+            when (option.name) {
+                "Atualizar senha" -> Snackbar.make(view, "Senha Atualizada", Snackbar.LENGTH_SHORT)
+                    .show()//Chamar snackbar dizendo "senha atualizada"
+                "Recuperar senha" -> Snackbar.make(view, "Senha Recuperada", Snackbar.LENGTH_SHORT)
+                    .show()//Chamar snackbar dizendo "senha recuperar"
+            }
+
+        }
+
+        binding.listHelp.adapter = adapter
     }
 
     override fun onDestroy() {

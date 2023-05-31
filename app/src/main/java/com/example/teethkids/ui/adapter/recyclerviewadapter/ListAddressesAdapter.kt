@@ -55,9 +55,16 @@ class ListAddressesAdapter(
                 )
             }
             binding.cardAddress.setOnLongClickListener{
-                val confirmationDialog = ConfirmationMainAddressDialog(binding.root.context,addresses.addressId,AddressPrimaryId.addressPrimaryId.toString())
-                confirmationDialog.show()
+                if(addresses.primary) {
+                   Utils.showSnackbar(view = binding.root.rootView,"Esse endereço é o principal.")
+                }
+                else {
+                    val confirmationDialog = ConfirmationMainAddressDialog(binding.root.context,addresses.addressId,AddressPrimaryId.addressPrimaryId.toString())
+                    confirmationDialog.show()
+
+                }
                 true
+
             }
         }
     }

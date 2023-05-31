@@ -13,8 +13,8 @@
     <color name="grey">#7F7F7F</color>
     <color name="orange">#FF9800</color>
     <color name="dellColor">#E91E63</color>
-
-    <color name="purple_50">#ede3eb</color>
+    <color name="greenStatus">#202BB20A</color>
+    <color name="redStatus">#20B20A0A</color>
     <color name="purple_100">#d4bad0</color>
     <color name="purple_300">#a16296</color>
     <color name="purple_400">#934086</color>

@@ -7,181 +7,162 @@
     android:layout_height="match_parent"
     android:fillViewport="true">
 
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context=".ui.auth.register.ProfileFragment">
 
-        <include android:id="@+id/toolbar"
+        <include
+            android:id="@+id/toolbar"
             layout="@layout/toolbar_back" />
-
-
-
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgProfile"
             android:layout_width="200dp"
-            android:layout_marginTop="40dp"
-            android:layout_margin="16dp"
             android:layout_height="200dp"
+            android:layout_margin="16dp"
+            android:layout_marginTop="10dp"
             android:scaleType="centerCrop"
             android:src="@drawable/person_add"
             app:layout_constraintEnd_toEndOf="@+id/toolbar"
             app:layout_constraintStart_toStartOf="@+id/toolbar"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"/>
-
-
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputNameLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
             android:layout_margin="16dp"
-            app:startIconDrawable="@drawable/baseline_email_24"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imgProfile">
+            app:layout_constraintTop_toBottomOf="@id/imgProfile"
+            app:startIconDrawable="@drawable/outline_person_24">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
                 android:hint="Nome Completo"
-                />
+                android:inputType="textEmailAddress" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/userEmailRegisteredLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@id/inputNameLayout"
+            app:layout_constraintStart_toStartOf="@id/inputNameLayout"
+            app:layout_constraintTop_toBottomOf="@id/inputNameLayout"
+            app:startIconDrawable="@drawable/baseline_email_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:hint="Endereço de E-mail" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/dateBirthLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            app:startIconDrawable="@drawable/baseline_calendar_today_24"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:layout_constraintEnd_toEndOf="@id/inputNameLayout"
-            app:layout_constraintStart_toStartOf="@id/inputNameLayout"
-            app:layout_constraintTop_toBottomOf="@id/inputNameLayout">
+            app:layout_constraintEnd_toEndOf="@id/userEmailRegisteredLayout"
+            app:layout_constraintStart_toStartOf="@id/userEmailRegisteredLayout"
+            app:layout_constraintTop_toBottomOf="@id/userEmailRegisteredLayout"
+            app:startIconDrawable="@drawable/outline_calendar_month_24">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtDateBirth"
-                android:hint="Data de nascimento"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusable="false" />
+                android:focusable="false"
+                android:hint="Data de Nascimento" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-
-
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputNumberPhoneLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            app:startIconDrawable="@drawable/baseline_phone_24"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:layout_constraintEnd_toEndOf="@+id/dateBirthLayout"
             app:layout_constraintStart_toStartOf="@+id/dateBirthLayout"
             app:layout_constraintTop_toBottomOf="@+id/dateBirthLayout"
-            >
+            app:startIconDrawable="@drawable/baseline_phone_24">
 
             <com.santalu.maskara.widget.MaskEditText
                 android:id="@+id/edtNumberPhone"
-                android:hint="Telefone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="Telefone"
                 android:inputType="number"
                 app:mask="(__) _____ - ____"
                 app:maskCharacter="_"
                 app:maskStyle="completable" />
 
-
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputCroLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            app:startIconDrawable="@drawable/baseline_document_scanner_24"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:layout_constraintEnd_toEndOf="@+id/inputNumberPhoneLayout"
             app:layout_constraintStart_toStartOf="@+id/inputNumberPhoneLayout"
             app:layout_constraintTop_toBottomOf="@+id/inputNumberPhoneLayout"
-            >
+            app:startIconDrawable="@drawable/outline_badge_24">
 
             <com.santalu.maskara.widget.MaskEditText
                 android:id="@+id/edtCro"
-                android:hint="Cro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="Número do CRO"
                 android:inputType="number"
                 app:mask="__.____"
                 app:maskCharacter="_"
                 app:maskStyle="completable" />
 
-
         </com.google.android.material.textfield.TextInputLayout>
-
-<!--        <com.google.android.material.textfield.TextInputLayout-->
-<!--            android:id="@+id/InputLayoutDescription"-->
-<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="8dp"-->
-<!--            android:hint="Escreva"-->
-<!--            app:layout_constraintEnd_toEndOf="@+id/inputCroLayout"-->
-<!--            app:layout_constraintStart_toStartOf="@+id/inputCroLayout"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/inputCroLayout" >-->
-
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                android:id="@+id/etDescription"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:inputType="textMultiLine"-->
-<!--                android:lines="5"-->
-<!--                android:maxLength="100" />-->
-
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
 
         <Button
             android:id="@+id/btnUpdate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:textAllCaps="false"
+            android:layout_marginBottom="26dp"
+            android:padding="8dp"
             android:text="Atualizar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            app:cornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
-
-
-            />
-
-
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ProgressBar
             android:id="@+id/loading"
-            android:indeterminateTint="@color/blue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="360dp"
-            android:visibility="invisible"
-            tools:visibility="visible"
             android:foregroundGravity="center_horizontal"
+            android:indeterminateTint="@color/blue"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-
-            />
-
+            tools:visibility="visible" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnUpdateImgProfile"
@@ -189,19 +170,14 @@
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_margin="6dp"
+            android:backgroundTint="@color/blue"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-            android:backgroundTint="@color/blue"
             app:icon="@drawable/baseline_edit_24"
             app:iconGravity="textEnd"
             app:iconSize="34dp"
-            app:layout_constraintEnd_toEndOf="@id/imgProfile"
-            app:layout_constraintBottom_toBottomOf="@id/imgProfile" />
-
-
+            app:layout_constraintBottom_toBottomOf="@id/imgProfile"
+            app:layout_constraintEnd_toEndOf="@id/imgProfile" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
 </ScrollView>

@@ -13,12 +13,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.teethkids.dao.UserDao
 import com.example.teethkids.database.FirebaseHelper.Companion.getAuth
 import com.example.teethkids.databinding.FragmentHomeBinding
+import com.example.teethkids.databinding.StatusBarBinding
 import com.example.teethkids.utils.Utils
 import com.example.teethkids.viewmodel.UserViewModel
+import com.example.teethkids.R
 import com.google.firebase.messaging.FirebaseMessaging
 
 class HomeFragment : Fragment(){
@@ -38,9 +41,18 @@ class HomeFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+
         userViewModel.user.observe(viewLifecycleOwner) { user ->
             binding.statusBar.btnStatus.isChecked = user.status
+
+                val color = if (binding.statusBar.btnStatus.isChecked)
+                    ContextCompat.getColor(requireContext(), R.color.greenStatus)
+                else
+                    ContextCompat.getColor(requireContext(), R.color.redStatus)
+                binding.statusBar.toolbar.setBackgroundColor(color)
         }
+
+
 
         binding.btnNoti.setOnClickListener{
             requestNotificationPermission(requireContext())
@@ -77,10 +89,9 @@ class HomeFragment : Fragment(){
             })
         }
 
-
-
-
     }
+
+
 
     private fun requestNotificationPermission(context: Context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

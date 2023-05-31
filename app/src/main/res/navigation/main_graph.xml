@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_profileMainFragment_to_personalInformationFragment"
             app:destination="@id/personalInformationFragment" />
+        <action
+            android:id="@+id/action_profileMainFragment_to_helpFragment"
+            app:destination="@id/helpFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -67,5 +70,13 @@
         <action
             android:id="@+id/action_emergencyDetailsFragment2_to_emergencyListFragment"
             app:destination="@id/emergencyListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/helpFragment"
+        android:name="com.example.teethkids.ui.home.options.HelpFragment"
+        android:label="HelpFragment" >
+        <action
+            android:id="@+id/action_helpFragment_to_profileMainFragment"
+            app:destination="@id/profileMainFragment" />
     </fragment>
 </navigation>

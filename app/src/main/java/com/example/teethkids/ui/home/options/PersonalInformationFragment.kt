@@ -52,6 +52,7 @@ class PersonalInformationFragment : Fragment(),View.OnClickListener, DatePickerD
             binding.edtDateBirth.setText(user.dateBrith)
             binding.edtNumberPhone.setText(user.numberPhone)
             binding.edtCro.setText(user.cro)
+            binding.edtEmail.setText(user.email)
         }
         binding.btnUpdate.setOnClickListener(this)
         binding.btnUpdateImgProfile.setOnClickListener(this)

@@ -46,7 +46,8 @@ class ProfileMainFragment : Fragment(),View.OnClickListener{
         val adapter = OptionsAdapter(requireContext()) { option ->
             when (option.name) {
                 "Endereços" -> findNavController().navigate(R.id.action_profileMainFragment_to_myAndressesFragment)
-                "Meus dados" -> findNavController().navigate(R.id.action_profileMainFragment_to_personalInformationFragment)
+                "Meus Dados" -> findNavController().navigate(R.id.action_profileMainFragment_to_personalInformationFragment)
+                "Ajuda" -> findNavController().navigate(R.id.action_profileMainFragment_to_helpFragment)
             }
         }
         binding.listOptions.adapter = adapter
