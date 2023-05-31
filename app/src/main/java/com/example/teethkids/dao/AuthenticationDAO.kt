@@ -65,14 +65,14 @@ class AuthenticationDAO {
                            "number" to data.numberStreet,
                            "neighborhood" to data.neighborhood,
                            "city" to data.city,
-                           "state" to data.state
-
+                           "state" to data.state,
+                           "isPrimary" to true
                        )
-                       val createUser = getFunctions().getHttpsCallable("createUserTest")
+                       val createUser = getFunctions().getHttpsCallable("createUserDoc")
                        val data = hashMapOf(
                            "userId" to currentUser,
                            "userData" to userData,
-                           "andressData" to addressData
+                           "addressData" to addressData
                        )
                        createUser.call(data)
                            .addOnSuccessListener {

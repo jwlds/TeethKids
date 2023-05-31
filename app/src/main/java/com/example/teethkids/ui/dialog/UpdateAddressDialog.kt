@@ -1,30 +1,26 @@
 package com.example.teethkids.ui.dialog
 
-import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.fragment.app.DialogFragment
 import com.example.teethkids.dao.AddressDao
-import com.example.teethkids.database.FirebaseHelper.Companion.getIdUser
+import com.example.teethkids.database.FirebaseHelper
 import com.example.teethkids.databinding.DialogContentAddAddressBinding
 import com.example.teethkids.model.Address
 import com.example.teethkids.model.AddressViaCep
 import com.example.teethkids.service.AddressService
 import com.example.teethkids.utils.Utils
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-
-class AddAddressDialog() : BottomSheetDialogFragment() {
+class UpdateAddressDialog(private var _address: Address) : BottomSheetDialogFragment() {
 
     private var _binding: DialogContentAddAddressBinding? = null
     private val binding get() = _binding!!
@@ -35,6 +31,15 @@ class AddAddressDialog() : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.titleTextView.text = "Editar endereço"
+        binding.btnAdd.text = "Atualizar"
+
+        binding.edtStreet.setText(_address.street)
+        binding.edtZipe.setText(_address.zipeCode)
+        binding.edtCity.setText(_address.city)
+        binding.edtState.setText(_address.state)
+        binding.edtNeighbBorhood.setText(_address.neighborhood)
+        binding.edtNumber.setText(_address.number)
 
         val retrofit = Retrofit.Builder()
             .baseUrl("https://viacep.com.br/ws/")
@@ -53,26 +58,27 @@ class AddAddressDialog() : BottomSheetDialogFragment() {
         }
 
         binding.btnAdd.setOnClickListener {
+            Log.d("111",_address.addressId)
             if(isValid()){
                 val dao = AddressDao()
                 val address = Address(
-                    userId = getIdUser().toString(),
+                    userId = FirebaseHelper.getIdUser().toString(),
                     street = binding.edtStreet.text.toString().trim(),
                     neighborhood = binding.edtNeighbBorhood.text.toString().trim(),
                     zipeCode = binding.edtZipe.unMasked,
                     state = binding.edtState.text.toString().trim(),
                     city = binding.edtCity.text.toString().trim(),
                     number = binding.edtNumber.text.toString().trim(),
-                    isPrimary = false
+                    isPrimary = _address.isPrimary
                 )
-                dao.addAddress(address,
+                dao.updateAddress(address,_address.addressId,
                     onSuccess = {
-                        Utils.showToast(requireContext(), "Endereço adicionado com sucesso!")
+                        Utils.showToast(requireContext(), "Endereço Atualizado com sucesso!")
                         dismiss()
                     },
                     onFailure = { exception ->
                         Log.d("333",exception.toString())
-                        Utils.showToast(requireContext(), "Erro ao adicionar endereço: ${exception.message}")
+                        Utils.showToast(requireContext(), "Erro ao Atualizado endereço: ${exception.message}")
                     }
                 )
             }

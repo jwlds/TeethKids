@@ -15,7 +15,7 @@ class AddressViewModel : ViewModel() {
         val authUid = getAuth().currentUser?.uid
         if (authUid != null) {
             val profilesRef = getDatabase().collection("profiles").document(authUid)
-            val addressRef = profilesRef.collection("address")
+            val addressRef = profilesRef.collection("addresses")
             addressRef.addSnapshotListener { querySnapshot, error ->
                 if (error != null) {
                     return@addSnapshotListener

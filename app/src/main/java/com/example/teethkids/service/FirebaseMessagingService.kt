@@ -28,22 +28,10 @@ import org.json.JSONArray
 class FirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onNewToken(token: String) {
-        updateFcmToken(token)
+        // test
     }
 
-     private fun updateFcmToken(newToken: String) {
-        val userId = getIdUser() // supondo que você tenha essa função definida em algum lugar para recuperar o ID do usuário atualmente autenticado
-        if (userId != null) {
-            val userRef = FirebaseFirestore.getInstance().collection("profiles").document(userId)
-            userRef.update("fcmToken", newToken)
-                .addOnSuccessListener {
-                    Log.d("222", "FCM token updated successfully")
-                }
-                .addOnFailureListener {
-                    Log.e("222", "Error updating FCM token", it)
-                }
-        }
-    }
+
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         val notification = remoteMessage.notification

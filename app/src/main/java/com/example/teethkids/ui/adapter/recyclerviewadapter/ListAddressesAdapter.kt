@@ -46,7 +46,7 @@ class ListAddressesAdapter(
             binding.addressItemName.text = "${addresses.street}, ${addresses.number}"
             binding.addressItemDate.text = formatAddress(addresses)
             binding.btnOption.setOnClickListener {
-                val dialog = OptionAddressDialog(addresses.addressId,"${addresses.street}, ${addresses.number}" )
+                val dialog = OptionAddressDialog(addresses)
                 dialog.show((binding.root.context as AppCompatActivity).supportFragmentManager, "bottomSheetTag")
             }
         }

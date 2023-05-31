@@ -79,7 +79,7 @@ class LoginFragment : Fragment(),View.OnClickListener{
 
     }
 
-    fun isValid(): Boolean {
+    private fun isValid(): Boolean {
 
         val email = binding.edtEmail.text.toString().trim()
         val password = binding.edtPassword.text.toString().trim()
