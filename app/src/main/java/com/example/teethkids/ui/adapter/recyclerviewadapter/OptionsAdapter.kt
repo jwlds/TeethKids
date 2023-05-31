@@ -86,7 +86,18 @@ class OptionsAdapter(
             name = "Ajuda",
             description = "Podemos ajudar você",
             icon = R.drawable.baseline_message_24
-        )
+        ),
+        Option(
+            name = "Idiomas",
+            description = "Podemos ajudar você",
+            icon = R.drawable.baseline_message_24
+        ),
+//        Option(
+//            name = "Tema escuro",
+//            description = "Podemos ajudar você",
+//            icon = R.drawable.baseline_message_24
+//        ),
+
     )
 
     class OptionViewHolder(val binding: OptionItemBinding) :

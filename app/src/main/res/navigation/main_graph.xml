@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/emergencyListFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -49,8 +49,21 @@
             app:destination="@id/profileMainFragment" />
     </fragment>
     <fragment
-        android:id="@+id/emergencyFragment"
-        android:name="com.example.teethkids.ui.home.EmergencyFragment"
-        android:label="fragment_emergency"
-        tools:layout="@layout/fragment_emergency" />
+        android:id="@+id/emergencyListFragment"
+        android:name="com.example.teethkids.ui.home.EmergencyListFragment"
+        android:label="fragment_emergency_list"
+        tools:layout="@layout/fragment_emergency_list" >
+        <action
+            android:id="@+id/action_emergencyListFragment_to_emergencyDetailsFragment2"
+            app:destination="@id/emergencyDetailsFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/emergencyDetailsFragment2"
+        android:name="com.example.teethkids.ui.home.EmergencyDetailsFragment"
+        android:label="fragment_emergency_details"
+        tools:layout="@layout/fragment_emergency_details" >
+        <action
+            android:id="@+id/action_emergencyDetailsFragment2_to_emergencyListFragment"
+            app:destination="@id/emergencyListFragment" />
+    </fragment>
 </navigation>

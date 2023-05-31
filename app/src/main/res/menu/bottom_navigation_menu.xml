@@ -5,13 +5,13 @@
         android:icon="@drawable/baseline_home_24"
         android:title="Início"/>
     <item
-        android:id="@+id/settingsFragment"
+        android:id="@+id/emergencyListFragment"
         android:enabled="true"
-        android:icon="@drawable/baseline_settings_24"
-        android:title="sdsd"/>
+        android:icon="@drawable/baseline_emergency_24"
+        android:title="Urgências"/>
 
     <item
-
+        android:enabled="false"
         android:title=""/>
 
     <item

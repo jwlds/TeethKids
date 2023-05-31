@@ -35,9 +35,6 @@ class EmergencyActivity : AppCompatActivity(), View.OnClickListener {
 
 
 
-        val photo1 = intent.getStringExtra("photo1")
-        val photo2 = intent.getStringExtra("photo2")
-
         val name = intent.getStringExtra("name")
         val phone = intent.getStringExtra("phone")
         val status = intent.getStringExtra("status")
@@ -50,12 +47,6 @@ class EmergencyActivity : AppCompatActivity(), View.OnClickListener {
 
         binding.btnCancel.setOnClickListener(this)
         binding.btnAccept.setOnClickListener(this)
-
-        if(photo1 != null && photo2 != null){
-            Log.d("999",photo1)
-            loadImageFromUrlIv(photo1,binding.img1)
-            loadImageFromUrlIv(photo2,binding.img2)
-        }
 
 
 

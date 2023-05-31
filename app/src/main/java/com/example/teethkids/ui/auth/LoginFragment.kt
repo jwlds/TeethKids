@@ -14,8 +14,8 @@ import com.example.teethkids.dao.AuthenticationDAO
 import com.example.teethkids.databinding.FragmentLoginBinding
 import com.example.teethkids.service.FirebaseMessagingService
 import com.example.teethkids.ui.home.MainActivity
-import com.example.teethkids.utils.RegistrationDataHolder
 import com.example.teethkids.utils.Utils
+import com.example.teethkids.utils.Utils.hideKeyboard
 import com.google.firebase.messaging.FirebaseMessaging
 
 
@@ -43,6 +43,7 @@ class LoginFragment : Fragment(),View.OnClickListener{
     override fun onClick(v: View?) {
         when(v!!.id) {
             R.id.btnLogin -> {
+                hideKeyboard()
                 if(isValid()) {
                     binding.loading.isVisible = true
                     val auth = AuthenticationDAO()
@@ -95,7 +96,6 @@ class LoginFragment : Fragment(),View.OnClickListener{
         }
         return true
     }
-
 
 
 

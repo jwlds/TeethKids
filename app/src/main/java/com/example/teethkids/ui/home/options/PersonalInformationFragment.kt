@@ -19,6 +19,8 @@ import com.example.teethkids.database.FirebaseHelper
 import com.example.teethkids.database.FirebaseHelper.Companion.getIdUser
 import com.example.teethkids.databinding.FragmentPersonalInformationBinding
 import com.example.teethkids.databinding.FragmentProfileMainBinding
+import com.example.teethkids.ui.dialog.AddAddressDialog
+import com.example.teethkids.ui.dialog.UpdateImgProfileDialog
 import com.example.teethkids.ui.home.MainActivity
 import com.example.teethkids.utils.Utils
 import com.example.teethkids.viewmodel.UserViewModel
@@ -52,6 +54,7 @@ class PersonalInformationFragment : Fragment(),View.OnClickListener, DatePickerD
             binding.edtCro.setText(user.cro)
         }
         binding.btnUpdate.setOnClickListener(this)
+        binding.btnUpdateImgProfile.setOnClickListener(this)
         binding.edtDateBirth.setOnClickListener { showDatePicker() }
         binding.toolbar.screenName.text = "Meus dados"
         binding.toolbar.btnBack.setOnClickListener{
@@ -75,6 +78,8 @@ class PersonalInformationFragment : Fragment(),View.OnClickListener, DatePickerD
                     }
                 )
             }
+            R.id.btnUpdateImgProfile -> {showDialogUpdateImgProfile()}
+
         }
     }
 
@@ -92,6 +97,12 @@ class PersonalInformationFragment : Fragment(),View.OnClickListener, DatePickerD
         val formattedDate = String.format("%02d/%02d/%d", dayOfMonth, month + 1, year)
         binding.edtDateBirth.setText(formattedDate)
     }
+
+    private fun showDialogUpdateImgProfile() {
+        val dialog = UpdateImgProfileDialog()
+        dialog.show(requireActivity().supportFragmentManager, "dialogUpdateImgProfile")
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()

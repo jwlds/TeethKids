@@ -1,6 +1,5 @@
 package com.example.teethkids.utils
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
@@ -9,6 +8,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.teethkids.model.Address
 import com.google.android.gms.tasks.Task
@@ -21,6 +21,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.ByteArrayOutputStream
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -30,6 +31,21 @@ object Utils {
 
     fun showToast(context: Context, message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
+
+    fun calculateDistance(lat1: Double, lon1: Double, lat2: Double, lon2: Double): String {
+        val raio = 6371
+        val dLat = Math.toRadians(lat2 - lat1)
+        val dLon = Math.toRadians(lon2 - lon1)
+        val lat1Radians = Math.toRadians(lat1)
+        val lat2Radians = Math.toRadians(lat2)
+        val a =
+            kotlin.math.sin(dLat / 2) * kotlin.math.sin(dLat / 2) + kotlin.math.sin(dLon / 2) * kotlin.math.sin(
+                dLon / 2
+            ) * kotlin.math.cos(lat1Radians) * kotlin.math.cos(lat2Radians)
+        val c = 2 * kotlin.math.atan2(kotlin.math.sqrt(a), kotlin.math.sqrt(1 - a))
+        val distance = raio * c
+        return DecimalFormat("#.#").format(distance) + " km"
     }
 
 
@@ -67,6 +83,32 @@ object Utils {
             .into(view)
     }
 
+    fun Fragment.hideKeyboard() {
+        val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view?.windowToken, 0)
+    }
+
+    fun updateProfileImage(img: Bitmap?, userId: String): Task<Uri> {
+        val baos = ByteArrayOutputStream()
+        img?.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        val data = baos.toByteArray()
+        storageReference = FirebaseStorage.getInstance().getReference("USERS/PHOTOS/$userId")
+        val oldPhotoUrlTask = storageReference.downloadUrl
+        val deleteTask = oldPhotoUrlTask.continueWithTask { oldPhotoUrl ->
+            FirebaseStorage.getInstance().getReferenceFromUrl(oldPhotoUrl.toString()).delete()
+        }
+
+        val uploadTask = deleteTask.continueWithTask {
+            storageReference.putBytes(data)
+        }
+        return uploadTask.continueWithTask { task ->
+            if (!task.isSuccessful) {
+                throw task.exception!!
+            }
+            storageReference.downloadUrl
+        }
+    }
+
     fun uploadProfileImage(img: Bitmap?, userId: String): Task<Uri> {
         val baos = ByteArrayOutputStream()
         img?.compress(Bitmap.CompressFormat.JPEG, 100, baos)
@@ -98,5 +140,7 @@ object Utils {
             else -> "Ocorreu um erro desconhecido. Tente novamente mais tarde."
         }
     }
+
+
 
 }

@@ -40,7 +40,8 @@
             android:src="@drawable/baseline_warning_24"
             app:layout_anchor="@id/bottomAppBar"
             app:maxImageSize="40dp"
-            android:id="@+id/fab"/>
+            android:id="@+id/fab"
+            />
 
 
 <!--        <include-->

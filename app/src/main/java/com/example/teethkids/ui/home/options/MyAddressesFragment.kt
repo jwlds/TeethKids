@@ -40,7 +40,7 @@ class MyAddressesFragment : Fragment(), View.OnClickListener {
         binding.toolbar.btnBack.setOnClickListener {
             findNavController().navigate(R.id.action_myAndressesFragment_to_profileMainFragment)
         }
-        setupListAdapter() // Inicialize o adaptador primeiro
+        setupListAdapter()
         loadAddresses()
     }
 

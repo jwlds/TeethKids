@@ -46,13 +46,22 @@ class HomeFragment : Fragment(){
             requestNotificationPermission(requireContext())
         }
 
+        binding.btnTest.setOnClickListener{
+            val dao = UserDao()
+            dao.fakeCall(onSuccess = {
+                Utils.showToast(requireContext(),"Chamado foi")
+            },
+            onFailure = {
+                Utils.showToast(requireContext(),"Chamado nao  foi")
+            })
+        }
+
 
         binding.statusBar.btnStatus.setOnCheckedChangeListener { _, isChecked ->
             val dao = UserDao()
             dao.updateStatus(getAuth().uid!!, isChecked,
                 onSuccess = {
                     if(isChecked){
-                        Utils.showToast(requireContext(),"Você está disponivel para emergências")
                         FirebaseMessaging.getInstance().subscribeToTopic("emergencies")
                             .addOnCompleteListener { task ->
                                 if (task.isSuccessful) {

@@ -17,9 +17,12 @@
         <include android:id="@+id/toolbar"
             layout="@layout/toolbar_back" />
 
+
+
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgProfile"
-            android:layout_width="0dp"
+            android:layout_width="200dp"
             android:layout_marginTop="40dp"
             android:layout_margin="16dp"
             android:layout_height="200dp"
@@ -36,11 +39,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+            android:layout_margin="16dp"
             app:startIconDrawable="@drawable/baseline_email_24"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:layout_constraintEnd_toEndOf="@+id/imgProfile"
-            app:layout_constraintStart_toStartOf="@+id/imgProfile"
-            app:layout_constraintTop_toBottomOf="@+id/imgProfile">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imgProfile">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtName"
@@ -151,6 +155,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:textAllCaps="false"
             android:text="Atualizar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -176,6 +181,24 @@
             app:layout_constraintTop_toTopOf="parent"
 
             />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnUpdateImgProfile"
+            style="@style/Widget.Material3.Button.Icon"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_margin="6dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:backgroundTint="@color/blue"
+            app:icon="@drawable/baseline_edit_24"
+            app:iconGravity="textEnd"
+            app:iconSize="34dp"
+            app:layout_constraintEnd_toEndOf="@id/imgProfile"
+            app:layout_constraintBottom_toBottomOf="@id/imgProfile" />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
