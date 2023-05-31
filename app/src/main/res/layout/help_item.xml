@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardHelp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:paddingLeft="16dp">
+
+        <ImageView
+            android:id="@+id/helpOptionIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="4dp"
+            android:src="@drawable/baseline_message_24"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/helpOptionName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nome da Função de Ajuda"
+            android:layout_marginLeft="20dp"
+            android:textColor="#353535"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toTopOf="@id/helpOptionDiscription"
+            app:layout_constraintStart_toEndOf="@id/helpOptionIcon"
+            app:layout_constraintTop_toTopOf="@id/helpOptionIcon" />
+
+        <TextView
+            android:id="@+id/helpOptionDiscription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Data de atualização"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="@id/helpOptionIcon"
+            app:layout_constraintStart_toStartOf="@id/helpOptionName"
+            app:layout_constraintTop_toBottomOf="@id/helpOptionName" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

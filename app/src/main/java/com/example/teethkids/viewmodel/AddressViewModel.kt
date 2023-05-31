@@ -1,5 +1,6 @@
 package com.example.teethkids.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,6 +9,7 @@ import com.example.teethkids.database.FirebaseHelper.Companion.getAuth
 import com.example.teethkids.database.FirebaseHelper.Companion.getDatabase
 import com.example.teethkids.database.FirebaseHelper.Companion.getIdUser
 import com.example.teethkids.model.Address
+import com.example.teethkids.utils.AddressPrimaryId
 
 
 // Classe é responsável por gerencia os endereço do usuario atual e fornece um objeto
@@ -28,6 +30,7 @@ class AddressViewModel : ViewModel() {
 
                 val addressList = mutableListOf<Address>()
                 for (documentSnapshot in querySnapshot?.documents ?: emptyList()) {
+                    Log.d("444",documentSnapshot.toString())
                     val address = documentSnapshot.toObject(Address::class.java)
                     address?.let {
                         addressList.add(it)

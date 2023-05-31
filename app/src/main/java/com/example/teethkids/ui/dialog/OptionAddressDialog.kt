@@ -2,6 +2,7 @@ package com.example.teethkids.ui.dialog
 
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,7 +19,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
 
-class OptionAddressDialog(private val address: Address,
+class OptionAddressDialog(
+    private val address: Address,
 ) : BottomSheetDialogFragment() {
 
     private var _binding: DialogContentOptionsAddressBinding? = null

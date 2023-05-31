@@ -1,6 +1,7 @@
 package com.example.teethkids.model
 
-data class Emergency (
+data class Emergency
+    (
     val emergencyId: String? = null,
     val name: String? = null,
     val phone: String? = null,

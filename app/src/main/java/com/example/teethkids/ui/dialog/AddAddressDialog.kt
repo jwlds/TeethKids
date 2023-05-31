@@ -1,5 +1,8 @@
 package com.example.teethkids.ui.dialog
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -60,6 +63,7 @@ class AddAddressDialog() : BottomSheetDialogFragment() {
 
         binding.btnAdd.setOnClickListener {
             if(isValid()){
+                binding.btnAdd.startAnimation();
                 val dao = AddressDao()
                 val address = Address(
                     userId = getIdUser().toString(),
@@ -69,14 +73,16 @@ class AddAddressDialog() : BottomSheetDialogFragment() {
                     state = binding.edtState.text.toString().trim(),
                     city = binding.edtCity.text.toString().trim(),
                     number = binding.edtNumber.text.toString().trim(),
-                    isPrimary = false
+                    primary = false
                 )
                 dao.addAddress(address,
                     onSuccess = {
+                        binding.btnAdd.revertAnimation();
                         Utils.showToast(requireContext(), "Endereço adicionado com sucesso!")
                         dismiss()
                     },
                     onFailure = { exception ->
+                        binding.btnAdd.revertAnimation();
                         Log.d("333",exception.toString())
                         Utils.showToast(requireContext(), "Erro ao adicionar endereço: ${exception.message}")
                     }
@@ -160,6 +166,12 @@ class AddAddressDialog() : BottomSheetDialogFragment() {
             return false
         }
         return true
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.btnAdd.dispose()
+        _binding = null
     }
 
 }

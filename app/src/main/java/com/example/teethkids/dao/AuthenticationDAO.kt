@@ -66,7 +66,7 @@ class AuthenticationDAO {
                            "neighborhood" to data.neighborhood,
                            "city" to data.city,
                            "state" to data.state,
-                           "isPrimary" to true
+                           "primary" to data.primary
                        )
                        val createUser = getFunctions().getHttpsCallable("createUserDoc")
                        val data = hashMapOf(

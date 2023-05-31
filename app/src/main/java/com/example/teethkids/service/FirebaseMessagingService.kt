@@ -38,7 +38,6 @@ class FirebaseMessagingService : FirebaseMessagingService() {
     }
 
 
-
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         val notification = remoteMessage.notification
         val data = remoteMessage.data

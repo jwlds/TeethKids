@@ -25,13 +25,11 @@ class UpdateAddressDialog(private var _address: Address) : BottomSheetDialogFrag
     private var _binding: DialogContentAddAddressBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var service: ViaCepService
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding?.apply {
+
             titleTextView.text = "Editar endereço"
             btnAdd.text = "Atualizar"
 
@@ -72,6 +70,7 @@ class UpdateAddressDialog(private var _address: Address) : BottomSheetDialogFrag
         binding.btnAdd.setOnClickListener {
             Log.d("111",_address.addressId)
             if(isValid()){
+                binding.btnAdd.startAnimation()
                 val dao = AddressDao()
                 val address = Address(
                     userId = FirebaseHelper.getIdUser().toString(),
@@ -81,14 +80,16 @@ class UpdateAddressDialog(private var _address: Address) : BottomSheetDialogFrag
                     state = binding.edtState.text.toString().trim(),
                     city = binding.edtCity.text.toString().trim(),
                     number = binding.edtNumber.text.toString().trim(),
-                    isPrimary = _address.isPrimary
+                    primary = _address.primary
                 )
                 dao.updateAddress(address,_address.addressId,
                     onSuccess = {
+                        binding.btnAdd.revertAnimation()
                         Utils.showToast(requireContext(), "Endereço Atualizado com sucesso!")
                         dismiss()
                     },
                     onFailure = { exception ->
+                        binding.btnAdd.revertAnimation()
                         Log.d("333",exception.toString())
                         Utils.showToast(requireContext(), "Erro ao Atualizado endereço: ${exception.message}")
                     }
@@ -139,6 +140,7 @@ class UpdateAddressDialog(private var _address: Address) : BottomSheetDialogFrag
     }
 
     private fun isValid(): Boolean {
+
         val zipe = binding.edtZipe.unMasked
         val street = binding.edtStreet.text.toString().trim()
         val number  = binding.edtNumber.text.toString().trim()
@@ -148,7 +150,6 @@ class UpdateAddressDialog(private var _address: Address) : BottomSheetDialogFrag
 
         if (zipe.isEmpty()) {
             binding.edtZipe.error = "Cep não pode ser vazio"
-            // binding.edtZipe.
             return false
         }
 
@@ -175,6 +176,12 @@ class UpdateAddressDialog(private var _address: Address) : BottomSheetDialogFrag
             return false
         }
         return true
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.btnAdd.dispose()
+        _binding = null
     }
 
 }

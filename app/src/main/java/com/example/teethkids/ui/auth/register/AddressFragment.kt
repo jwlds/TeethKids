@@ -134,6 +134,7 @@ class AddressFragment : Fragment(){
         RegistrationDataHolder.registrationData.neighborhood = neighborhood
         RegistrationDataHolder.registrationData.city = city
         RegistrationDataHolder.registrationData.state = state
+        RegistrationDataHolder.registrationData.primary = true
         return true
     }
 

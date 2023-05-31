@@ -2,9 +2,10 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cardAddress"
+    android:id="@+id/cardNotification"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:maxHeight="100dp"
     android:layout_marginLeft="8dp"
     android:layout_marginTop="8dp"
     android:layout_marginRight="8dp"
@@ -21,38 +22,32 @@
         android:paddingTop="8dp"
         android:paddingBottom="16dp">
 
-
         <ImageView
-            android:id="@+id/btnOption"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:id="@+id/btnViewNotification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginRight="8dp"
-            android:layout_marginTop="30dp"
-            android:tint="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/outline_more_vert_24"
-            tools:ignore="UseAppTint" />
+            app:srcCompat="@drawable/outline_notifications_active_24" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/address_item_name"
-            android:layout_width="match_parent"
+            android:id="@+id/notification_item_body"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:maxLines="1"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Apelido" />
+            tools:text="Body" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/address_item_date"
+            android:id="@+id/notification_item_date"
             android:layout_width="270dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            app:layout_constraintStart_toStartOf="@+id/address_item_name"
-            app:layout_constraintTop_toBottomOf="@+id/address_item_name"
-            tools:text="Endereço, Numero, Bairro, Cidade - UF" />
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="@+id/notification_item_body"
+            app:layout_constraintTop_toBottomOf="@+id/notification_item_body"
+            tools:text="Data" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

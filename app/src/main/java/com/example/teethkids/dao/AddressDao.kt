@@ -18,7 +18,7 @@ class AddressDao {
             "state" to address.state,
             "city" to address.city,
             "number" to address.number,
-            "isPrimary" to address.isPrimary
+            "primary" to address.primary
         )
         val data = hashMapOf(
             "authUid" to getIdUser().toString(),
@@ -47,7 +47,7 @@ class AddressDao {
             "state" to address.state,
             "city" to address.city,
             "number" to address.number,
-            "isPrimary" to address.isPrimary
+            "primary" to address.primary
         )
         val data = hashMapOf(
             "authUid" to getIdUser().toString(),
@@ -84,4 +84,18 @@ class AddressDao {
                 onFailure(exception)
             }
     }
+
+    fun updatePrimaryAddress(isPrimary: Boolean,addressId: String,onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
+         val ref = FirebaseHelper.getDatabase().collection("profiles").document(getIdUser().toString())
+             .collection("addresses").document(addressId)
+         ref.update("primary", isPrimary)
+            .addOnSuccessListener {
+                onSuccess()
+            }
+            .addOnFailureListener { exception ->
+                onFailure(exception)
+            }
+    }
+
+
 }

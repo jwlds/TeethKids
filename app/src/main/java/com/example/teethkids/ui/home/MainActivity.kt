@@ -2,21 +2,13 @@ package com.example.teethkids.ui.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
+import androidx.core.view.isVisible
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.teethkids.R
-import com.example.teethkids.database.FirebaseHelper.Companion.getIdUser
 import com.example.teethkids.databinding.ActivityMainBinding
-import com.example.teethkids.service.FirebaseMessagingService
 import com.google.firebase.FirebaseApp
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.messaging.FirebaseMessaging
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,21 +26,21 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager.findFragmentById(binding.contentMain.navHostFragment.id) as NavHostFragment
 
-        val navHostFragment = supportFragmentManager.findFragmentById(binding.contentMain.navHostFragment.id) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(binding.contentMain.navHostFragment.id) as NavHostFragment
         navController = navHostFragment.navController
         binding.bottomNavigationView.setupWithNavController(navController)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.homeFragment, R.id.profileMainFragment, R.id.settingsFragment, R.id.notificationFragment, R.id.emergencyListFragment -> {
-                    binding.fab.visibility = View.VISIBLE
-                    binding.bottomNavigationView.visibility = View.VISIBLE
-                    binding.bottomAppBar.visibility = View.VISIBLE
-
+                R.id.homeFragment,
+                R.id.profileMainFragment,
+                R.id.settingsFragment,
+                R.id.notificationFragment,
+                R.id.emergencyListFragment -> {
+                    binding.bottomNavigationView.isVisible = true
                 }
                 else -> {
-                    binding.bottomAppBar.visibility = View.GONE
-                    binding.fab.visibility = View.GONE
-                    binding.bottomNavigationView.visibility = View.GONE
+                    binding.bottomNavigationView.isVisible = false
                 }
             }
         }

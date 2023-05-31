@@ -2,22 +2,18 @@
     <item
         android:id="@+id/homeFragment"
         android:enabled="true"
-        android:icon="@drawable/baseline_home_24"
+        android:icon="@drawable/outline_home_24"
         android:title="Início"/>
     <item
         android:id="@+id/emergencyListFragment"
         android:enabled="true"
-        android:icon="@drawable/baseline_emergency_24"
-        android:title="Urgências"/>
-
-    <item
-        android:enabled="false"
-        android:title=""/>
+        android:icon="@drawable/outline_emergency_24"
+        android:title="Emergências"/>
 
     <item
         android:id="@+id/notificationFragment"
         android:enabled="true"
-        android:icon="@drawable/baseline_notifications_24"
+        android:icon="@drawable/outline_notifications_24"
         android:title="Notificações"/>
 
     <item

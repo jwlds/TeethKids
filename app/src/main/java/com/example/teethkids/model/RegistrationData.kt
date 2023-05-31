@@ -23,7 +23,8 @@ data class RegistrationData(
     var city: String? = null,
     var numberStreet: String? = null,
     var fcmToken: String? = null,
-    var addressId: String = ""
+    var addressId: String = "",
+    var primary: Boolean? = false
 ) : Parcelable {
     init {
         this.addressId = FirebaseHelper.getDatabase().collection("address").document().id

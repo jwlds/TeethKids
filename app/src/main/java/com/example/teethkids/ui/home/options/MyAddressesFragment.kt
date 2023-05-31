@@ -1,6 +1,7 @@
 package com.example.teethkids.ui.home.options
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,8 @@ import com.example.teethkids.model.Address
 import com.example.teethkids.ui.adapter.recyclerviewadapter.ListAddressesAdapter
 import com.example.teethkids.ui.dialog.AddAddressDialog
 import com.example.teethkids.ui.dialog.OptionAddressDialog
+import com.example.teethkids.utils.AddressPrimaryId
+import com.example.teethkids.utils.Utils
 import com.example.teethkids.viewmodel.AddressViewModel
 
 
@@ -35,6 +38,7 @@ class MyAddressesFragment : Fragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.fab.setOnClickListener(this)
         binding.toolbar.screenName.text = "Meus endereços"
         binding.toolbar.btnBack.setOnClickListener {
@@ -54,7 +58,12 @@ class MyAddressesFragment : Fragment(), View.OnClickListener {
     private fun loadAddresses() {
         val addressViewModel = ViewModelProvider(this).get(AddressViewModel::class.java)
         addressViewModel.addressList.observe(viewLifecycleOwner) { addresses ->
+            Log.d("test1",addresses.toString())
+            val primaryAddress = addresses.find { it.primary }
+            val primaryAddressId = primaryAddress?.addressId
+            AddressPrimaryId.addressPrimaryId = primaryAddressId
             listAddressesAdapter.submitList(addresses)
+            binding.fab.isEnabled = addresses.size != 3
         }
     }
 
@@ -63,6 +72,7 @@ class MyAddressesFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.fab -> showDialogAdd()
+
         }
     }
 

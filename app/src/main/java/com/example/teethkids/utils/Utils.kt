@@ -2,14 +2,20 @@ package com.example.teethkids.utils
 
 import android.app.Activity
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Bitmap
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.net.Uri
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.example.teethkids.databinding.AddressItemBinding
 import com.example.teethkids.model.Address
 import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
@@ -28,6 +34,28 @@ import java.util.*
 object Utils {
 
     private lateinit var storageReference: StorageReference
+
+     fun setPrimaryAddressStyle(isPrimary: Boolean,binding: AddressItemBinding) {
+         if (isPrimary) {
+             binding.root.strokeColor = Color.argb(100, 234, 2, 46)
+             binding.root.strokeWidth = 3
+
+             val layoutParams = binding.root.layoutParams as ViewGroup.MarginLayoutParams
+             layoutParams.bottomMargin = 8
+             binding.root.layoutParams = layoutParams
+
+             binding.btnOption.imageTintList = ColorStateList.valueOf(Color.rgb(234, 2, 46))
+             binding.btnOption.imageTintMode = PorterDuff.Mode.SRC_IN
+         } else {
+             binding.root.strokeColor = Color.TRANSPARENT
+             binding.root.strokeWidth = 0
+
+             val layoutParams = binding.root.layoutParams as ViewGroup.MarginLayoutParams
+             layoutParams.bottomMargin = 0
+             binding.root.layoutParams = layoutParams
+         }
+    }
+
 
     fun showToast(context: Context, message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
