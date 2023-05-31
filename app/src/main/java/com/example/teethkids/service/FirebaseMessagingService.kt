@@ -65,7 +65,7 @@ class FirebaseMessagingService : FirebaseMessagingService() {
                 name = data["name"],
                 phone = data["phone"],
                 status = data["status"],
-                dateTime = data["date"],
+                //createdAt = data["date"].toTi,
                 photos = photosList,
                 location = locationList
             )
@@ -81,7 +81,7 @@ class FirebaseMessagingService : FirebaseMessagingService() {
             putString("name", data.name)
             putString("phone", data.phone)
             putString("status", data.status)
-            putString("dateTime", data.dateTime)
+         //   putString("dateTime", data.dateTime)
             putStringArrayList("photos", ArrayList<String>(data.photos))
             val locationArray = data.location?.toDoubleArray()
             putDoubleArray("location", locationArray)

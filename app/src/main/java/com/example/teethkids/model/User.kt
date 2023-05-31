@@ -13,6 +13,7 @@ data class User(
     var numberPhone: String = "",
     var university: String = "",
     var urlImg: String = "",
+    var fcmToken: String = ""
 )
 
 

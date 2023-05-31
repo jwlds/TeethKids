@@ -17,6 +17,36 @@
         <include android:id="@+id/toolbar"
             layout="@layout/toolbar_back" />
 
+        <TextView
+            android:id="@+id/textAddressFull"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:visibility="invisible"
+            android:text="Você atingiu o máximo de endereços permitidos."
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="200dp"
+
+
+            />
+
+        <TextView
+            android:id="@+id/textAddressNull"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:visibility="invisible"
+            android:text="Não há endereços cadastrados."
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+
+
+            />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/listAddresses"
             android:layout_width="0dp"

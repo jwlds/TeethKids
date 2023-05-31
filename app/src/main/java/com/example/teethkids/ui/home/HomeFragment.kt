@@ -28,7 +28,7 @@ class HomeFragment : Fragment(){
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private lateinit var userViewModel: UserViewModel
+//    private lateinit var userViewModel: UserViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,17 +40,17 @@ class HomeFragment : Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-
-        userViewModel.user.observe(viewLifecycleOwner) { user ->
-            binding.statusBar.btnStatus.isChecked = user.status
-
-                val color = if (binding.statusBar.btnStatus.isChecked)
-                    ContextCompat.getColor(requireContext(), R.color.greenStatus)
-                else
-                    ContextCompat.getColor(requireContext(), R.color.redStatus)
-                binding.statusBar.toolbar.setBackgroundColor(color)
-        }
+//        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+//
+//        userViewModel.user.observe(viewLifecycleOwner) { user ->
+//            binding.statusBar.btnStatus.isChecked = user.status
+//
+//                val color = if (binding.statusBar.btnStatus.isChecked)
+//                    ContextCompat.getColor(requireContext(), R.color.greenStatus)
+//                else
+//                    ContextCompat.getColor(requireContext(), R.color.redStatus)
+//                binding.statusBar.toolbar.setBackgroundColor(color)
+//        }
 
 
 
@@ -69,25 +69,13 @@ class HomeFragment : Fragment(){
         }
 
 
-        binding.statusBar.btnStatus.setOnCheckedChangeListener { _, isChecked ->
-            val dao = UserDao()
-            dao.updateStatus(getAuth().uid!!, isChecked,
-                onSuccess = {
-                    if(isChecked){
-                        FirebaseMessaging.getInstance().subscribeToTopic("emergencies")
-                            .addOnCompleteListener { task ->
-                                if (task.isSuccessful) {
-                                    Log.d("123", "Inscrito no tópico 'test' do FCM")
-                                } else {
-                                    Log.e("123", "Não foi possível se inscrever no tópico 'test' do FCM", task.exception)
-                                }
-                            }
-                    } else {
-                        Utils.showToast(requireContext(),"Você não está disponivel para emergências")
-                    }
-
-            })
-        }
+//        binding.statusBar.btnStatus.setOnCheckedChangeListener { _, isChecked ->
+//            val dao = UserDao()
+//            dao.updateStatus(getAuth().uid!!, isChecked,
+//                onSuccess = {
+//
+//            })
+//        }
 
     }
 

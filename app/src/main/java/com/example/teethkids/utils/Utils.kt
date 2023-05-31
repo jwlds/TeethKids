@@ -25,6 +25,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.FirebaseTooManyRequestsException
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -91,6 +92,13 @@ object Utils {
         val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
         return dateFormat.format(calendar.time)
     }
+
+    fun formatTimestamp(timestamp: Timestamp): String {
+        val dateFormat = SimpleDateFormat("dd/MM/yy HH:mm", Locale.getDefault())
+        val date = timestamp.toDate()
+        return dateFormat.format(date)
+    }
+
 
 
 

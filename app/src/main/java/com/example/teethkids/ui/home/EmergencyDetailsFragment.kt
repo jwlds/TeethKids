@@ -60,7 +60,7 @@ class EmergencyDetailsFragment : Fragment(),OnClickListener{
 
         val name = arguments?.getString("name")
         val phone = arguments?.getString("phone")
-        val dateTime = arguments?.getString("dateTime")
+        val createdAt = arguments?.getString("createdAt")
         val locationArray = arguments?.getDoubleArray("location")
         val photos = arguments?.getStringArrayList("photos")
 
@@ -75,7 +75,7 @@ class EmergencyDetailsFragment : Fragment(),OnClickListener{
         }
         binding.tvNome.text = name
         binding.tvPhone.text =  phone
-        binding.tvDate.text = dateTime
+        binding.tvDate.text = createdAt
 
         val adapter = photos?.let { PhotoAdapter(it) }
         binding.viewPager.adapter = adapter

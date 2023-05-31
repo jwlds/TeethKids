@@ -204,7 +204,6 @@
 
             <Button
                 android:id="@+id/btnAccept"
-                style="@style/Widget.Material3.Button.ElevatedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="40dp"
@@ -217,7 +216,6 @@
 
             <Button
                 android:id="@+id/btnCancel"
-                style="@style/Widget.Material3.Button.ElevatedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"

@@ -59,9 +59,8 @@ class ListAddressesAdapter(
                    Utils.showSnackbar(view = binding.root.rootView,"Esse endereço é o principal.")
                 }
                 else {
-                    val confirmationDialog = ConfirmationMainAddressDialog(binding.root.context,addresses.addressId,AddressPrimaryId.addressPrimaryId.toString())
+                    val confirmationDialog = ConfirmationMainAddressDialog(binding.root.context,addresses.addressId,AddressPrimaryId.addressPrimaryId)
                     confirmationDialog.show()
-
                 }
                 true
 
@@ -81,6 +80,11 @@ class ListAddressesAdapter(
         val address = getItem(position)
         holder.bind(address)
     }
+
+    override fun getItemCount(): Int {
+        return currentList.size
+    }
+
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddressViewHolder {

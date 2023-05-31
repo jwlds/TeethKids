@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.teethkids.R
@@ -28,6 +29,7 @@ class MyAddressesFragment : Fragment(), View.OnClickListener {
 
     private lateinit var listAddressesAdapter: ListAddressesAdapter
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,7 +40,8 @@ class MyAddressesFragment : Fragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.textAddressNull.isVisible = false
+        binding.textAddressNull.isVisible = false
         binding.fab.setOnClickListener(this)
         binding.toolbar.screenName.text = "Meus endereços"
         binding.toolbar.btnBack.setOnClickListener {
@@ -59,13 +62,27 @@ class MyAddressesFragment : Fragment(), View.OnClickListener {
         val addressViewModel = ViewModelProvider(this).get(AddressViewModel::class.java)
         addressViewModel.addressList.observe(viewLifecycleOwner) { addresses ->
             Log.d("test1",addresses.toString())
+            listAddressesAdapter.submitList(addresses)
+            showAddressState(addresses)
+            binding.fab.isEnabled = addresses.size != 3
             val primaryAddress = addresses.find { it.primary }
             val primaryAddressId = primaryAddress?.addressId
             AddressPrimaryId.addressPrimaryId = primaryAddressId
-            listAddressesAdapter.submitList(addresses)
-            binding.fab.isEnabled = addresses.size != 3
         }
     }
+
+    private fun showAddressState(addressList: List<Address>) {
+        if(addressList.isEmpty()) binding.textAddressNull.isVisible = true
+        else {
+            if (addressList.size > 2) {
+                binding.textAddressFull.isVisible = true
+            } else {
+                binding.textAddressFull.isVisible = false
+                binding.textAddressNull.isVisible = false
+            }
+        }
+    }
+
 
 
 

@@ -72,7 +72,7 @@
                 android:inputType="textPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>
-        
+
         <TextView
             android:id="@+id/tvErrorMessage"
             android:layout_width="wrap_content"
@@ -82,15 +82,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:textColor="#FF5252"
+            android:visibility="invisible"
             android:text="Email ou senha inválidos. Tente novamente!"
-            android:layout_marginTop="8dp"
-            android:visibility="invisible"/>
-        
+            android:layout_marginTop="8dp" />
+
         <TextView
             android:id="@+id/btnRecover"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:linksClickable="true"
             android:text="Esqueceu sua senha?"
             android:textColor="@color/blue"
@@ -138,7 +138,7 @@
             android:id="@+id/loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="420dp"
+            android:layout_marginTop="500dp"
             android:foregroundGravity="center_horizontal"
             android:indeterminateTint="@color/blue"
             android:visibility="invisible"

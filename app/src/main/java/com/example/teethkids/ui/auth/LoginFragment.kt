@@ -10,19 +10,22 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.UnderlineSpan
 import android.util.Patterns
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.teethkids.R
 import com.example.teethkids.dao.AuthenticationDAO
 import com.example.teethkids.databinding.FragmentLoginBinding
+import com.example.teethkids.service.FirebaseMessagingService
 import com.example.teethkids.ui.home.MainActivity
 import com.example.teethkids.utils.Utils
 import com.example.teethkids.utils.Utils.hideKeyboard
 import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.messaging.FirebaseMessaging
+
 
 class LoginFragment : Fragment(), View.OnClickListener {
     private var _binding: FragmentLoginBinding? = null

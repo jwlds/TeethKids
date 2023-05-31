@@ -5,6 +5,7 @@ import com.example.teethkids.database.FirebaseHelper.Companion.getDatabase
 import com.example.teethkids.model.Address
 import com.example.teethkids.model.User
 import com.example.teethkids.utils.Utils
+import com.google.firebase.Timestamp
 import kotlinx.coroutines.tasks.await
 
 class UserDao {
@@ -56,12 +57,13 @@ class UserDao {
 
     fun fakeCall(onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
         val id =  getDatabase().collection("emergencies").document().id
+        val currentTimestamp: Timestamp = Timestamp.now()
         val data = hashMapOf(
             "emergencyId" to id,
             "name" to "José da Silva",
             "phone" to "(19) 99999 - 9999",
             "status" to "Disponível",
-            "dateTime" to Utils.getCurrentDateTime(),
+            "createdAt" to currentTimestamp,
             "location" to listOf(-22.865334, -47.058264),
             "photos" to listOf("https://firebasestorage.googleapis.com/v0/b/teethkids-49f4b.appspot.com/o/EMERGENCIES%2FPHOTOS%2F1.jpg?alt=media&token=a15a465a-86d4-4e4d-942c-383e1dfb5edc",
                 "https://firebasestorage.googleapis.com/v0/b/teethkids-49f4b.appspot.com/o/EMERGENCIES%2FPHOTOS%2F1.jpg?alt=media&token=a15a465a-86d4-4e4d-942c-383e1dfb5edc")

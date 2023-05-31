@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.teethkids.database.FirebaseHelper.Companion.getDatabase
 import com.example.teethkids.model.Emergency
+import com.google.firebase.firestore.Query
 
 class EmergencyViewModel : ViewModel() {
 
@@ -13,7 +14,8 @@ class EmergencyViewModel : ViewModel() {
 
     init {
         val emergencyRef = getDatabase().collection("emergencies")
-        emergencyRef.addSnapshotListener { querySnapshot, error ->
+        emergencyRef.orderBy("createdAt", Query.Direction.DESCENDING)
+            .addSnapshotListener { querySnapshot, error ->
             if (error != null) {
                 return@addSnapshotListener
             }
