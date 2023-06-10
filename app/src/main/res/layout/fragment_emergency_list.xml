@@ -5,29 +5,27 @@
     android:layout_height="match_parent"
     android:fillViewport="true">
 
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context=".ui.home.EmergencyListFragment">
 
-
-        <include android:id="@+id/status_bar"
-            layout="@layout/status_bar"
-            />
+        <include
+            android:id="@+id/status_bar"
+            layout="@layout/status_bar" />
 
         <TextView
             android:id="@+id/textViewStateList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ative o seu status para visualizar as emergências."
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:text="Ative seu status para visualizar as emergências."
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="8dp"
             android:id="@+id/listEmergency"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -39,11 +37,5 @@
             tools:ignore="UnknownIdInLayout"
             tools:listitem="@layout/emergency_item" />
 
-
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
 </ScrollView>
