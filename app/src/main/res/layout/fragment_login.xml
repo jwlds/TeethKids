@@ -28,10 +28,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="32dp"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
+            app:boxStrokeWidth="2dp"
             app:layout_constraintEnd_toEndOf="@+id/labelTitle"
             app:layout_constraintStart_toStartOf="@+id/labelTitle"
             app:layout_constraintTop_toBottomOf="@+id/labelTitle"
-            app:startIconDrawable="@drawable/baseline_email_24">
+            app:startIconDrawable="@drawable/outline_email_24">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtEmail"
@@ -48,6 +53,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
+            app:boxStrokeWidth="2dp"
             app:layout_constraintEnd_toEndOf="@+id/inputEmail"
             app:layout_constraintStart_toStartOf="@+id/inputEmail"
             app:layout_constraintTop_toBottomOf="@+id/inputEmail"
@@ -62,18 +72,31 @@
                 android:inputType="textPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>
-
+        
+        <TextView
+            android:id="@+id/tvErrorMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/inputPassword"
+            app:layout_constraintBottom_toTopOf="@+id/btnRecover"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="#FF5252"
+            android:text="Email ou senha inválidos. Tente novamente!"
+            android:layout_marginTop="8dp"
+            android:visibility="invisible"/>
+        
         <TextView
             android:id="@+id/btnRecover"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="16dp"
             android:linksClickable="true"
             android:text="Esqueceu sua senha?"
             android:textColor="@color/blue"
             app:layout_constraintEnd_toEndOf="@+id/inputPassword"
             app:layout_constraintStart_toStartOf="@+id/inputPassword"
-            app:layout_constraintTop_toBottomOf="@+id/inputPassword" />
+            app:layout_constraintTop_toBottomOf="@+id/tvErrorMessage" />
 
         <Button
             android:id="@+id/btnLogin"
