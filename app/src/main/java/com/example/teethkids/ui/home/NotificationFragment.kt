@@ -53,7 +53,6 @@ class NotificationFragment : Fragment() {
         )
         notifications.add(Notification("Você aceitou a ocorrência XYX da Maria", anotherDay))
 
-        // Adicione mais notificações conforme necessário
         return notifications
     }
 

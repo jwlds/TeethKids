@@ -59,9 +59,9 @@ class UserDao {
         val id =  getDatabase().collection("emergencies").document().id
         val currentTimestamp: Timestamp = Timestamp.now()
         val data = hashMapOf(
-            "emergencyId" to id,
+            "rescuerUid" to id,
             "name" to "José da Silva",
-            "phone" to "(19) 99999 - 9999",
+            "phoneNumber" to "(19) 99999 - 9999",
             "status" to "Disponível",
             "createdAt" to currentTimestamp,
             "location" to listOf(-22.865334, -47.058264),

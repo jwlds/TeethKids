@@ -27,7 +27,7 @@ private val onEmergencyClicked: (Emergency) -> Unit
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Emergency>() {
             override fun areItemsTheSame(oldItem: Emergency, newItem: Emergency): Boolean {
-                return oldItem.emergencyId == newItem.emergencyId
+                return oldItem.rescuerUid == newItem.rescuerUid
             }
 
             override fun areContentsTheSame(oldItem: Emergency, newItem: Emergency): Boolean {
@@ -40,16 +40,16 @@ private val onEmergencyClicked: (Emergency) -> Unit
         RecyclerView.ViewHolder(binding.root) {
         fun bind(emergencies: Emergency,onEmergencyClicked: (Emergency) -> Unit) {
             val locationEmergency = emergencies.location
-            if(locationEmergency != null){
-                binding.locationTextView.text = Utils.calculateDistance(
-                    -22.903449,
-                    -47.063588,
-                    locationEmergency[0],
-                    locationEmergency[1]
-                    ).toString()
-            }
+//            if(locationEmergency != null){
+//                binding.locationTextView.text = Utils.calculateDistance(
+//                    -22.903449,
+//                    -47.063588,
+//                    locationEmergency[0],
+//                    locationEmergency[1]
+//                    ).toString()
+//            }
             binding.nameTextView.text = emergencies.name
-            binding.phoneTextView.text = emergencies.phone
+            binding.phoneTextView.text = emergencies.phoneNumber
             binding.tvStatus.text = emergencies.status
             binding.dateTimeTextView.text = Utils.formatTimestamp(emergencies.createdAt!!)
             binding.btnDetails.setOnClickListener {
@@ -57,7 +57,7 @@ private val onEmergencyClicked: (Emergency) -> Unit
             }
             binding.btnCall.setOnClickListener{
                 val intent = Intent(Intent.ACTION_DIAL)
-                intent.data = Uri.parse("tel:${emergencies.phone}")
+                intent.data = Uri.parse("tel:${emergencies.phoneNumber}")
                 ContextCompat.startActivity(binding.root.context, intent, null)
             }
 

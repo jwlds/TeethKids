@@ -61,9 +61,9 @@ class FirebaseMessagingService : FirebaseMessagingService() {
                 locationList.add(location.toDouble())
             }
             val emergencyDate = Emergency(
-                emergencyId = data["id"],
+                rescuerUid = data["id"],
                 name = data["name"],
-                phone = data["phone"],
+                phoneNumber = data["phone"],
                 status = data["status"],
                 //createdAt = data["date"].toTi,
                 photos = photosList,
@@ -77,9 +77,9 @@ class FirebaseMessagingService : FirebaseMessagingService() {
 
     private fun sendNotification(title: String?, body: String?,data: Emergency) {
         val bundle = Bundle().apply {
-            putString("emergencyId", data.emergencyId)
+            putString("emergencyId", data.rescuerUid)
             putString("name", data.name)
-            putString("phone", data.phone)
+            putString("phone", data.phoneNumber)
             putString("status", data.status)
          //   putString("dateTime", data.dateTime)
             putStringArrayList("photos", ArrayList<String>(data.photos))

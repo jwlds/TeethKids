@@ -5,27 +5,68 @@
     android:layout_height="match_parent"
     android:fillViewport="true">
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context=".ui.home.EmergencyListFragment">
 
+
         <include
             android:id="@+id/status_bar"
-            layout="@layout/status_bar" />
+            layout="@layout/status_bar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardFilterStatus"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/status_bar">
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/toggleButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:singleSelection="true"
+                android:checkedButton="@+id/filterAvailable">
+
+                <Button
+                    android:id="@+id/filterAvailable"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DISPONÍVEL" />
+
+                <Button
+                    android:id="@+id/filterWaiting"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="em espera" />
+
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+        </com.google.android.material.card.MaterialCardView>
 
         <TextView
             android:id="@+id/textViewStateList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ative seu status para visualizar as emergências."
+            android:text="Ative o seu status para visualizar as emergências."
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_marginTop="8dp"
             android:id="@+id/listEmergency"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -33,9 +74,12 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/status_bar"
+            app:layout_constraintTop_toBottomOf="@id/cardFilterStatus"
             tools:ignore="UnknownIdInLayout"
             tools:listitem="@layout/emergency_item" />
 
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </ScrollView>

@@ -50,8 +50,11 @@ class EmergencyListFragment : Fragment() {
             binding.statusBar.btnStatus.isChecked = user.status
             if (user.status) {
                 binding.textViewStateList.isVisible = false
+                binding.toggleButton.isEnabled = true
+                binding.toggleButton.check(R.id.filterAvailable)
                 loadEmergencies()
             } else {
+                binding.toggleButton.isEnabled = false
                 binding.textViewStateList.isVisible = true
                 listEmergenciesAdapter.submitList(null)
             }
@@ -61,6 +64,19 @@ class EmergencyListFragment : Fragment() {
             else
                 ContextCompat.getColor(requireContext(), R.color.redStatus)
             binding.statusBar.toolbar.setBackgroundColor(color)
+        }
+
+        binding.toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->
+            if (isChecked) {
+                when (checkedId) {
+                    R.id.filterAvailable -> {
+                        loadEmergencies()
+                    }
+                    R.id.filterWaiting -> {
+                        loadEmergenciesAwait()
+                    }
+                }
+            }
         }
 
         binding.statusBar.btnStatus.setOnCheckedChangeListener { _, isChecked ->
@@ -77,9 +93,9 @@ class EmergencyListFragment : Fragment() {
     private fun setupListAdapter() {
         listEmergenciesAdapter = ListEmergencyAdapter(requireContext()) { emergency ->
             val data = Bundle().apply {
-                putString("emergencyId", emergency.emergencyId)
+                putString("emergencyId", emergency.rescuerUid)
                 putString("name", emergency.name)
-                putString("phone", emergency.phone)
+                putString("phone", emergency.phoneNumber)
                 putString("createdAt", Utils.formatTimestamp(emergency.createdAt!!))
                 putStringArrayList("photos", ArrayList(emergency.photos))
                 val locationArray = emergency.location?.toDoubleArray()
@@ -98,6 +114,15 @@ class EmergencyListFragment : Fragment() {
             listEmergenciesAdapter.submitList(emergencies)
         }
     }
+
+    private fun loadEmergenciesAwait() {
+        val emergencyViewModel = ViewModelProvider(this).get(EmergencyViewModel::class.java)
+        emergencyViewModel.emergencyList.observe(viewLifecycleOwner) { emergencies ->
+            val filteredEmergencies = emergencies.filter { it.status == "ACEITADO" }
+            listEmergenciesAdapter.submitList(filteredEmergencies)
+        }
+    }
+
 
 
 }
