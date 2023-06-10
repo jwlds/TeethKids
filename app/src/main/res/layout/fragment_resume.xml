@@ -18,49 +18,52 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:gravity="center"
-            android:text="Academico"
+            android:text="Mini Curriculo"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/labelDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center"
+            android:text="Nos conte um pouco sobre suas experiências, competências e certificações."
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/labelTitle" />
+
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputInstitutionLayout"
+            android:id="@+id/inputResumeLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            app:layout_constraintEnd_toEndOf="@+id/labelTitle"
-            app:layout_constraintStart_toStartOf="@+id/labelTitle"
-            app:layout_constraintTop_toBottomOf="@+id/labelTitle"
-            app:startIconDrawable="@drawable/baseline_gps_fixed_24">
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="20dp"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
+            app:boxStrokeWidth="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/labelDescription">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtInstitution"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Nome da instituição"
-                android:inputType="textEmailAddress" />
+                android:layout_height="300dp"
+                android:hint="Mini curriculo"
+                android:inputType="textMultiLine"
+                android:textAlignment="textStart" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputGraduationDateLayout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@id/inputInstitutionLayout"
-            app:layout_constraintStart_toStartOf="@id/inputInstitutionLayout"
-            app:layout_constraintTop_toBottomOf="@id/inputInstitutionLayout"
-            app:startIconDrawable="@drawable/baseline_gps_fixed_24">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edtGraduationDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusable="false"
-                android:hint="Data de formação" />
-
-        </com.google.android.material.textfield.TextInputLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
