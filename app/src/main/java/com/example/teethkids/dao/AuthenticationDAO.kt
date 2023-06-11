@@ -55,7 +55,8 @@ class AuthenticationDAO {
                            "graduationDate" to data.graduationDate,
                            "urlImg" to url.toString(),
                            "status" to false,
-                           "fcmToken" to data.fcmToken
+                           "fcmToken" to data.fcmToken,
+                           "professionalDescription" to data.professionalDescription
                        )
                        val addressData = hashMapOf(
                            "addressId" to data.addressId,

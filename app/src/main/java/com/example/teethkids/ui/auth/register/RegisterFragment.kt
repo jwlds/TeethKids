@@ -46,6 +46,7 @@ class RegisterFragment : Fragment(),View.OnClickListener{
         adapter.addFragment(ProfileFragment())
         adapter.addFragment(AddressFragment())
         adapter.addFragment(EducationFragment())
+        adapter.addFragment(ResumeFragment())
         adapter.addFragment(PhotoFragment())
 
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
@@ -77,6 +78,8 @@ class RegisterFragment : Fragment(),View.OnClickListener{
                     is AddressFragment -> if (currentFragment.isValid())
                         viewPager.setCurrentItem(currentItem + 1, true)
                     is EducationFragment -> if (currentFragment.isValid())
+                        viewPager.setCurrentItem(currentItem + 1, true)
+                    is ResumeFragment -> if (currentFragment.isValid())
                         viewPager.setCurrentItem(currentItem + 1, true)
                     is PhotoFragment -> if (currentFragment.isValid())
                     {

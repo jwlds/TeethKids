@@ -49,14 +49,14 @@ class EmergencyListFragment : Fragment() {
         userViewModel.user.observe(viewLifecycleOwner) { user ->
             binding.statusBar.btnStatus.isChecked = user.status
             if (user.status) {
-                binding.textViewStateList.isVisible = false
                 binding.toggleButton.isEnabled = true
                 binding.toggleButton.check(R.id.filterAvailable)
+                binding.textViewStateList.isVisible = false
                 loadEmergencies()
             } else {
-                binding.toggleButton.isEnabled = false
                 binding.textViewStateList.isVisible = true
                 listEmergenciesAdapter.submitList(null)
+                binding.toggleButton.isEnabled = false
             }
 
             val color = if (binding.statusBar.btnStatus.isChecked)
@@ -64,6 +64,18 @@ class EmergencyListFragment : Fragment() {
             else
                 ContextCompat.getColor(requireContext(), R.color.redStatus)
             binding.statusBar.toolbar.setBackgroundColor(color)
+        }
+
+
+
+
+        binding.statusBar.btnStatus.setOnCheckedChangeListener { _, isChecked ->
+            val dao = UserDao()
+            dao.updateStatus(
+                FirebaseHelper.getAuth().uid!!, isChecked,
+                onSuccess = {
+
+                })
         }
 
         binding.toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->
@@ -79,16 +91,17 @@ class EmergencyListFragment : Fragment() {
             }
         }
 
-        binding.statusBar.btnStatus.setOnCheckedChangeListener { _, isChecked ->
-            val dao = UserDao()
-            dao.updateStatus(
-                FirebaseHelper.getAuth().uid!!, isChecked,
-                onSuccess = {
-
-                })
-        }
 
     }
+
+    private fun loadEmergenciesAwait() {
+        val emergencyViewModel = ViewModelProvider(this).get(EmergencyViewModel::class.java)
+        emergencyViewModel.emergencyList.observe(viewLifecycleOwner) { emergencies ->
+            val filteredEmergencies = emergencies.filter { it.status == "ACEITADO" }
+            listEmergenciesAdapter.submitList(filteredEmergencies)
+        }
+    }
+
 
     private fun setupListAdapter() {
         listEmergenciesAdapter = ListEmergencyAdapter(requireContext()) { emergency ->
@@ -108,18 +121,12 @@ class EmergencyListFragment : Fragment() {
 
 
 
+
+
     private fun loadEmergencies() {
         val emergencyViewModel = ViewModelProvider(this).get(EmergencyViewModel::class.java)
         emergencyViewModel.emergencyList.observe(viewLifecycleOwner) { emergencies ->
             listEmergenciesAdapter.submitList(emergencies)
-        }
-    }
-
-    private fun loadEmergenciesAwait() {
-        val emergencyViewModel = ViewModelProvider(this).get(EmergencyViewModel::class.java)
-        emergencyViewModel.emergencyList.observe(viewLifecycleOwner) { emergencies ->
-            val filteredEmergencies = emergencies.filter { it.status == "ACEITADO" }
-            listEmergenciesAdapter.submitList(filteredEmergencies)
         }
     }
 

@@ -64,15 +64,6 @@ class EmergencyDetailsFragment : Fragment(),OnClickListener{
         val locationArray = arguments?.getDoubleArray("location")
         val photos = arguments?.getStringArrayList("photos")
 
-//        if(locationArray != null ) {
-//            binding.tvLocation.text = Utils.calculateDistance(
-//                -22.903449,
-//                -47.063588,
-//                locationArray[0],
-//                locationArray[1],
-//
-//                ).toString()
-//        }
         binding.tvNome.text = name
         binding.tvPhone.text =  phone
         binding.tvDate.text = createdAt
@@ -86,7 +77,15 @@ class EmergencyDetailsFragment : Fragment(),OnClickListener{
 
 
     }
-
+//        if(locationArray != null ) {
+//            binding.tvLocation.text = Utils.calculateDistance(
+//                -22.903449,
+//                -47.063588,
+//                locationArray[0],
+//                locationArray[1],
+//
+//                ).toString()
+//        }
 
     override fun onDestroy() {
         super.onDestroy()
