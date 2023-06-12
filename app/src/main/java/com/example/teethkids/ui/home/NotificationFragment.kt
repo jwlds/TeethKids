@@ -56,11 +56,8 @@ class NotificationFragment : Fragment() {
         return notifications
     }
 
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
-
-
 }

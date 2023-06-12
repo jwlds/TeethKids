@@ -154,12 +154,14 @@
         android:backgroundTint="@color/blue"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="24dp"
         app:spinning_bar_width="4dp"
         app:spinning_bar_color="#FFF"
         app:spinning_bar_padding="6dp"
         app:layout_constraintTop_toBottomOf="@id/stateInputLayout"
         app:layout_constraintStart_toStartOf="@id/cityInputLayout"
-        app:layout_constraintEnd_toEndOf="@id/stateInputLayout"/>
+        app:layout_constraintEnd_toEndOf="@id/stateInputLayout"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 <!--    app:spinning_bar_width="4dp" &lt;!&ndash; Optional &ndash;&gt;-->
 <!--    app:spinning_bar_color="#FFF" &lt;!&ndash; Optional &ndash;&gt;-->
 <!--    app:spinning_bar_padding="6dp" &lt;!&ndash; Optional &ndash;&gt;-->
@@ -187,7 +189,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titleTextView"
-
+        app:layout_constraintBottom_toBottomOf="parent"
         tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

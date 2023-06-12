@@ -58,8 +58,8 @@ class ListNotificationsAdapter(
     override fun getItemCount(): Int = notifications.size
 
     override fun onBindViewHolder(holder: NotificationViewHolder, position: Int) {
-        val contact = notifications[position]
-        holder.bind(contact)
+        val notifications = notifications[position]
+        holder.bind(notifications)
     }
 
 }
