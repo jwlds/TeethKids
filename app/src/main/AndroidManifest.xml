@@ -23,24 +23,34 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TeethKids"
         tools:targetApi="tiramisu">
-        <service android:name=".service.FirebaseMessagingService"
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC84r-IA5PPwDiicNuIRS_kH2weH1zsu5o" />
+        <activity
+            android:name=".testMapa.MapaActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+
+        <service
+            android:name=".service.FirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
         <activity
-            android:screenOrientation="portrait"
             android:name=".ui.home.MainActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
-            android:screenOrientation="portrait"
             android:name=".ui.emergencies.EmergencyActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
-            android:screenOrientation="portrait"
             android:name=".ui.auth.AuthenticateActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

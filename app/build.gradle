@@ -3,6 +3,8 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services' // Plugin para integração com serviços do Google
     id 'kotlin-parcelize' // Plugin para suporte a Parcelable em classes Kotlin
+
+
 }
 
 android {
@@ -40,6 +42,10 @@ android {
 dependencies {
 
     def nav_version = "2.5.3"
+
+
+
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
 
     // Firebase Analytics  --> Link: https://firebase.google.com/docs/analytics
     implementation platform('com.google.firebase:firebase-bom:31.3.0')

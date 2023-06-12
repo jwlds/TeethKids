@@ -6,6 +6,7 @@ import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.PorterDuff
+import android.location.Geocoder
 import android.net.Uri
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +28,7 @@ import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.*
+import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import de.hdodenhof.circleimageview.CircleImageView
@@ -34,7 +36,10 @@ import java.io.ByteArrayOutputStream
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
-
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.sin
+import kotlin.math.sqrt
 object Utils {
 
     private lateinit var storageReference: StorageReference
@@ -65,20 +70,27 @@ object Utils {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
-    fun calculateDistance(lat1: Double, lon1: Double, lat2: Double, lon2: Double): String {
+    fun calculateDistance(geoPoint1: GeoPoint, geoPoint2: GeoPoint): String {
         val raio = 6371
+        val lat1 = geoPoint1.latitude
+        val lon1 = geoPoint1.longitude
+        val lat2 = geoPoint2.latitude
+        val lon2 = geoPoint2.longitude
+
         val dLat = Math.toRadians(lat2 - lat1)
         val dLon = Math.toRadians(lon2 - lon1)
         val lat1Radians = Math.toRadians(lat1)
         val lat2Radians = Math.toRadians(lat2)
+
         val a =
-            kotlin.math.sin(dLat / 2) * kotlin.math.sin(dLat / 2) + kotlin.math.sin(dLon / 2) * kotlin.math.sin(
-                dLon / 2
-            ) * kotlin.math.cos(lat1Radians) * kotlin.math.cos(lat2Radians)
-        val c = 2 * kotlin.math.atan2(kotlin.math.sqrt(a), kotlin.math.sqrt(1 - a))
+            sin(dLat / 2) * sin(dLat / 2) + sin(dLon / 2) * sin(dLon / 2) * cos(lat1Radians) * cos(lat2Radians)
+        val c = 2 * atan2(sqrt(a), sqrt(1 - a))
         val distance = raio * c
+
         return DecimalFormat("#.#").format(distance) + " km"
     }
+
+
 
 
     fun closeKeyboard(activity: Activity) {
@@ -92,6 +104,7 @@ object Utils {
         val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
         return dateFormat.format(calendar.time)
     }
+
 
     fun formatTimestamp(timestamp: Timestamp): String {
         val dateFormat = SimpleDateFormat("dd/MM/yy HH:mm", Locale.getDefault())

@@ -67,7 +67,7 @@ class FirebaseMessagingService : FirebaseMessagingService() {
                 status = data["status"],
                 //createdAt = data["date"].toTi,
                 photos = photosList,
-                location = locationList
+//                location = locationList
             )
             sendNotification(title, body,emergencyDate)
         }
@@ -83,8 +83,8 @@ class FirebaseMessagingService : FirebaseMessagingService() {
             putString("status", data.status)
          //   putString("dateTime", data.dateTime)
             putStringArrayList("photos", ArrayList<String>(data.photos))
-            val locationArray = data.location?.toDoubleArray()
-            putDoubleArray("location", locationArray)
+          //  val locationArray = data.location?.toDoubleArray()
+          //  putDoubleArray("location", locationArray)
         }
 
         val pendingIntent = NavDeepLinkBuilder(this)

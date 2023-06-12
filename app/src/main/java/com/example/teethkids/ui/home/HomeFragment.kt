@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.teethkids.dao.UserDao
 import com.example.teethkids.database.FirebaseHelper.Companion.getAuth
 import com.example.teethkids.databinding.FragmentHomeBinding
@@ -22,7 +23,13 @@ import com.example.teethkids.databinding.StatusBarBinding
 import com.example.teethkids.utils.Utils
 import com.example.teethkids.viewmodel.UserViewModel
 import com.example.teethkids.R
+import com.example.teethkids.testMapa.MapaActivity
 import com.example.teethkids.ui.adapter.recyclerviewadapter.ListAddressesAdapter
+import com.example.teethkids.ui.adapter.recyclerviewadapter.ListEmergencyAdapter
+import com.example.teethkids.ui.adapter.recyclerviewadapter.ListMyEmergenciesAdapter
+import com.example.teethkids.viewmodel.EmergencyResponseViewModel
+import com.example.teethkids.viewmodel.EmergencyViewModel
+import com.example.teethkids.viewmodel.MyEmergenciesViewModel
 import com.google.firebase.messaging.FirebaseMessaging
 
 class HomeFragment : Fragment(){
@@ -31,7 +38,7 @@ class HomeFragment : Fragment(){
     private val binding get() = _binding!!
 //    private lateinit var userViewModel: UserViewModel
 
-//    private lateinit var listMyEmergenciesAdapter: ListMyEmergencyAdapter
+    private lateinit var listMyEmergenciesAdapter: ListMyEmergenciesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,9 +50,11 @@ class HomeFragment : Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.btnNoti.setOnClickListener{
-            requestNotificationPermission(requireContext())
+            val intent = Intent(activity,MapaActivity::class.java)
+            startActivity(intent)
+            activity?.finish()
+         //   requestNotificationPermission(requireContext())
         }
 
         binding.btnTest.setOnClickListener{
@@ -57,7 +66,25 @@ class HomeFragment : Fragment(){
                 Utils.showToast(requireContext(),"Chamado nao  foi")
             })
         }
+        setupListAdapter()
+        loadEmergencies()
 
+    }
+
+    private fun setupListAdapter() {
+        listMyEmergenciesAdapter = ListMyEmergenciesAdapter(requireContext()) { emergency ->
+            val data = Bundle().apply {
+                putString("emergencyId", emergency.rescuerUid)
+                putString("name", emergency.name)
+                putString("status", emergency.status)
+                putString("phone", emergency.phoneNumber)
+                putString("createdAt", Utils.formatTimestamp(emergency.createdAt!!))
+                putStringArrayList("photos", ArrayList(emergency.photos))
+             //   val locationArray = emergency.location?.toDoubleArray()
+              //  putDoubleArray("location", locationArray)
+            }
+        }
+        binding.listMyEmergency.adapter = listMyEmergenciesAdapter
     }
 
 
@@ -94,6 +121,25 @@ class HomeFragment : Fragment(){
 //        binding.listMyEmergency.adapter = listMyEmergenciesAdapter
 //    }
 
+
+    private fun loadEmergencies() {
+        val emergencyViewModel = ViewModelProvider(this).get(EmergencyViewModel::class.java)
+        val myEmergencyViewModel =
+            ViewModelProvider(this).get(MyEmergenciesViewModel::class.java)
+
+        myEmergencyViewModel.myEmergenciesList.observe(viewLifecycleOwner) { responses ->
+            val myEmergencies = responses
+                .map { it.emergencyId.toString() }
+            Log.d("tes11",myEmergencies.toString())
+
+            emergencyViewModel.emergencyList.observe(viewLifecycleOwner) { emergencies ->
+                val filteredEmergencies =
+                    emergencies.filter { it.rescuerUid.toString() in myEmergencies }
+                Log.d("tes33",filteredEmergencies.toString())
+                listMyEmergenciesAdapter.submitList(filteredEmergencies)
+            }
+        }
+    }
     override fun onDestroy() {
         super.onDestroy()
         _binding = null

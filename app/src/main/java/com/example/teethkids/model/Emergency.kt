@@ -1,6 +1,7 @@
 package com.example.teethkids.model
 
 import com.google.firebase.Timestamp
+import com.google.firebase.firestore.GeoPoint
 
 data class Emergency
     (
@@ -9,6 +10,8 @@ data class Emergency
     val status: String? = null,
     val createdAt: Timestamp? = null,
     val photos: List<String>? = null,
-    val location: List<Double>? = null,
+    val location: GeoPoint? = null,
     val rescuerUid: String? = null
     )
+
+// val location: List<Double>? = null,

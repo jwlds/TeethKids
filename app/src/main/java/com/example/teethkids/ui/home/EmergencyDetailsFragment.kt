@@ -187,5 +187,13 @@ class EmergencyDetailsFragment : Fragment(), OnClickListener {
 
         }
     }
+
+//    fun updateStatusEmergencyResponse(status: String, id: String?, onSuccess: () -> Unit) {
+//        val responseRef = FirebaseHelper.getDatabase().collection("responses").document(id!!)
+//        responseRef.update("status", status)
+//            .addOnSuccessListener {
+//                onSuccess()
+//            }
+//    }
 }
 
