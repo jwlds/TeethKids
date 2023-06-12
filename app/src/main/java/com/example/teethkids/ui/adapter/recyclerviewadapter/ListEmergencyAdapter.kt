@@ -6,13 +6,11 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.teethkids.databinding.EmergencyItemBinding
 import com.example.teethkids.model.Emergency
-import com.example.teethkids.model.Option
 import com.example.teethkids.utils.Utils
 
 class ListEmergencyAdapter(

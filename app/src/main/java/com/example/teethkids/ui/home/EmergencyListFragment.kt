@@ -12,14 +12,10 @@ import androidx.navigation.fragment.findNavController
 import com.example.teethkids.R
 import com.example.teethkids.dao.UserDao
 import com.example.teethkids.database.FirebaseHelper
-import com.example.teethkids.databinding.FragmentEmergencyBinding
 import com.example.teethkids.databinding.FragmentEmergencyListBinding
-import com.example.teethkids.databinding.FragmentMyAddressesBinding
-import com.example.teethkids.databinding.FragmentPersonalInformationBinding
-import com.example.teethkids.ui.adapter.recyclerviewadapter.ListAddressesAdapter
 import com.example.teethkids.ui.adapter.recyclerviewadapter.ListEmergencyAdapter
 import com.example.teethkids.utils.Utils
-import com.example.teethkids.viewmodel.AddressViewModel
+import com.example.teethkids.viewmodel.EmergencyResponseViewModel
 import com.example.teethkids.viewmodel.EmergencyViewModel
 import com.example.teethkids.viewmodel.UserViewModel
 
@@ -85,7 +81,7 @@ class EmergencyListFragment : Fragment() {
                         loadEmergencies()
                     }
                     R.id.filterWaiting -> {
-                        loadEmergenciesAwait()
+                        loadEmergenciesByAccepted()
                     }
                 }
             }
@@ -94,42 +90,69 @@ class EmergencyListFragment : Fragment() {
 
     }
 
-    private fun loadEmergenciesAwait() {
+    private fun loadEmergenciesByAccepted() {
         val emergencyViewModel = ViewModelProvider(this).get(EmergencyViewModel::class.java)
-        emergencyViewModel.emergencyList.observe(viewLifecycleOwner) { emergencies ->
-            val filteredEmergencies = emergencies.filter { it.status == "ACEITADO" }
-            listEmergenciesAdapter.submitList(filteredEmergencies)
+        val emergencyResponseViewModel =
+            ViewModelProvider(this).get(EmergencyResponseViewModel::class.java)
+
+        emergencyResponseViewModel.emergencyResponseList.observe(viewLifecycleOwner) { responses ->
+            val acceptedResourceIds = responses
+                .filter { it.status == "waiting" }
+                .map { it.rescuerUid }
+
+            emergencyViewModel.emergencyList.observe(viewLifecycleOwner) { emergencies ->
+                val filteredEmergencies =
+                    emergencies.filter { it.rescuerUid in acceptedResourceIds }
+                listEmergenciesAdapter.submitList(filteredEmergencies)
+            }
         }
     }
-
 
     private fun setupListAdapter() {
         listEmergenciesAdapter = ListEmergencyAdapter(requireContext()) { emergency ->
             val data = Bundle().apply {
                 putString("emergencyId", emergency.rescuerUid)
                 putString("name", emergency.name)
+                putString("status", emergency.status)
                 putString("phone", emergency.phoneNumber)
                 putString("createdAt", Utils.formatTimestamp(emergency.createdAt!!))
                 putStringArrayList("photos", ArrayList(emergency.photos))
                 val locationArray = emergency.location?.toDoubleArray()
                 putDoubleArray("location", locationArray)
             }
-            findNavController().navigate(R.id.action_emergencyListFragment_to_emergencyDetailsFragment2,data)
-    }
+            findNavController().navigate(
+                R.id.action_emergencyListFragment_to_emergencyDetailsFragment2,
+                data
+            )
+        }
         binding.listEmergency.adapter = listEmergenciesAdapter
     }
 
-
-
+//    private fun stopObservingEmergencies() {
+//        val emergencyViewModel = ViewModelProvider(this).get(EmergencyViewModel::class.java)
+//        emergencyViewModel.emergencyList.removeObserver(emergencyListObserver!!)
+//        emergencyListObserver = null
+//    }
 
 
     private fun loadEmergencies() {
         val emergencyViewModel = ViewModelProvider(this).get(EmergencyViewModel::class.java)
-        emergencyViewModel.emergencyList.observe(viewLifecycleOwner) { emergencies ->
-            listEmergenciesAdapter.submitList(emergencies)
+        val emergencyResponseViewModel =
+            ViewModelProvider(this).get(EmergencyResponseViewModel::class.java)
+
+        emergencyResponseViewModel.emergencyResponseList.observe(viewLifecycleOwner) { responses ->
+            val acceptedResourceIds = responses
+                .filter { it.status == "rejected" || it.status == "waiting"}
+                .map { it.rescuerUid }
+
+            emergencyViewModel.emergencyList.observe(viewLifecycleOwner) { emergencies ->
+                val filteredEmergencies =
+                    emergencies.filter { it.rescuerUid !in acceptedResourceIds }
+                listEmergenciesAdapter.submitList(filteredEmergencies)
+            }
         }
     }
 
 
-
 }
+

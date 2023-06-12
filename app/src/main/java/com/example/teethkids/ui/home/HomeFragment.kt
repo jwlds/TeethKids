@@ -22,6 +22,7 @@ import com.example.teethkids.databinding.StatusBarBinding
 import com.example.teethkids.utils.Utils
 import com.example.teethkids.viewmodel.UserViewModel
 import com.example.teethkids.R
+import com.example.teethkids.ui.adapter.recyclerviewadapter.ListAddressesAdapter
 import com.google.firebase.messaging.FirebaseMessaging
 
 class HomeFragment : Fragment(){
@@ -29,6 +30,8 @@ class HomeFragment : Fragment(){
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 //    private lateinit var userViewModel: UserViewModel
+
+//    private lateinit var listMyEmergenciesAdapter: ListMyEmergencyAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,19 +43,6 @@ class HomeFragment : Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-//
-//        userViewModel.user.observe(viewLifecycleOwner) { user ->
-//            binding.statusBar.btnStatus.isChecked = user.status
-//
-//                val color = if (binding.statusBar.btnStatus.isChecked)
-//                    ContextCompat.getColor(requireContext(), R.color.greenStatus)
-//                else
-//                    ContextCompat.getColor(requireContext(), R.color.redStatus)
-//                binding.statusBar.toolbar.setBackgroundColor(color)
-//        }
-
-
 
         binding.btnNoti.setOnClickListener{
             requestNotificationPermission(requireContext())
@@ -67,15 +57,6 @@ class HomeFragment : Fragment(){
                 Utils.showToast(requireContext(),"Chamado nao  foi")
             })
         }
-
-
-//        binding.statusBar.btnStatus.setOnCheckedChangeListener { _, isChecked ->
-//            val dao = UserDao()
-//            dao.updateStatus(getAuth().uid!!, isChecked,
-//                onSuccess = {
-//
-//            })
-//        }
 
     }
 
@@ -108,7 +89,10 @@ class HomeFragment : Fragment(){
         }
     }
 
-
+//    private fun setupListAdapter() {
+//        listMyEmergenciesAdapter = listMyEmergenciesAdapter(requireContext())
+//        binding.listMyEmergency.adapter = listMyEmergenciesAdapter
+//    }
 
     override fun onDestroy() {
         super.onDestroy()

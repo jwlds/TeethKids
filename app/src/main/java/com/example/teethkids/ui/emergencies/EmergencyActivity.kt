@@ -20,7 +20,7 @@ import com.example.teethkids.ui.home.MainActivity
 import com.example.teethkids.utils.Utils.getCurrentDateTime
 import com.example.teethkids.utils.Utils.loadImageFromUrlIv
 
-class EmergencyActivity : AppCompatActivity(), View.OnClickListener {
+class EmergencyActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityEmergencyBinding
     private var mediaPlayer: MediaPlayer? = null
@@ -29,10 +29,6 @@ class EmergencyActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         binding = ActivityEmergencyBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
-
-
 
 
         val name = intent.getStringExtra("name")
@@ -44,9 +40,9 @@ class EmergencyActivity : AppCompatActivity(), View.OnClickListener {
         binding.tvPhone.text = phone
         binding.tvDate.text = status
         binding.tvStatus.text = dateTime
-
-        binding.btnCancel.setOnClickListener(this)
-        binding.btnAccept.setOnClickListener(this)
+//
+//        binding.btnCancel.setOnClickListener(this)
+//        binding.btnAccept.setOnClickListener(this)
 
 
 
@@ -58,54 +54,55 @@ class EmergencyActivity : AppCompatActivity(), View.OnClickListener {
     }
 
 
-    override fun onClick(v: View?) {
-        when(v!!.id) {
-            R.id.btnAccept -> {
-                binding.loading.isVisible = true
-                val id = intent.getStringExtra("id")
-                val responseEmergency = ResponseEmergency(
-                    professional =  getIdUser().toString(),
-                    emergencyId= id.toString(),
-                    status = "ACEITADO",
-                    dateTime = getCurrentDateTime()
-                )
-                val dao = EmergecyDao()
-                dao.createResponseEmergency(responseEmergency,
-                    onSuccess = {
-                        binding.loading.isVisible = false
-                        startMainActivity()
-                    },
-                    onFailure = { exception ->
-                        binding.loading.isVisible = false
-                        startMainActivity()
-                    }
-                )
-                startMainActivity()
-            }
-            R.id.btnCancel -> {
-                binding.loading.isVisible = true
-                val id = intent.getStringExtra("id")
-                val responseEmergency = ResponseEmergency(
-                    professional =  getIdUser().toString(),
-                    emergencyId= id.toString(),
-                    status = "REJEITADA",
-                    dateTime = getCurrentDateTime()
-                )
-                val dao = EmergecyDao()
-                dao.createResponseEmergency(responseEmergency,
-                    onSuccess = {
-                        binding.loading.isVisible = false
-                        startMainActivity()
-                    },
-                    onFailure = { exception ->
-                        binding.loading.isVisible = false
-                        startMainActivity()
-                    }
-                )
 
-            }
-        }
-    }
+//    override fun onClick(v: View?) {
+//        when(v!!.id) {
+//            R.id.btnAccept -> {
+//                binding.loading.isVisible = true
+//                val id = intent.getStringExtra("id")
+//                val responseEmergency = ResponseEmergency(
+//                    professional =  getIdUser().toString(),
+//                    emergencyId= id.toString(),
+//                    status = "ACEITADO",
+//                    dateTime = getCurrentDateTime()
+//                )
+//                val dao = EmergecyDao()
+//                dao.createResponseEmergency(responseEmergency,
+//                    onSuccess = {
+//                        binding.loading.isVisible = false
+//                        startMainActivity()
+//                    },
+//                    onFailure = { exception ->
+//                        binding.loading.isVisible = false
+//                        startMainActivity()
+//                    }
+//                )
+//                startMainActivity()
+//            }
+//            R.id.btnCancel -> {
+//                binding.loading.isVisible = true
+//                val id = intent.getStringExtra("id")
+//                val responseEmergency = ResponseEmergency(
+//                    professional =  getIdUser().toString(),
+//                    emergencyId= id.toString(),
+//                    status = "REJEITADA",
+//                    dateTime = getCurrentDateTime()
+//                )
+//                val dao = EmergecyDao()
+//                dao.createResponseEmergency(responseEmergency,
+//                    onSuccess = {
+//                        binding.loading.isVisible = false
+//                        startMainActivity()
+//                    },
+//                    onFailure = { exception ->
+//                        binding.loading.isVisible = false
+//                        startMainActivity()
+//                    }
+//                )
+//
+//            }
+//        }
+//    }
 
     private fun startMainActivity(){
         val intent = Intent(this, MainActivity::class.java)

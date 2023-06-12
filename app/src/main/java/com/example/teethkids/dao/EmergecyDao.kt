@@ -16,17 +16,16 @@ class EmergecyDao {
     ) {
         val db = getDatabase()
         val emergencyData = hashMapOf(
-            "professional" to responseEmergency.professional,
-            "emergencyId" to responseEmergency.emergencyId,
+            "professionalUid" to responseEmergency.professionalUid,
+            "rescuerUid" to responseEmergency.rescuerUid,
             "status" to responseEmergency.status,
-            "dateTime" to responseEmergency.dateTime
+            "acceptedAt" to responseEmergency.acceptedAt
         )
 
         db.collection("responses")
             .add(emergencyData)
             .addOnSuccessListener { documentReference ->
                 onSuccess()
-
             }
             .addOnFailureListener { exception ->
                 onFailure(exception)

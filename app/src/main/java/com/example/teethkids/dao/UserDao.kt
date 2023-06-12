@@ -62,7 +62,7 @@ class UserDao {
             "rescuerUid" to id,
             "name" to "José da Silva",
             "phoneNumber" to "(19) 99999 - 9999",
-            "status" to "Disponível",
+            "status" to "waiting",
             "createdAt" to currentTimestamp,
             "location" to listOf(-22.865334, -47.058264),
             "photos" to listOf("https://firebasestorage.googleapis.com/v0/b/teethkids-49f4b.appspot.com/o/EMERGENCIES%2FPHOTOS%2F1.jpg?alt=media&token=a15a465a-86d4-4e4d-942c-383e1dfb5edc",

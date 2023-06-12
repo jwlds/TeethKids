@@ -1,8 +1,10 @@
 package com.example.teethkids.model
 
+import com.google.firebase.Timestamp
+
 data class ResponseEmergency(
-    val professional: String,
-    val emergencyId: String,
-    val status: String,
-    val dateTime: String
+    var acceptedAt: Timestamp? = null,
+    var rescuerUid: String? = null,
+    var status: String? = null,
+    var professionalUid: String? =  null
 )
