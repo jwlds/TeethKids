@@ -207,6 +207,7 @@ class PhotoFragment : Fragment(),View.OnClickListener{
             return true
         }
         RegistrationDataHolder.registrationData.photo = bitmap
+        RegistrationDataHolder.registrationData.rating = 0.00
         return true
     }
 

@@ -3,9 +3,9 @@ package com.example.teethkids.utils
 import android.app.Activity
 import android.content.Context
 import android.content.res.ColorStateList
-import android.graphics.Bitmap
-import android.graphics.Color
-import android.graphics.PorterDuff
+import android.graphics.*
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.location.Geocoder
 import android.net.Uri
 import android.view.View
@@ -112,6 +112,28 @@ object Utils {
         return dateFormat.format(date)
     }
 
+
+    fun getInitials(name: String): String {
+        val words = name.split(" ")
+        val initials = StringBuilder()
+
+        for (word in words) {
+            initials.append(word[0])
+        }
+
+        return initials.toString()
+    }
+
+
+     fun calculateAverageRating(ratings: List<Float>): Double {
+        if (ratings.isEmpty()) {
+            return 0.0
+        }
+
+        val totalRating = ratings.sum()
+        ratings.average()
+        return totalRating.toDouble() / ratings.size
+    }
 
 
 

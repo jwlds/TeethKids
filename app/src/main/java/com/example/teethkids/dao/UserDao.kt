@@ -89,4 +89,12 @@ class UserDao {
             }
     }
 
+    fun updateRating(average: Double, onSuccess: () -> Unit) {
+        val userRef = collection.document(FirebaseHelper.getIdUser().toString())
+        userRef.update("rating", average)
+            .addOnSuccessListener {
+                onSuccess()
+            }
+    }
+
 }

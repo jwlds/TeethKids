@@ -1,11 +1,12 @@
-<androidx.appcompat.widget.Toolbar
-    android:id="@+id/toolbar"
+<androidx.appcompat.widget.Toolbar android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:background="@color/white"
     android:elevation="4dp"
     android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -19,6 +20,36 @@
             android:layout_height="40dp"
             android:src="@drawable/person_add"
             android:layout_centerVertical="true"/>
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/ratingIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/profile_image"
+            android:layout_marginStart="-161dp"
+            android:layout_marginEnd="301dp"
+            android:layout_marginBottom="-13dp"
+            android:layout_toStartOf="@+id/btnLogout"
+            android:layout_toEndOf="@+id/user_name"
+            android:max="50"
+            android:progress="45"
+            app:indicatorColor="@color/purple_700"
+            app:indicatorSize="28dp"
+            app:layout_goneMarginEnd="8dp"
+            app:trackColor="@color/purple_100" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/ratingTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/ratingIndicator"
+            android:layout_alignBottom="@+id/ratingIndicator"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="13dp"
+            android:includeFontPadding="false"
+            android:textColor="@color/purple_700"
+            android:textSize="10sp"
+            tools:text="4.2" />
 
         <TextView
             android:id="@+id/user_name"

@@ -25,7 +25,8 @@ data class RegistrationData(
     var fcmToken: String? = null,
     var addressId: String = "",
     var primary: Boolean? = false,
-    var professionalDescription: String? = null
+    var professionalDescription: String? = null,
+    var rating: Double? = null,
 
 ) : Parcelable {
     init {
