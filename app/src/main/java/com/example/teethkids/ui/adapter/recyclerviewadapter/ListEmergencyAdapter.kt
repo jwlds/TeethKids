@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.teethkids.dao.EmergencyDao
 import com.example.teethkids.databinding.EmergencyItemBinding
 import com.example.teethkids.model.Emergency
 import com.example.teethkids.utils.AddressPrimaryId
@@ -59,6 +60,7 @@ private val onEmergencyClicked: (Emergency) -> Unit
                 onEmergencyClicked(emergencies)
             }
             binding.btnCall.setOnClickListener{
+
                 val intent = Intent(Intent.ACTION_DIAL)
                 intent.data = Uri.parse("tel:${emergencies.phoneNumber}")
                 ContextCompat.startActivity(binding.root.context, intent, null)

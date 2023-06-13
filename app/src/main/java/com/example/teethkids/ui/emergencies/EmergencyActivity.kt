@@ -12,7 +12,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.example.teethkids.R
-import com.example.teethkids.dao.EmergecyDao
 import com.example.teethkids.database.FirebaseHelper.Companion.getIdUser
 import com.example.teethkids.databinding.ActivityEmergencyBinding
 import com.example.teethkids.model.ResponseEmergency

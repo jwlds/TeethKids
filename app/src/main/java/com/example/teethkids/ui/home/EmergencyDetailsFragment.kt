@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.teethkids.R
-import com.example.teethkids.dao.EmergecyDao
+import com.example.teethkids.dao.EmergencyDao
 import com.example.teethkids.dao.UserDao
 import com.example.teethkids.database.FirebaseHelper
 import com.example.teethkids.databinding.FragmentEmergencyDetailsBinding
@@ -124,7 +124,7 @@ class EmergencyDetailsFragment : Fragment(), OnClickListener {
                     status = "waiting",
                     acceptedAt = currentTimestamp
                 )
-                val dao = EmergecyDao()
+                val dao = EmergencyDao()
                 val daoUser = UserDao()
 //                daoUser.updateStatusEmergency(id.toString(), onSuccess = {
 //
@@ -152,7 +152,7 @@ class EmergencyDetailsFragment : Fragment(), OnClickListener {
                         status = "rejected",
                         acceptedAt = currentTimestamp
                     )
-                    val dao = EmergecyDao()
+                    val dao = EmergencyDao()
                     dao.createResponseEmergency(responseEmergency,
                         onSuccess = {
                             findNavController().navigate(R.id.action_emergencyDetailsFragment2_to_emergencyListFragment)
