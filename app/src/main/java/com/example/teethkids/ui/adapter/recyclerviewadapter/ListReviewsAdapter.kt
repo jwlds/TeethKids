@@ -38,7 +38,6 @@ class ListReviewsAdapter(
                 return oldItem == newItem
             }
         }
-
     }
 
     class ReviewViewHolder(private val binding: ReviewItemBinding) :
@@ -54,7 +53,7 @@ class ListReviewsAdapter(
             binding.reviewImage.setImageDrawable(generateProfilePhoto(Utils.getInitials(reviews.name!!)))
             binding.reviewName.text = reviews.name
             binding.reviewRating.rating = reviews.rating!!
-            binding.reviewDate.text = Utils.formatTimestamp(reviews.createdAt!!)
+            binding.reviewDate.text = Utils.formatTimestampReviews(reviews.createdAt!!)
             binding.reviewBody.text = reviews.review
             binding.btnSendRevision.setOnClickListener{
                 val confirmationDialog = ConfirmationReportReview(binding.root.context,reviews)
@@ -69,7 +68,8 @@ class ListReviewsAdapter(
             val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
             val canvas = Canvas(bitmap)
             val paint = Paint().apply {
-                color = Color.parseColor("#FFC107")
+                val random = Random()
+                color = Color.rgb(random.nextInt(255), random.nextInt(256), random.nextInt(256))
                 style = Paint.Style.FILL
             }
 
@@ -88,17 +88,12 @@ class ListReviewsAdapter(
 
             return BitmapDrawable(binding.root.resources, bitmap)
         }
-
     }
-
-
-
 
     override fun onBindViewHolder(holder: ReviewViewHolder, position: Int) {
         val reviews = getItem(position)
         holder.bind(reviews)
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListReviewsAdapter.ReviewViewHolder {
         val inflater = LayoutInflater.from(context)

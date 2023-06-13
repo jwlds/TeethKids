@@ -1,77 +1,75 @@
-<androidx.appcompat.widget.Toolbar android:id="@+id/toolbar"
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:background="@color/white"
     android:elevation="4dp"
-    android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingStart="0dp"
-        android:paddingEnd="16dp">
+        android:layout_height="match_parent">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_image"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
             android:src="@drawable/person_add"
-            android:layout_centerVertical="true"/>
-
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:id="@+id/ratingIndicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/profile_image"
-            android:layout_marginStart="-161dp"
-            android:layout_marginEnd="301dp"
-            android:layout_marginBottom="-13dp"
-            android:layout_toStartOf="@+id/btnLogout"
-            android:layout_toEndOf="@+id/user_name"
-            android:max="50"
-            android:progress="45"
-            app:indicatorColor="@color/purple_700"
-            app:indicatorSize="28dp"
-            app:layout_goneMarginEnd="8dp"
-            app:trackColor="@color/purple_100" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/ratingTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/ratingIndicator"
-            android:layout_alignBottom="@+id/ratingIndicator"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="13dp"
-            android:includeFontPadding="false"
-            android:textColor="@color/purple_700"
-            android:textSize="10sp"
-            tools:text="4.2" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
             android:text="Nome do Usuário"
             android:textColor="@color/grey"
             android:textSize="16sp"
-            android:layout_toEndOf="@+id/profile_image"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="16dp"/>
+            app:layout_constraintBottom_toBottomOf="@id/profile_image"
+            app:layout_constraintStart_toEndOf="@id/profile_image"
+            app:layout_constraintTop_toTopOf="@id/profile_image" />
 
-         <ImageButton
+        <TextView
+            android:id="@+id/ratingTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/grey"
+            app:layout_constraintStart_toEndOf="@id/user_name"
+            app:layout_constraintTop_toTopOf="@id/user_name"
+            app:layout_constraintBottom_toBottomOf="@id/user_name"
+            android:layout_marginLeft="16dp"
+            android:textSize="12sp"
+            tools:text="4.2" />
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            app:layout_constraintStart_toEndOf="@+id/ratingTextView"
+            app:layout_constraintTop_toTopOf="@id/ratingTextView"
+            app:layout_constraintBottom_toBottomOf="@id/ratingTextView"
+            android:src="@drawable/baseline_stars_24"
+            android:tint="#957108"
+            android:layout_marginLeft="6dp"
+            tools:ignore="UseAppTint" />
+
+        <ImageButton
             android:id="@+id/btnLogout"
             android:layout_width="24dp"
-             android:clickable="true"
-             android:background="@color/white"
             android:layout_height="24dp"
-            android:src="@drawable/baseline_logout_24"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"/>
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginRight="16dp"
+            android:clickable="true"
+            android:src="@drawable/baseline_logout_24" />
 
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.appcompat.widget.Toolbar>

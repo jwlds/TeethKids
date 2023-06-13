@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context=".ui.auth.RecoverAccountFragment">
 
         <ImageButton
-            android:clickable="true"
-            android:backgroundTint="@color/white"
             android:id="@+id/btnBack"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginTop="16dp"
             android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/white"
+            android:clickable="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/baseline_arrow_back_24" />
@@ -27,68 +27,84 @@
             android:id="@+id/labelTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
             android:layout_marginTop="140dp"
             android:text="Recupera senha"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/titleInfo"
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Um link para recuperação de senha será enviado ao seu email, por favor, verifique a sua caixa de entrada"
+            android:textAlignment="textStart"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/labelTitle" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputEmail"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="32dp"
-            app:startIconDrawable="@drawable/baseline_email_24"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:layout_constraintEnd_toEndOf="@+id/labelTitle"
             app:layout_constraintStart_toStartOf="@+id/labelTitle"
-            app:layout_constraintTop_toBottomOf="@+id/labelTitle">
+            app:layout_constraintTop_toBottomOf="@+id/titleInfo"
+            app:startIconDrawable="@drawable/baseline_email_24">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
                 android:hint="Digite seu email"
-                />
+                android:inputType="text" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <TextView
+            android:id="@+id/tvRecoverErrorMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="Email inválidos ou incompleto. Tente novamente!"
+            android:textColor="#FF5252"
+            app:layout_constraintBottom_toTopOf="@+id/btnRecover"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inputEmail" />
 
         <Button
             android:id="@+id/btnRecover"
             android:layout_width="0dp"
-            android:layout_marginTop="10dp"
             android:layout_height="wrap_content"
-            android:textAllCaps="false"
+            android:layout_marginTop="10dp"
             android:height="60dp"
             android:backgroundTint="@color/blue"
             android:text="Recuperar"
-            app:layout_constraintStart_toStartOf="@+id/inputEmail"
+            android:textAllCaps="false"
             app:layout_constraintEnd_toEndOf="@+id/inputEmail"
-            app:layout_constraintTop_toBottomOf="@+id/inputEmail"
-
-            />
+            app:layout_constraintStart_toStartOf="@+id/inputEmail"
+            app:layout_constraintTop_toBottomOf="@+id/tvRecoverErrorMessage" />
 
         <ProgressBar
             android:id="@+id/loading"
-            android:indeterminateTint="@color/blue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="280dp"
-            android:visibility="invisible"
-            tools:visibility="visible"
             android:foregroundGravity="center_horizontal"
+            android:indeterminateTint="@color/blue"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-
-            />
-
-
-
+            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

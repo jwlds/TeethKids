@@ -1,6 +1,7 @@
 package com.example.teethkids.ui.auth
 
 import android.os.Bundle
+import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,9 @@ import com.example.teethkids.R
 import com.example.teethkids.dao.AuthenticationDAO
 import com.example.teethkids.databinding.FragmentRecoverAccountBinding
 import com.example.teethkids.utils.Utils
+import com.example.teethkids.utils.Utils.hideKeyboard
+import com.example.teethkids.utils.Utils.setErrorState
+import com.example.teethkids.utils.Utils.setUnderlinedText
 
 
 class RecoverAccountFragment : Fragment(), View.OnClickListener{
@@ -28,27 +32,30 @@ class RecoverAccountFragment : Fragment(), View.OnClickListener{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.tvRecoverErrorMessage.isVisible = false
+        binding.tvRecoverErrorMessage.setUnderlinedText(binding.tvRecoverErrorMessage.text.toString())
+
         binding.btnRecover.setOnClickListener(this)
         binding.btnBack.setOnClickListener(this)
     }
     override fun onClick(v: View?) {
         when(v!!.id) {
             R.id.btnRecover -> {
-                try {
+                hideKeyboard()
+                if (isValid()){
                     binding.loading.isVisible = true
                     val auth = AuthenticationDAO()
                     auth.recoverAccount(binding.edtEmail.text.toString().trim(),
                         onSuccess = {
                             binding.loading.isVisible = false
-                            Utils.showSnackbar(requireView(),"Um link para recuperar a sua senha foi enviado para o seu email, por favor, verifique a sua caixa de entrada")
                         },
                         onFailure = { exception ->
                             binding.loading.isVisible = false
                             Utils.showSnackbar(requireView(),exception)
                         }
                     )
-                } catch (arg: IllegalArgumentException) {
-                    Utils.showToast(requireContext(),"Digite o email !")
+                } else {
+                    binding.tvRecoverErrorMessage.isVisible = true
                 }
             }
             R.id.btnBack -> {
@@ -57,10 +64,20 @@ class RecoverAccountFragment : Fragment(), View.OnClickListener{
         }
     }
 
+    private fun isValid(): Boolean {
+        val email = binding.edtEmail.text.toString().trim()
+
+        if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            binding.edtEmail.requestFocus()
+            binding.inputEmail.setErrorState()
+            return false
+        }
+
+        return true
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
 }

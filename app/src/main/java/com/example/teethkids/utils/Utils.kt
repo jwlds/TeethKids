@@ -4,25 +4,24 @@ import android.app.Activity
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.*
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
-import android.location.Geocoder
 import android.net.Uri
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.UnderlineSpan
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.teethkids.databinding.AddressItemBinding
-import com.example.teethkids.databinding.StatusBarBinding
 import com.example.teethkids.model.Address
 import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.FirebaseTooManyRequestsException
@@ -65,7 +64,6 @@ object Utils {
          }
     }
 
-
     fun showToast(context: Context, message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
@@ -90,9 +88,6 @@ object Utils {
         return DecimalFormat("#.#").format(distance) + " km"
     }
 
-
-
-
     fun closeKeyboard(activity: Activity) {
         val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         val view = activity.currentFocus ?: View(activity)
@@ -105,13 +100,17 @@ object Utils {
         return dateFormat.format(calendar.time)
     }
 
-
     fun formatTimestamp(timestamp: Timestamp): String {
         val dateFormat = SimpleDateFormat("dd/MM/yy HH:mm", Locale.getDefault())
         val date = timestamp.toDate()
         return dateFormat.format(date)
     }
 
+    fun formatTimestampReviews(timestamp: Timestamp): String {
+        val dateFormat = SimpleDateFormat("dd/MM/yy", Locale.getDefault())
+        val date = timestamp.toDate()
+        return dateFormat.format(date)
+    }
 
     fun getInitials(name: String): String {
         val words = name.split(" ")
@@ -124,7 +123,6 @@ object Utils {
         return initials.toString()
     }
 
-
      fun calculateAverageRating(ratings: List<Float>): Double {
         if (ratings.isEmpty()) {
             return 0.0
@@ -135,8 +133,6 @@ object Utils {
         return totalRating.toDouble() / ratings.size
     }
 
-
-
     fun showSnackbar(view: View, message: String) {
         Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show()
     }
@@ -145,12 +141,42 @@ object Utils {
         return "${address.street}, ${address.number}, ${address.neighborhood}, ${address.zipeCode}, ${address.city}, ${address.state}"
     }
 
+    fun formatRating(rating: Double?): String {
+        val decimalFormat = DecimalFormat("#.#")
+        decimalFormat.maximumFractionDigits = 1
+        return decimalFormat.format(rating)
+    }
+
+    fun Button.setUnderlinedText(text: String) {
+        val underlineSpan = UnderlineSpan()
+        val spannableString = SpannableString(text)
+        spannableString.setSpan(underlineSpan, 0, text.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        this.text = spannableString
+    }
+
+    fun TextView.setUnderlinedText(text: String){
+        val underlineSpan = UnderlineSpan()
+        val spannableString = SpannableString(text)
+        spannableString.setSpan(underlineSpan, 0, text.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        this.text = spannableString
+    }
+
+    fun TextInputLayout.setErrorState() {
+        val errorColor = Color.parseColor("#FF5252")
+        val errorColorStateList = ColorStateList.valueOf(errorColor)
+        val errorColorFilter = PorterDuffColorFilter(errorColor, PorterDuff.Mode.SRC_IN)
+
+        defaultHintTextColor = errorColorStateList
+        boxStrokeColor = errorColor
+        startIconDrawable?.colorFilter = errorColorFilter
+        endIconDrawable?.colorFilter = errorColorFilter
+    }
+
     fun loadImageFromUrl(url: String, view: CircleImageView) {
         Glide.with(view.context)
             .load(url)
             .into(view)
     }
-
 
     fun loadImageFromUrlIv(url: String, view: ImageView) {
         Glide.with(view.context)
@@ -198,7 +224,6 @@ object Utils {
         }
     }
 
-
     fun getFirebaseErrorMessage(exception: Exception): String {
         return when (exception) {
             is FirebaseNetworkException -> "Falha na conexão com a internet"
@@ -215,7 +240,4 @@ object Utils {
             else -> "Ocorreu um erro desconhecido. Tente novamente mais tarde."
         }
     }
-
-
-
 }

@@ -34,6 +34,8 @@
             app:layout_constraintTop_toTopOf="@id/reviewImage" />
 
         <RatingBar
+            android:progressTint="#34A853"
+            android:secondaryProgressTint="#34A853"
             android:id="@+id/reviewRating"
             style="@style/Widget.AppCompat.RatingBar.Small"
             android:layout_width="wrap_content"
@@ -80,6 +82,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:text="Solicitar Revisão"
             app:layout_constraintTop_toTopOf="@id/reviewLabel" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginRight="8dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnSendRevision" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

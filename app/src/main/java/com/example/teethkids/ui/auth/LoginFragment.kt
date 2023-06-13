@@ -23,9 +23,10 @@ import com.example.teethkids.service.FirebaseMessagingService
 import com.example.teethkids.ui.home.MainActivity
 import com.example.teethkids.utils.Utils
 import com.example.teethkids.utils.Utils.hideKeyboard
+import com.example.teethkids.utils.Utils.setErrorState
+import com.example.teethkids.utils.Utils.setUnderlinedText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.messaging.FirebaseMessaging
-
 
 class LoginFragment : Fragment(), View.OnClickListener {
     private var _binding: FragmentLoginBinding? = null
@@ -42,22 +43,9 @@ class LoginFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val mUnderlineSpan = UnderlineSpan()
-
-        val recoverText = binding.btnRecover.text.toString()
-        val mBSpannableStringRecover = SpannableString(recoverText)
-        mBSpannableStringRecover.setSpan(mUnderlineSpan, 0, recoverText.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        binding.btnRecover.text = mBSpannableStringRecover
-
-        val registerText = binding.btnRegister.text.toString()
-        val mBSpannableStringRegister = SpannableString(registerText)
-        mBSpannableStringRegister.setSpan(mUnderlineSpan, 0, registerText.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        binding.btnRegister.text = mBSpannableStringRegister
-
-        val errorMessage = binding.tvErrorMessage.text.toString()
-        val mBSpannableStringErrorMessage = SpannableString(errorMessage)
-        mBSpannableStringErrorMessage.setSpan(mUnderlineSpan, 0, errorMessage.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        binding.tvErrorMessage.text = mBSpannableStringErrorMessage
+        binding.btnRecover.setUnderlinedText(binding.btnRecover.text.toString())
+        binding.btnRegister.setUnderlinedText(binding.btnRegister.text.toString())
+        binding.tvErrorMessage.setUnderlinedText(binding.tvErrorMessage.text.toString())
 
         binding.btnLogin.setOnClickListener(this)
         binding.btnRegister.setOnClickListener(this)
@@ -84,14 +72,11 @@ class LoginFragment : Fragment(), View.OnClickListener {
                         },
                         onFailure = { exception ->
                             binding.loading.isVisible = false
-                            binding.tvErrorMessage.visibility = View.VISIBLE
-                            setFieldErrorState(binding.inputEmail)
-                            setFieldErrorState(binding.inputPassword)
                             Utils.showSnackbar(requireView(), exception)
                         }
                     )
                 } else {
-                    Utils.showToast(requireContext(), "Preencha todos os dados!")
+                    binding.tvErrorMessage.isVisible = true
                 }
             }
             R.id.btnRegister -> {
@@ -109,25 +94,15 @@ class LoginFragment : Fragment(), View.OnClickListener {
 
         if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             binding.edtEmail.requestFocus()
-            setFieldErrorState(binding.inputEmail)
+            binding.inputEmail.setErrorState()
             return false
         }
         if (password.isEmpty() || password.length < 6) {
             binding.edtPassword.requestFocus()
-            setFieldErrorState(binding.inputPassword)
+            binding.inputPassword.setErrorState()
             return false
         }
         return true
-    }
-
-    private fun setFieldErrorState(field: TextInputLayout) {
-        val errorColor = Color.parseColor("#FF5252")
-        val errorColorStateList = ColorStateList.valueOf(errorColor)
-        val errorColorFilter = PorterDuffColorFilter(errorColor, PorterDuff.Mode.SRC_IN)
-
-        field.defaultHintTextColor = errorColorStateList
-        field.boxStrokeColor = errorColor
-        field.startIconDrawable?.colorFilter = errorColorFilter
     }
 
     override fun onDestroyView() {

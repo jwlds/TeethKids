@@ -13,6 +13,7 @@ import com.example.teethkids.dao.AuthenticationDAO
 import com.example.teethkids.databinding.FragmentProfileMainBinding
 import com.example.teethkids.ui.adapter.recyclerviewadapter.OptionsAdapter
 import com.example.teethkids.ui.auth.AuthenticateActivity
+import com.example.teethkids.utils.Utils
 import com.example.teethkids.utils.Utils.loadImageFromUrl
 import com.example.teethkids.viewmodel.UserViewModel
 
@@ -39,6 +40,8 @@ class ProfileMainFragment : Fragment(),View.OnClickListener{
         userViewModel.user.observe(viewLifecycleOwner) { user ->
             binding.toolbar.userName.text = user.name
             loadImageFromUrl(user.urlImg,binding.toolbar.profileImage)
+
+            binding.toolbar.ratingTextView.text = Utils.formatRating(user.rating)
         }
 
         binding.toolbar.btnLogout.setOnClickListener(this)
