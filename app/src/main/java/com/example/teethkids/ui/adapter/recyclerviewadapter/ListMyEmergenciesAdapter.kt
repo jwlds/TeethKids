@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.teethkids.databinding.EmergencyItemBinding
+import com.example.teethkids.databinding.MyEmergencyItemBinding
 import com.example.teethkids.model.Emergency
 import com.example.teethkids.utils.AddressPrimaryId
 import com.example.teethkids.utils.Utils
@@ -37,20 +38,22 @@ class ListMyEmergenciesAdapter(
         }
     }
 
-    class MyEmergencyViewHolder(val binding: EmergencyItemBinding):
+    class MyEmergencyViewHolder(val binding: MyEmergencyItemBinding):
         RecyclerView.ViewHolder(binding.root) {
         fun bind(emergencies: Emergency, onEmergencyClicked: (Emergency) -> Unit) {
             if(emergencies.location != null && AddressPrimaryId.addressGeoPoint != null){
-                binding.locationTextView.text = Utils.calculateDistance(
+                binding.myEmergencyDistance.text = Utils.calculateDistance(
                     emergencies.location,
                     AddressPrimaryId.addressGeoPoint!!
                 )
             }
-            binding.phoneTextView.isVisible = true
-            binding.nameTextView.text = emergencies.name
-            binding.phoneTextView.text = emergencies.phoneNumber
-            binding.tvStatus.text = emergencies.status
-            binding.dateTimeTextView.text = Utils.formatTimestamp(emergencies.createdAt!!)
+            if(emergencies.status == "waiting") binding.btnDetails.isEnabled = false
+            else binding.btnDetails.isEnabled = true
+            binding.myEmergencyPhone.isVisible = true
+            binding.myEmergencyName.text = emergencies.name
+            binding.myEmergencyPhone.text = emergencies.phoneNumber
+            binding.myEmergencyStatus.text = emergencies.status
+            binding.myEmergencyDate.text = Utils.formatTimestamp(emergencies.createdAt!!)
             binding.btnDetails.setOnClickListener {
                 onEmergencyClicked(emergencies)
             }
@@ -78,7 +81,7 @@ class ListMyEmergenciesAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyEmergencyViewHolder {
         val inflater = LayoutInflater.from(context)
-        val binding = EmergencyItemBinding.inflate(inflater, parent, false)
+        val binding = MyEmergencyItemBinding.inflate(inflater, parent, false)
 
         return MyEmergencyViewHolder(binding)
     }
