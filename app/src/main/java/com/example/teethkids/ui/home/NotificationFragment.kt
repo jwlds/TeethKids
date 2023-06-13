@@ -44,14 +44,17 @@ class NotificationFragment : Fragment() {
         val yesterday = LocalDate.now().minusDays(1)
         val anotherDay = LocalDate.now().minusDays(2)
 
-        notifications.add(Notification("Você recebeu um chamado de uma ocorrência", currentDate))
+        notifications.add(Notification("Você recebeu o chamado de uma ocorrência.", currentDate))
         notifications.add(
             Notification(
-                "Confirme o código enviado na sua caixa de entrada para validar a verificação em duas etapas.",
+                "O chamado foi canelado pelo socorrista.",
                 yesterday
             )
         )
-        notifications.add(Notification("Você aceitou a ocorrência XYX da Maria", anotherDay))
+        notifications.add(Notification("O socorrista aceitou sua confirmação.", anotherDay))
+        notifications.add(Notification("O socorrista compartilhou com você sua localização.", anotherDay))
+        notifications.add(Notification("Você recebeu uma avaliação.", anotherDay))
+        notifications.add(Notification("Sua avaliação foi para revisão.", anotherDay))
 
         return notifications
     }
