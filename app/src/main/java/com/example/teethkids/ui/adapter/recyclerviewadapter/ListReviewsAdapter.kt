@@ -50,6 +50,8 @@ class ListReviewsAdapter(
                 binding.btnSendRevision.isEnabled = true
             }
 
+            binding.reviewDate.text = Utils.formatTimestampReviews(reviews.createdAt!!)
+
             binding.reviewImage.setImageDrawable(generateProfilePhoto(Utils.getInitials(reviews.name!!)))
             binding.reviewName.text = reviews.name
             binding.reviewRating.rating = reviews.rating!!
