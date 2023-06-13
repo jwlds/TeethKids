@@ -39,6 +39,8 @@ class HomeFragment : Fragment(){
 
     private lateinit var listMyEmergenciesAdapter: ListMyEmergenciesAdapter
 
+    private lateinit var userViewModel: UserViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,6 +51,14 @@ class HomeFragment : Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+
+        userViewModel.user.observe(viewLifecycleOwner) { user ->
+            Utils.loadImageFromUrl(user.urlImg, binding.toolbar.profileImage)
+            binding.toolbar.userName.text = user.name
+            binding.toolbar.ratingTextView.text = Utils.formatRating(user.rating)
+        }
 
         val addressViewModel = ViewModelProvider(this).get(AddressViewModel::class.java)
         addressViewModel.addressList.observe(viewLifecycleOwner) { addresses ->
