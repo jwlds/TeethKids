@@ -21,15 +21,14 @@ import com.example.teethkids.database.FirebaseHelper.Companion.getAuth
 import com.example.teethkids.databinding.FragmentHomeBinding
 import com.example.teethkids.databinding.StatusBarBinding
 import com.example.teethkids.utils.Utils
-import com.example.teethkids.viewmodel.UserViewModel
 import com.example.teethkids.R
 import com.example.teethkids.testMapa.MapaActivity
 import com.example.teethkids.ui.adapter.recyclerviewadapter.ListAddressesAdapter
 import com.example.teethkids.ui.adapter.recyclerviewadapter.ListEmergencyAdapter
 import com.example.teethkids.ui.adapter.recyclerviewadapter.ListMyEmergenciesAdapter
-import com.example.teethkids.viewmodel.EmergencyResponseViewModel
-import com.example.teethkids.viewmodel.EmergencyViewModel
-import com.example.teethkids.viewmodel.MyEmergenciesViewModel
+import com.example.teethkids.utils.AddressPrimaryId
+import com.example.teethkids.viewmodel.*
+import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.messaging.FirebaseMessaging
 
 class HomeFragment : Fragment(){
@@ -50,6 +49,21 @@ class HomeFragment : Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val addressViewModel = ViewModelProvider(this).get(AddressViewModel::class.java)
+        addressViewModel.addressList.observe(viewLifecycleOwner) { addresses ->
+            val primaryAddress = addresses.find { it.primary }
+            val primaryAddressId = primaryAddress?.addressId
+            if(primaryAddress != null) {
+                val lat = primaryAddress.lat
+                val lng= primaryAddress.lng
+                val geoPoint = GeoPoint(lat!!,lng!!)
+                Log.d("444",geoPoint.toString())
+                AddressPrimaryId.addressPrimaryId = primaryAddressId
+                AddressPrimaryId.addressGeoPoint = geoPoint
+            }
+
+        }
         binding.btnNoti.setOnClickListener{
             val intent = Intent(activity,MapaActivity::class.java)
             startActivity(intent)
@@ -86,6 +100,8 @@ class HomeFragment : Fragment(){
         }
         binding.listMyEmergency.adapter = listMyEmergenciesAdapter
     }
+
+
 
 
 

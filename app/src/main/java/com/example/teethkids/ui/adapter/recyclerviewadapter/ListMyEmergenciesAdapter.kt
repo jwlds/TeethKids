@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.teethkids.databinding.EmergencyItemBinding
 import com.example.teethkids.model.Emergency
+import com.example.teethkids.utils.AddressPrimaryId
 import com.example.teethkids.utils.Utils
 import com.google.firebase.firestore.GeoPoint
 
@@ -39,9 +40,12 @@ class ListMyEmergenciesAdapter(
     class MyEmergencyViewHolder(val binding: EmergencyItemBinding):
         RecyclerView.ViewHolder(binding.root) {
         fun bind(emergencies: Emergency, onEmergencyClicked: (Emergency) -> Unit) {
-            binding.locationTextView.text = Utils.calculateDistance(emergencies.location!!,
-                GeoPoint(-22.894087077716055,-47.16547405095942)
-            )
+            if(emergencies.location != null && AddressPrimaryId.addressGeoPoint != null){
+                binding.locationTextView.text = Utils.calculateDistance(
+                    emergencies.location,
+                    AddressPrimaryId.addressGeoPoint!!
+                )
+            }
             binding.phoneTextView.isVisible = true
             binding.nameTextView.text = emergencies.name
             binding.phoneTextView.text = emergencies.phoneNumber

@@ -19,18 +19,23 @@ import androidx.navigation.fragment.findNavController
 import com.example.teethkids.R
 import com.example.teethkids.dao.AuthenticationDAO
 import com.example.teethkids.databinding.FragmentLoginBinding
+import com.example.teethkids.service.ConnectivityManager
 import com.example.teethkids.service.FirebaseMessagingService
 import com.example.teethkids.ui.home.MainActivity
 import com.example.teethkids.utils.Utils
 import com.example.teethkids.utils.Utils.hideKeyboard
 import com.example.teethkids.utils.Utils.setErrorState
 import com.example.teethkids.utils.Utils.setUnderlinedText
+import com.example.teethkids.utils.Utils.showSnackBarError
+import com.example.teethkids.utils.Utils.showSnackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.messaging.FirebaseMessaging
 
 class LoginFragment : Fragment(), View.OnClickListener {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var connectivityManager: ConnectivityManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,6 +48,7 @@ class LoginFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        connectivityManager = ConnectivityManager(requireContext())
         binding.btnRecover.setUnderlinedText(binding.btnRecover.text.toString())
         binding.btnRegister.setUnderlinedText(binding.btnRegister.text.toString())
         binding.tvErrorMessage.setUnderlinedText(binding.tvErrorMessage.text.toString())
@@ -80,10 +86,13 @@ class LoginFragment : Fragment(), View.OnClickListener {
                 }
             }
             R.id.btnRegister -> {
-                findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+                if(connectivityManager.checkInternet())    findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+                else showSnackBarError(requireView(),"Sem conexão de internet")
+
             }
             R.id.btnRecover -> {
-                findNavController().navigate(R.id.action_loginFragment_to_recoverAccountFragment)
+                if(connectivityManager.checkInternet())  findNavController().navigate(R.id.action_loginFragment_to_recoverAccountFragment)
+                else showSnackBarError(requireView(),"Sem conexão de internet")
             }
         }
     }

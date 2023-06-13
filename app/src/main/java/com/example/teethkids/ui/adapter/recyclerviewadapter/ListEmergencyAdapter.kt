@@ -3,6 +3,7 @@ package com.example.teethkids.ui.adapter.recyclerviewadapter
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -13,6 +14,7 @@ import com.example.teethkids.databinding.EmergencyItemBinding
 import com.example.teethkids.model.Emergency
 import com.example.teethkids.utils.AddressPrimaryId
 import com.example.teethkids.utils.Utils
+import com.google.firebase.firestore.GeoPoint
 
 class ListEmergencyAdapter(
 private val context: Context,
@@ -38,10 +40,16 @@ private val onEmergencyClicked: (Emergency) -> Unit
     class EmergencyViewHolder(val binding: EmergencyItemBinding):
         RecyclerView.ViewHolder(binding.root) {
         fun bind(emergencies: Emergency,onEmergencyClicked: (Emergency) -> Unit) {
-            val locationEmergency = emergencies.location
-//            if(locationEmergency != null ){
-//                binding.locationTextView.text = Utils.calculateDistance(AddressPrimaryId.addressGeoPoint!!,emergencies.location)
-//            }
+
+            if(emergencies.location != null && AddressPrimaryId.addressGeoPoint != null){
+                binding.locationTextView.text = Utils.calculateDistance(
+                    emergencies.location,
+                    AddressPrimaryId.addressGeoPoint!!
+                )
+            }
+
+
+
 
             binding.nameTextView.text = emergencies.name
             binding.phoneTextView.text = emergencies.phoneNumber

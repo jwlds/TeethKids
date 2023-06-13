@@ -49,6 +49,7 @@ class ReviewFragment : Fragment() {
 
         userViewModel.user.observe(viewLifecycleOwner) { user ->
             binding.ratingBar.rating = user.rating!!.toFloat()
+            binding.tvRating.text = Utils.formatRating(user.rating)
         }
         setupListAdapter()
         loadReviews()

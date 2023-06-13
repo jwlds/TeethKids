@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import com.example.teethkids.dao.AddressDao
 import com.example.teethkids.database.FirebaseHelper.Companion.getIdUser
@@ -35,20 +36,25 @@ class OptionAddressDialog(
 
         binding.titleTextView.text = "${address.street}, ${address.number}"
         binding.btnDelete.setOnClickListener{
-            binding.loading.isVisible = true
-            val dao = AddressDao()
-            dao.deleteAddress(getIdUser().toString(), address.addressId,
-                onSuccess = {
-                    binding.loading.isVisible = false
-                    dismiss()
-                },
-                onFailure = { errorMessage ->
-                    binding.loading.isVisible = false
-                    Log.d("Erro22",errorMessage.toString())
-                    Utils.showToast(requireContext(),errorMessage.toString())
-                    //dismiss()
-                }
-            )
+            if(address.primary) {
+                Utils.showToast(requireContext(),"Você precisa ter pelo menos um endereço cadastrado.")
+            }
+            else {
+                binding.loading.isVisible = true
+                val dao = AddressDao()
+                dao.deleteAddress(getIdUser().toString(), address.addressId,
+                    onSuccess = {
+                        binding.loading.isVisible = false
+                        dismiss()
+                    },
+                    onFailure = { errorMessage ->
+                        binding.loading.isVisible = false
+                        Log.d("Erro22",errorMessage.toString())
+                        Utils.showToast(requireContext(),errorMessage.toString())
+                        //dismiss()
+                    }
+                )
+            }
         }
         binding.btnUpdate.setOnClickListener{
             showDialogUpdate()

@@ -68,15 +68,14 @@ class MyAddressesFragment : Fragment(), View.OnClickListener {
             binding.fab.isEnabled = addresses.size != 3
             val primaryAddress = addresses.find { it.primary }
             val primaryAddressId = primaryAddress?.addressId
-            val lat = primaryAddress?.lat
-            val lng= primaryAddress?.lng
-
-            AddressPrimaryId.addressPrimaryId = primaryAddressId
-          if(primaryAddress != null) {
-               AddressPrimaryId.addressGeoPoint = GeoPoint(lat!!,lng!!)
-           }
-
-
+            if(primaryAddress != null) {
+                val lat = primaryAddress.lat
+                val lng= primaryAddress.lng
+                val geoPoint = GeoPoint(lat!!,lng!!)
+                Log.d("444",geoPoint.toString())
+                AddressPrimaryId.addressPrimaryId = primaryAddressId
+                AddressPrimaryId.addressGeoPoint = geoPoint
+            }
 
         }
     }

@@ -12,7 +12,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.teethkids.R
 import com.example.teethkids.database.FirebaseHelper.Companion.isAuth
 import com.example.teethkids.databinding.FragmentSplashBinding
+import com.example.teethkids.service.ConnectivityManager
 import com.example.teethkids.ui.home.MainActivity
+import com.example.teethkids.utils.Utils
 
 
 // Tela de splash do app.
@@ -20,6 +22,8 @@ class SplashFragment : Fragment() {
 
     private var _binding: FragmentSplashBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var connectivityManager: ConnectivityManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,21 +36,28 @@ class SplashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        connectivityManager = ConnectivityManager(requireContext())
+
         // Aguarda 3 segundos e chama o método checkAuth()
         Handler(Looper.getMainLooper()).postDelayed(this::checkAuth,3000)
     }
 
 
     // Verifica se o usuário está autenticado
-    private fun checkAuth(){
-        if(isAuth()) {
-            val intent = Intent(activity, MainActivity::class.java)
-            startActivity(intent)
-            activity?.finish()
+    private fun checkAuth() {
+        val connectivityManager = ConnectivityManager(requireContext())
+        if (connectivityManager.checkInternet()) {
+            if (isAuth()) {
+                val intent = Intent(activity, MainActivity::class.java)
+                startActivity(intent)
+                activity?.finish()
+            } else {
+                findNavController().navigate(R.id.action_splashFragment_to_authenticate)
+            }
         } else {
             findNavController().navigate(R.id.action_splashFragment_to_authenticate)
+           Utils.showSnackBarError(requireView(), "Sem conexão de internet")
         }
-
     }
 
     override fun onDestroyView() {

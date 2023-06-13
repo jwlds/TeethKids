@@ -11,6 +11,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.teethkids.R
 import com.example.teethkids.dao.AuthenticationDAO
 import com.example.teethkids.databinding.FragmentRegisterBinding
+import com.example.teethkids.service.ConnectivityManager
 import com.example.teethkids.ui.adapter.viewPagerAdapter.StageRegisterAdapter
 import com.example.teethkids.utils.RegistrationDataHolder
 import com.example.teethkids.utils.Utils
@@ -23,6 +24,8 @@ class RegisterFragment : Fragment(),View.OnClickListener{
 
     private lateinit var viewPager: ViewPager2
     private lateinit var adapter: StageRegisterAdapter
+
+    private lateinit var connectivityManager: ConnectivityManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

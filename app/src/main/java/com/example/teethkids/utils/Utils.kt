@@ -12,13 +12,11 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.UnderlineSpan
 import android.util.Log
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -105,6 +103,15 @@ object Utils {
         val distance = raio * c
 
         return DecimalFormat("#.#").format(distance) + " km"
+    }
+
+    fun showSnackBarError(view: View, message: String) {
+        val snackBar = Snackbar.make(view, message, Snackbar.LENGTH_LONG)
+        val snackBarView = snackBar.view
+        snackBarView.setBackgroundColor(ContextCompat.getColor(view.context, android.R.color.holo_red_dark))
+        val textView = snackBarView.findViewById(com.google.android.material.R.id.snackbar_text) as TextView
+        textView.setTextColor(Color.WHITE)
+        snackBar.show()
     }
 
 

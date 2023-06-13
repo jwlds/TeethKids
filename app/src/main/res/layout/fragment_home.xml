@@ -36,7 +36,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="UnknownIdInLayout"
-        tools:listitem="@layout/emergency_item" />
+        tools:listitem="@layout/my_emergency_item" />
 
 
 
