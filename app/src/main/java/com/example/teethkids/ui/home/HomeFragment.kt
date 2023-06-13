@@ -74,10 +74,16 @@ class HomeFragment : Fragment(){
             }
 
         }
+
+        binding.btnReviewFake.setOnClickListener{
+            val dao = UserDao()
+            dao.fakeReview(onSuccess = {}, onFailure = {})
+        }
         binding.btnNoti.setOnClickListener{
-            val intent = Intent(activity,MapaActivity::class.java)
-            startActivity(intent)
-            activity?.finish()
+            requestNotificationPermission(requireContext())
+//            val intent = Intent(activity,MapaActivity::class.java)
+//            startActivity(intent)
+//            activity?.finish()
          //   requestNotificationPermission(requireContext())
         }
 

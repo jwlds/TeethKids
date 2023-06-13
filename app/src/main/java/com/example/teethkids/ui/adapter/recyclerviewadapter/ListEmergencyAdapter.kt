@@ -44,7 +44,7 @@ private val onEmergencyClicked: (Emergency) -> Unit
 
             if(emergencies.location != null && AddressPrimaryId.addressGeoPoint != null){
                 binding.locationTextView.text = Utils.calculateDistance(
-                    emergencies.location,
+                    GeoPoint(emergencies.location[0],emergencies.location[1]),
                     AddressPrimaryId.addressGeoPoint!!
                 )
             }

@@ -10,7 +10,7 @@ data class Emergency
     val status: String? = null,
     val createdAt: Timestamp? = null,
     val photos: List<String>? = null,
-    val location: GeoPoint? = null,
+    val location: List<Double>? = null,
     val rescuerUid: String? = null,
     var timer: Int = 60,
     )
