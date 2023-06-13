@@ -27,7 +27,6 @@ import com.example.teethkids.viewmodel.AddressViewModel
 import com.example.teethkids.viewmodel.ReviewsViewModel
 import com.example.teethkids.viewmodel.UserViewModel
 import com.google.firebase.Timestamp
-import java.text.DecimalFormat
 
 class ReviewFragment : Fragment() {
 
@@ -50,8 +49,6 @@ class ReviewFragment : Fragment() {
 
         userViewModel.user.observe(viewLifecycleOwner) { user ->
             binding.ratingBar.rating = user.rating!!.toFloat()
-
-            binding.tvRating.text = Utils.formatRating(user.rating)
         }
         setupListAdapter()
         loadReviews()
@@ -61,19 +58,15 @@ class ReviewFragment : Fragment() {
             findNavController().navigate(R.id.action_reviewFragment_to_profileMainFragment)
         }
 
+
         val mUnderlineSpan = UnderlineSpan()
 
         val descriptionText = binding.pageDiscription.text.toString()
         val mBSpannableStringDescription = SpannableString(descriptionText)
-        mBSpannableStringDescription.setSpan(
-            mUnderlineSpan,
-            57,
-            82,
-            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
+        mBSpannableStringDescription.setSpan(mUnderlineSpan,57, 82, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
-        val infoIcon: Drawable? =
-            ContextCompat.getDrawable(requireContext(), R.drawable.outline_info_24)
+
+        val infoIcon: Drawable? = ContextCompat.getDrawable(requireContext(), R.drawable.outline_info_24)
         if (infoIcon != null) {
             val iconWidth = 34
             val iconHeight = 34
@@ -81,12 +74,7 @@ class ReviewFragment : Fragment() {
             infoIcon.setBounds(0, 0, iconWidth, iconHeight)
 
             val imageSpan = ImageSpan(infoIcon, ImageSpan.ALIGN_BOTTOM)
-            mBSpannableStringDescription.setSpan(
-                imageSpan,
-                mBSpannableStringDescription.length - 1,
-                mBSpannableStringDescription.length,
-                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
+            mBSpannableStringDescription.setSpan(imageSpan, mBSpannableStringDescription.length - 1, mBSpannableStringDescription.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
 
         binding.pageDiscription.text = mBSpannableStringDescription
@@ -102,11 +90,11 @@ class ReviewFragment : Fragment() {
         reviewsViewModel.reviewsList.observe(viewLifecycleOwner) { reviews ->
             listReviewsAdapter.submitList(reviews)
             val totalRating = reviews.map { it.rating }
-            val average = Utils.calculateAverageRating(totalRating as List<Float>)
+            val average =  Utils.calculateAverageRating(totalRating as List<Float>)
             val dao = UserDao()
             dao.updateRating(average, onSuccess = {})
 
-            binding.tvTotalRating.text = "Você tem ${reviews.size} avaliações "
+            binding.tvTotalRating.text = "Voce tem ${reviews.size} avaliações "
         }
     }
 

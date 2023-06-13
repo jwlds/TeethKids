@@ -2,8 +2,8 @@ package com.example.teethkids.model
 
 import android.os.Parcelable
 import com.example.teethkids.database.FirebaseHelper
+import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.firestore.GeoPoint
-import com.google.type.LatLng
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 
@@ -19,8 +19,11 @@ data class Address(
   var city: String? = null,
   var number: String? = null,
   var primary: Boolean =  false,
+  var lat: Double? = null,
+  var lng: Double? = null,
 ) : Parcelable {
   init {
     this.addressId = FirebaseHelper.getDatabase().collection("address").document().id
   }
+
 }

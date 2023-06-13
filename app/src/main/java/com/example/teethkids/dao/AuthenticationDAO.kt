@@ -7,6 +7,7 @@ import com.example.teethkids.model.RegistrationData
 import com.example.teethkids.utils.Utils
 import com.example.teethkids.utils.Utils.getFirebaseErrorMessage
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.messaging.FirebaseMessaging
 
 class AuthenticationDAO {
@@ -68,7 +69,9 @@ class AuthenticationDAO {
                            "neighborhood" to data.neighborhood,
                            "city" to data.city,
                            "state" to data.state,
-                           "primary" to data.primary
+                           "primary" to data.primary,
+                           "lat" to data.lat,
+                           "lng" to data.lng
                        )
                        val createUser = getFunctions().getHttpsCallable("createUserDoc")
                        val data = hashMapOf(

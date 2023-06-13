@@ -75,6 +75,7 @@ class AddressFragment : Fragment(){
                         requireContext(),
                         R.drawable.baseline_done_24
                     )
+
                     binding.edtStreet.setText(address.logradouro)
                     binding.edtNeighbBorhood.setText(address.bairro)
                     binding.edtCity.setText(address.localidade)
@@ -127,6 +128,16 @@ class AddressFragment : Fragment(){
             binding.edtState.error = "Estado não pode ser vazio"
             return false
         }
+        val geoPointer = Utils.geocodeAddress(
+            Utils.getFullAddress(
+                street = binding.edtStreet.text.toString().trim(),
+                number = binding.edtNumber.text.toString().trim(),
+                neighborhood = binding.edtNeighbBorhood.text.toString().trim(),
+                city = binding.edtCity.text.toString().trim(),
+                state = binding.edtState.text.toString().trim(),
+                zipCode = binding.edtZipe.unMasked
+            ),
+        )
 
         RegistrationDataHolder.registrationData.zipcode = zipe
         RegistrationDataHolder.registrationData.street  = street
@@ -135,6 +146,8 @@ class AddressFragment : Fragment(){
         RegistrationDataHolder.registrationData.city = city
         RegistrationDataHolder.registrationData.state = state
         RegistrationDataHolder.registrationData.primary = true
+        RegistrationDataHolder.registrationData.lat = geoPointer!!.first
+        RegistrationDataHolder.registrationData.lng = geoPointer.second
         return true
     }
 

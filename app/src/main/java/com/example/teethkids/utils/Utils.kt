@@ -4,10 +4,14 @@ import android.app.Activity
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.*
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import android.location.Geocoder
 import android.net.Uri
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.UnderlineSpan
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
@@ -15,11 +19,20 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.teethkids.databinding.AddressItemBinding
+import com.example.teethkids.databinding.StatusBarBinding
 import com.example.teethkids.model.Address
+import com.google.android.gms.maps.model.RuntimeRemoteException
 import com.google.android.gms.tasks.Task
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.api.net.FetchPlaceRequest
+import com.google.android.libraries.places.api.net.FetchPlaceResponse
+import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.FirebaseException
@@ -30,6 +43,9 @@ import com.google.firebase.auth.*
 import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.google.maps.GeoApiContext
+import com.google.maps.GeocodingApi
+import com.google.maps.model.GeocodingResult
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.ByteArrayOutputStream
 import java.text.DecimalFormat
@@ -43,26 +59,29 @@ object Utils {
 
     private lateinit var storageReference: StorageReference
 
-     fun setPrimaryAddressStyle(isPrimary: Boolean,binding: AddressItemBinding) {
-         if (isPrimary) {
-             binding.root.strokeColor = Color.argb(100, 234, 2, 46)
-             binding.root.strokeWidth = 3
+    private lateinit var placesClient: PlacesClient
 
-             val layoutParams = binding.root.layoutParams as ViewGroup.MarginLayoutParams
-             layoutParams.bottomMargin = 8
-             binding.root.layoutParams = layoutParams
+    fun setPrimaryAddressStyle(isPrimary: Boolean,binding: AddressItemBinding) {
+        if (isPrimary) {
+            binding.root.strokeColor = Color.argb(100, 234, 2, 46)
+            binding.root.strokeWidth = 3
 
-             binding.btnOption.imageTintList = ColorStateList.valueOf(Color.rgb(234, 2, 46))
-             binding.btnOption.imageTintMode = PorterDuff.Mode.SRC_IN
-         } else {
-             binding.root.strokeColor = Color.TRANSPARENT
-             binding.root.strokeWidth = 0
+            val layoutParams = binding.root.layoutParams as ViewGroup.MarginLayoutParams
+            layoutParams.bottomMargin = 8
+            binding.root.layoutParams = layoutParams
 
-             val layoutParams = binding.root.layoutParams as ViewGroup.MarginLayoutParams
-             layoutParams.bottomMargin = 0
-             binding.root.layoutParams = layoutParams
-         }
+            binding.btnOption.imageTintList = ColorStateList.valueOf(Color.rgb(234, 2, 46))
+            binding.btnOption.imageTintMode = PorterDuff.Mode.SRC_IN
+        } else {
+            binding.root.strokeColor = Color.TRANSPARENT
+            binding.root.strokeWidth = 0
+
+            val layoutParams = binding.root.layoutParams as ViewGroup.MarginLayoutParams
+            layoutParams.bottomMargin = 0
+            binding.root.layoutParams = layoutParams
+        }
     }
+
 
     fun showToast(context: Context, message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
@@ -88,6 +107,9 @@ object Utils {
         return DecimalFormat("#.#").format(distance) + " km"
     }
 
+
+
+
     fun closeKeyboard(activity: Activity) {
         val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         val view = activity.currentFocus ?: View(activity)
@@ -100,17 +122,13 @@ object Utils {
         return dateFormat.format(calendar.time)
     }
 
+
     fun formatTimestamp(timestamp: Timestamp): String {
         val dateFormat = SimpleDateFormat("dd/MM/yy HH:mm", Locale.getDefault())
         val date = timestamp.toDate()
         return dateFormat.format(date)
     }
 
-    fun formatTimestampReviews(timestamp: Timestamp): String {
-        val dateFormat = SimpleDateFormat("dd/MM/yy", Locale.getDefault())
-        val date = timestamp.toDate()
-        return dateFormat.format(date)
-    }
 
     fun getInitials(name: String): String {
         val words = name.split(" ")
@@ -123,7 +141,8 @@ object Utils {
         return initials.toString()
     }
 
-     fun calculateAverageRating(ratings: List<Float>): Double {
+
+    fun calculateAverageRating(ratings: List<Float>): Double {
         if (ratings.isEmpty()) {
             return 0.0
         }
@@ -132,13 +151,33 @@ object Utils {
         ratings.average()
         return totalRating.toDouble() / ratings.size
     }
+    fun geocodeAddress(address: String): Pair<Double, Double>? {
+        val apiKey = "AIzaSyC84r-IA5PPwDiicNuIRS_kH2weH1zsu5o" // Substitua pelo seu próprio API Key do Google Maps
+        val geoApiContext = GeoApiContext.Builder()
+            .apiKey(apiKey)
+            .build()
 
-    fun showSnackbar(view: View, message: String) {
-        Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show()
+        val geocodingResult: GeocodingResult?
+        try {
+            geocodingResult = GeocodingApi.geocode(geoApiContext, address).await().firstOrNull()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return null
+        }
+
+        return if (geocodingResult != null) {
+            val latitude = geocodingResult.geometry.location.lat
+            val longitude = geocodingResult.geometry.location.lng
+            Pair(latitude, longitude)
+        } else {
+            null
+        }
     }
 
-    fun formatAddress(address: Address): String {
-        return "${address.street}, ${address.number}, ${address.neighborhood}, ${address.zipeCode}, ${address.city}, ${address.state}"
+    fun formatTimestampReviews(timestamp: Timestamp): String {
+        val dateFormat = SimpleDateFormat("dd/MM/yy", Locale.getDefault())
+        val date = timestamp.toDate()
+        return dateFormat.format(date)
     }
 
     fun formatRating(rating: Double?): String {
@@ -172,11 +211,26 @@ object Utils {
         endIconDrawable?.colorFilter = errorColorFilter
     }
 
+    fun getFullAddress(street: String?, number: String?, neighborhood: String?, city: String?, state: String?, zipCode: String?): String {
+        return "$street, $number, $neighborhood, $city, $state, $zipCode"
+    }
+
+
+
+    fun showSnackbar(view: View, message: String) {
+        Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show()
+    }
+
+    fun formatAddress(address: Address): String {
+        return "${address.street}, ${address.number}, ${address.neighborhood}, ${address.zipeCode}, ${address.city}, ${address.state}"
+    }
+
     fun loadImageFromUrl(url: String, view: CircleImageView) {
         Glide.with(view.context)
             .load(url)
             .into(view)
     }
+
 
     fun loadImageFromUrlIv(url: String, view: ImageView) {
         Glide.with(view.context)
@@ -224,6 +278,7 @@ object Utils {
         }
     }
 
+
     fun getFirebaseErrorMessage(exception: Exception): String {
         return when (exception) {
             is FirebaseNetworkException -> "Falha na conexão com a internet"
@@ -240,4 +295,7 @@ object Utils {
             else -> "Ocorreu um erro desconhecido. Tente novamente mais tarde."
         }
     }
+
+
+
 }

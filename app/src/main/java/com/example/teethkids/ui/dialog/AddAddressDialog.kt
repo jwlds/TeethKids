@@ -1,8 +1,5 @@
 package com.example.teethkids.ui.dialog
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -14,20 +11,27 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.example.teethkids.R
 import com.example.teethkids.dao.AddressDao
+import com.example.teethkids.database.FirebaseHelper
 import com.example.teethkids.database.FirebaseHelper.Companion.getIdUser
 import com.example.teethkids.databinding.DialogContentAddAddressBinding
 import com.example.teethkids.model.Address
+import com.example.teethkids.model.Coordinates
 import com.example.teethkids.repository.ViaCepRepository
 import com.example.teethkids.utils.Utils
+import com.example.teethkids.utils.Utils.geocodeAddress
+import com.example.teethkids.utils.Utils.getFullAddress
 import com.example.teethkids.utils.Utils.hideKeyboard
+import com.google.android.gms.maps.model.LatLng
+
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.firebase.firestore.GeoPoint
+import io.grpc.Status.Code
 
 
 class AddAddressDialog() : BottomSheetDialogFragment() {
 
     private var _binding: DialogContentAddAddressBinding? = null
     private val binding get() = _binding!!
-
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -65,6 +69,17 @@ class AddAddressDialog() : BottomSheetDialogFragment() {
             if(isValid()){
                 binding.btnAdd.startAnimation();
                 val dao = AddressDao()
+                val geoPointer = geocodeAddress(
+                    getFullAddress(street = binding.edtStreet.text.toString().trim(),
+                        number = binding.edtNumber.text.toString().trim(),
+                        neighborhood = binding.edtNeighbBorhood.text.toString().trim(),
+                        city = binding.edtCity.text.toString().trim(),
+                        state = binding.edtState.text.toString().trim(),
+                        zipCode = binding.edtZipe.unMasked
+                    ),
+                )
+
+               Log.d("111",geoPointer.toString())
                 val address = Address(
                     userId = getIdUser().toString(),
                     street = binding.edtStreet.text.toString().trim(),
@@ -73,7 +88,9 @@ class AddAddressDialog() : BottomSheetDialogFragment() {
                     state = binding.edtState.text.toString().trim(),
                     city = binding.edtCity.text.toString().trim(),
                     number = binding.edtNumber.text.toString().trim(),
-                    primary = false
+                    primary = false,
+                    lat = geoPointer!!.first,
+                    lng = geoPointer.second
                 )
                 dao.addAddress(address,
                     onSuccess = {
@@ -95,6 +112,7 @@ class AddAddressDialog() : BottomSheetDialogFragment() {
         _binding = DialogContentAddAddressBinding.inflate(LayoutInflater.from(requireContext()))
         return binding.root
     }
+
 
     private fun isValidCep(zipeCode: String): Boolean {
         if (zipeCode.length < 8) return false

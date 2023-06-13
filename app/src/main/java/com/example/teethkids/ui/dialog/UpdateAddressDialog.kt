@@ -72,6 +72,16 @@ class UpdateAddressDialog(private var _address: Address) : BottomSheetDialogFrag
             if(isValid()){
                 binding.btnAdd.startAnimation()
                 val dao = AddressDao()
+                val geoPointer = Utils.geocodeAddress(
+                    Utils.getFullAddress(
+                        street = binding.edtStreet.text.toString().trim(),
+                        number = binding.edtNumber.text.toString().trim(),
+                        neighborhood = binding.edtNeighbBorhood.text.toString().trim(),
+                        city = binding.edtCity.text.toString().trim(),
+                        state = binding.edtState.text.toString().trim(),
+                        zipCode = binding.edtZipe.unMasked
+                    ),
+                )
                 val address = Address(
                     userId = FirebaseHelper.getIdUser().toString(),
                     street = binding.edtStreet.text.toString().trim(),
@@ -80,7 +90,9 @@ class UpdateAddressDialog(private var _address: Address) : BottomSheetDialogFrag
                     state = binding.edtState.text.toString().trim(),
                     city = binding.edtCity.text.toString().trim(),
                     number = binding.edtNumber.text.toString().trim(),
-                    primary = _address.primary
+                    primary = _address.primary,
+                    lat = geoPointer!!.first,
+                    lng = geoPointer.second
                 )
                 dao.updateAddress(address,_address.addressId,
                     onSuccess = {

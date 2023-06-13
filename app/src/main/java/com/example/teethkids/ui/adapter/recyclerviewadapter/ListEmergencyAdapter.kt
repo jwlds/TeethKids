@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.teethkids.databinding.EmergencyItemBinding
 import com.example.teethkids.model.Emergency
+import com.example.teethkids.utils.AddressPrimaryId
 import com.example.teethkids.utils.Utils
 
 class ListEmergencyAdapter(
@@ -38,14 +39,10 @@ private val onEmergencyClicked: (Emergency) -> Unit
         RecyclerView.ViewHolder(binding.root) {
         fun bind(emergencies: Emergency,onEmergencyClicked: (Emergency) -> Unit) {
             val locationEmergency = emergencies.location
-//            if(locationEmergency != null){
-//                binding.locationTextView.text = Utils.calculateDistance(
-//                    -22.903449,
-//                    -47.063588,
-//                    locationEmergency[0],
-//                    locationEmergency[1]
-//                    ).toString()
+//            if(locationEmergency != null ){
+//                binding.locationTextView.text = Utils.calculateDistance(AddressPrimaryId.addressGeoPoint!!,emergencies.location)
 //            }
+
             binding.nameTextView.text = emergencies.name
             binding.phoneTextView.text = emergencies.phoneNumber
             binding.tvStatus.text = emergencies.status

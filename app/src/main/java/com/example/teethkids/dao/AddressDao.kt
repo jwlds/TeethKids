@@ -1,6 +1,7 @@
 package com.example.teethkids.dao
 import android.util.Log
 import com.example.teethkids.database.FirebaseHelper
+import com.example.teethkids.database.FirebaseHelper.Companion.getDatabase
 import com.example.teethkids.database.FirebaseHelper.Companion.getIdUser
 import com.example.teethkids.model.Address
 
@@ -18,7 +19,9 @@ class AddressDao {
             "state" to address.state,
             "city" to address.city,
             "number" to address.number,
-            "primary" to address.primary
+            "primary" to address.primary,
+            "lat" to address.lat,
+            "lng" to address.lng
         )
         val data = hashMapOf(
             "authUid" to getIdUser().toString(),
@@ -96,6 +99,7 @@ class AddressDao {
                 onFailure(exception)
             }
     }
+
 
 
 }

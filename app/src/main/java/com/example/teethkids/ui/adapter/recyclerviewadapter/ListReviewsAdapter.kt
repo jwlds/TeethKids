@@ -53,7 +53,7 @@ class ListReviewsAdapter(
             binding.reviewImage.setImageDrawable(generateProfilePhoto(Utils.getInitials(reviews.name!!)))
             binding.reviewName.text = reviews.name
             binding.reviewRating.rating = reviews.rating!!
-            binding.reviewDate.text = Utils.formatTimestampReviews(reviews.createdAt!!)
+        //    binding.reviewDate.text = Utils.formatTimestampReviews(reviews.createdAt!!)
             binding.reviewBody.text = reviews.review
             binding.btnSendRevision.setOnClickListener{
                 val confirmationDialog = ConfirmationReportReview(binding.root.context,reviews)

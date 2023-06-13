@@ -27,6 +27,8 @@ data class RegistrationData(
     var primary: Boolean? = false,
     var professionalDescription: String? = null,
     var rating: Double? = null,
+    var lat: Double? = null,
+    var lng: Double? = null,
 
 ) : Parcelable {
     init {
