@@ -5,12 +5,10 @@
     android:layout_height="match_parent"
     android:fillViewport="true">
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context=".ui.home.EmergencyListFragment">
-
 
         <include
             android:id="@+id/status_bar"
@@ -78,8 +76,6 @@
             tools:ignore="UnknownIdInLayout"
             tools:listitem="@layout/emergency_item" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </ScrollView>

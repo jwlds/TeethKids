@@ -101,10 +101,6 @@ class HomeFragment : Fragment(){
         binding.listMyEmergency.adapter = listMyEmergenciesAdapter
     }
 
-
-
-
-
     private fun requestNotificationPermission(context: Context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // Cria um canal de notificação para o Android 8.0 ou superior
@@ -161,6 +157,5 @@ class HomeFragment : Fragment(){
         _binding = null
 
     }
-
 
 }

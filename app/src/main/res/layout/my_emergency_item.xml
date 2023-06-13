@@ -1,200 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardMyEmergency"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:clipChildren="false"
-    android:clipToPadding="false"
-    android:paddingHorizontal="8dp"
-    android:paddingVertical="4dp">
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="4dp"
+    android:backgroundTint="@android:color/darker_gray">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardView"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="@dimen/corner_radius"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="@android:color/darker_gray"
-        app:strokeWidth="1dp">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/myEmergencyImageView"
+            android:layout_width="100dp"
+            android:layout_height="143dp"
+            android:layout_margin="8dp"
+            android:background="@color/purple_100"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/backgrounds/scenic[2]" />
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/productImageView"
-                android:layout_width="80dp"
-                android:layout_height="110dp"
-                android:layout_margin="16dp"
-                android:background="@color/purple_100"
-                android:scaleType="centerCrop"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerRound"
-                tools:src="@tools:sample/backgrounds/scenic[2]" />
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/myEmergencyImageViewLoadingProgressBar"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:indeterminateOnly="false"
+            app:layout_constraintBottom_toBottomOf="@id/myEmergencyImageView"
+            app:layout_constraintEnd_toEndOf="@id/myEmergencyImageView"
+            app:layout_constraintStart_toStartOf="@id/myEmergencyImageView"
+            app:layout_constraintTop_toTopOf="@id/myEmergencyImageView" />
 
-            <!--            <androidx.core.widget.ContentLoadingProgressBar-->
-            <!--                android:id="@+id/productImageViewLoadingProgressBar"-->
-            <!--                style="?android:attr/progressBarStyleSmall"-->
-            <!--                android:layout_width="34dp"-->
-            <!--                android:layout_height="34dp"-->
-            <!--                android:indeterminateOnly="false"-->
-            <!--                app:layout_constraintBottom_toBottomOf="@id/productImageView"-->
-            <!--                app:layout_constraintEnd_toEndOf="@id/productImageView"-->
-            <!--                app:layout_constraintStart_toStartOf="@id/productImageView"-->
-            <!--                app:layout_constraintTop_toTopOf="@id/productImageView" />-->
+        <TextView
+            android:id="@+id/myEmergencyName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="Nome"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/myEmergencyImageView"
+            app:layout_constraintTop_toTopOf="@id/myEmergencyImageView" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnCall"
-                style="@style/Widget.Material3.Button.Icon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_margin="6dp"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                app:icon="@drawable/baseline_phone_24"
-                app:iconGravity="textEnd"
-                app:iconSize="12dp"
-                app:layout_constraintEnd_toEndOf="@id/productImageView"
-                app:layout_constraintTop_toTopOf="@id/productImageView" />
+        <View
+            android:id="@+id/view"
+            android:layout_width="1dp"
+            android:layout_height="14dp"
+            android:layout_marginLeft="8dp"
+            android:background="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/myEmergencyName"
+            app:layout_constraintEnd_toStartOf="@+id/myEmergencyPhone"
+            app:layout_constraintStart_toEndOf="@+id/myEmergencyName"
+            app:layout_constraintTop_toTopOf="@+id/myEmergencyName" />
 
-            <LinearLayout
-                android:layout_width="260dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/btnDetails"
-                app:layout_constraintStart_toEndOf="@+id/productImageView"
-                app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:id="@+id/myEmergencyPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text="Telefone"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="@id/view"
+            app:layout_constraintStart_toEndOf="@+id/view"
+            app:layout_constraintTop_toTopOf="@id/view" />
 
-                <LinearLayout
-                    android:id="@+id/linearLayout5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp">
+        <ImageView
+            android:id="@+id/dateIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/outline_calendar_month_24"
+            app:layout_constraintStart_toStartOf="@+id/myEmergencyName"
+            app:layout_constraintTop_toBottomOf="@+id/myEmergencyName" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/nameTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dp"
-                        android:ellipsize="end"
-                        android:maxLines="2"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        tools:text="Nome do cliente" />
-                </LinearLayout>
+        <TextView
+            android:id="@+id/myEmergencyDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text="data de envio"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/dateIcon"
+            app:layout_constraintStart_toEndOf="@+id/dateIcon"
+            app:layout_constraintTop_toTopOf="@+id/dateIcon" />
 
-                <LinearLayout
-                    android:id="@+id/linearLayout3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/mapIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/outline_location_on_24"
+            app:layout_constraintStart_toStartOf="@+id/dateIcon"
+            app:layout_constraintTop_toBottomOf="@+id/dateIcon" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/phoneTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dp"
-                        android:ellipsize="end"
-                        android:maxLines="2"
-                        android:visibility="invisible"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        tools:text="(19) 9999 - 9999" />
+        <TextView
+            android:id="@+id/myEmergencyDistance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text="distancia"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/mapIcon"
+            app:layout_constraintStart_toEndOf="@+id/mapIcon"
+            app:layout_constraintTop_toTopOf="@+id/mapIcon" />
 
-                </LinearLayout>
+        <ImageView
+            android:id="@+id/clockIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/baseline_access_time_24"
+            app:layout_constraintStart_toStartOf="@+id/mapIcon"
+            app:layout_constraintTop_toBottomOf="@+id/mapIcon" />
 
-                <LinearLayout
-                    android:id="@+id/linearLayout2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:orientation="horizontal">
+        <TextView
+            android:id="@+id/myEmergencyTimeRemaing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text="tempo restante"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/clockIcon"
+            app:layout_constraintStart_toEndOf="@+id/clockIcon"
+            app:layout_constraintTop_toTopOf="@+id/clockIcon" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/baseline_access_time_24" />
+        <ImageView
+            android:id="@+id/statusIcon"
+            android:layout_width="24dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/status_pill"
+            app:layout_constraintEnd_toEndOf="@+id/clockIcon"
+            app:layout_constraintStart_toStartOf="@+id/clockIcon"
+            app:layout_constraintTop_toBottomOf="@+id/clockIcon" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/dateTimeTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dp"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:textColor="@android:color/darker_gray"
-                        android:textSize="16sp"
-                        android:textStyle="normal"
-                        tools:text="18:55" />
+        <TextView
+            android:id="@+id/myEmergencyStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text="status"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/statusIcon"
+            app:layout_constraintStart_toEndOf="@+id/statusIcon"
+            app:layout_constraintTop_toTopOf="@+id/statusIcon" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:src="@drawable/outline_location_on_24" />
+        <ImageView
+            android:id="@+id/btnDetails"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="8dp"
+            android:src="@drawable/baseline_menu_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/locationTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCall"
+            style="@style/Widget.Material3.Button.Icon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_margin="6dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            app:icon="@drawable/baseline_phone_24"
+            app:iconGravity="textEnd"
+            app:iconSize="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-                        android:maxLines="1"
-                        android:textColor="@android:color/darker_gray"
-                        android:textSize="16sp"
-                        android:textStyle="normal"
-                        tools:text="6.3 km de você" />
-                </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <LinearLayout
-                    android:id="@+id/linearLayout4"
-                    android:layout_width="90dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/status_pill" />
-
-                    <TextView
-                        android:id="@+id/tvStatus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dp"
-                        android:max="50"
-                        android:progress="42"
-                        android:text="Status"
-                        app:indicatorColor="@color/blue"
-                        app:indicatorSize="28dp"
-                        app:trackColor="@color/purple_100" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/btnDetails"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_margin="8dp"
-                android:src="@drawable/baseline_menu_24"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
