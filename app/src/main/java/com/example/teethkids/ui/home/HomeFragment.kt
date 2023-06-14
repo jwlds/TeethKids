@@ -20,6 +20,7 @@ import com.example.teethkids.dao.UserDao
 import com.example.teethkids.databinding.FragmentHomeBinding
 import com.example.teethkids.utils.Utils
 import com.example.teethkids.R
+import com.example.teethkids.datastore.UserPreferencesRepository
 import com.example.teethkids.ui.adapter.recyclerviewadapter.ListMyEmergenciesAdapter
 import com.example.teethkids.utils.AddressPrimaryId
 import com.example.teethkids.viewmodel.*
@@ -46,6 +47,11 @@ class HomeFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
+
+
+        Log.d("88",userPreferencesRepository.uid)
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
         userViewModel.user.observe(viewLifecycleOwner) { user ->
@@ -152,7 +158,6 @@ class HomeFragment : Fragment(){
 
         myEmergencyViewModel.myEmergenciesList.observe(viewLifecycleOwner) { responses ->
             val myEmergencies = responses
-                .filter { it.status == "finished" || it.status == "expired" }
                 .map { it.emergencyId.toString() }
             Log.d("tes11", myEmergencies.toString())
 

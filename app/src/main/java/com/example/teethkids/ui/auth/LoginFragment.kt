@@ -18,7 +18,9 @@ import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.example.teethkids.R
 import com.example.teethkids.dao.AuthenticationDAO
+import com.example.teethkids.database.FirebaseHelper
 import com.example.teethkids.databinding.FragmentLoginBinding
+import com.example.teethkids.datastore.UserPreferencesRepository
 import com.example.teethkids.service.ConnectivityManager
 import com.example.teethkids.service.FirebaseMessagingService
 import com.example.teethkids.ui.home.MainActivity
@@ -69,7 +71,10 @@ class LoginFragment : Fragment(), View.OnClickListener {
                     auth.login(
                         binding.edtEmail.text.toString().trim(),
                         binding.edtPassword.text.toString().trim(),
+
                         onSuccess = {
+                            val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
+                            userPreferencesRepository.updateUid(FirebaseHelper.getIdUser().toString())
                             binding.loading.isVisible = false
                             Utils.showToast(requireContext(), "Login realizado com sucesso!")
                             val intent = Intent(activity, MainActivity::class.java)

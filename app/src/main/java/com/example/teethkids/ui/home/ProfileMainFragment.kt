@@ -10,7 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.teethkids.R
 import com.example.teethkids.dao.AuthenticationDAO
+import com.example.teethkids.database.FirebaseHelper
 import com.example.teethkids.databinding.FragmentProfileMainBinding
+import com.example.teethkids.datastore.UserPreferencesRepository
 import com.example.teethkids.ui.adapter.recyclerviewadapter.OptionsAdapter
 import com.example.teethkids.ui.auth.AuthenticateActivity
 import com.example.teethkids.utils.Utils
@@ -65,6 +67,8 @@ class ProfileMainFragment : Fragment(),View.OnClickListener{
     override fun onClick(v: View?) {
         when(v!!.id) {
             R.id.btnLogout -> {
+                val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
+                userPreferencesRepository.updateUid("")
                 val auth = AuthenticationDAO()
                 auth.logout()
                 val intent = Intent(activity, AuthenticateActivity::class.java)

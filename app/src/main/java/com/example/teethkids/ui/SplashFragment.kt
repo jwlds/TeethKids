@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.teethkids.R
 import com.example.teethkids.database.FirebaseHelper.Companion.isAuth
 import com.example.teethkids.databinding.FragmentSplashBinding
+import com.example.teethkids.datastore.UserPreferencesRepository
 import com.example.teethkids.service.ConnectivityManager
 import com.example.teethkids.ui.home.MainActivity
 import com.example.teethkids.utils.Utils
@@ -46,8 +48,10 @@ class SplashFragment : Fragment() {
     // Verifica se o usuário está autenticado
     private fun checkAuth() {
         val connectivityManager = ConnectivityManager(requireContext())
+        val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
         if (connectivityManager.checkInternet()) {
-            if (isAuth()) {
+            if (userPreferencesRepository.uid != "") {
+
                 val intent = Intent(activity, MainActivity::class.java)
                 startActivity(intent)
                 activity?.finish()
