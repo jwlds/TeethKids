@@ -122,7 +122,8 @@ class EmergencyDetailsFragment : Fragment(), OnClickListener {
                     professionalUid = FirebaseHelper.getIdUser().toString(),
                     rescuerUid = id.toString(),
                     status = "waiting",
-                    acceptedAt = currentTimestamp
+                    acceptedAt = currentTimestamp ,
+                    willProfessionalMove = -1
                 )
                 val dao = EmergencyDao()
                 val daoUser = UserDao()
@@ -150,7 +151,8 @@ class EmergencyDetailsFragment : Fragment(), OnClickListener {
                         professionalUid = FirebaseHelper.getIdUser().toString(),
                         rescuerUid = id.toString(),
                         status = "rejected",
-                        acceptedAt = currentTimestamp
+                        acceptedAt = currentTimestamp,
+                        willProfessionalMove = -1
                     )
                     val dao = EmergencyDao()
                     dao.createResponseEmergency(responseEmergency,

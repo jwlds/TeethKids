@@ -17,7 +17,8 @@ class EmergencyDao {
             "professionalUid" to responseEmergency.professionalUid,
             "rescuerUid" to responseEmergency.rescuerUid,
             "status" to responseEmergency.status,
-            "acceptedAt" to responseEmergency.acceptedAt
+            "acceptedAt" to responseEmergency.acceptedAt,
+            "willProfessionalMove" to responseEmergency.willProfessionalMove
         )
 
         db.collection("responses")
@@ -58,6 +59,37 @@ class EmergencyDao {
         emergencyRef.update("status", status)
             .addOnSuccessListener { documentReference ->
                 onSuccess()
+            }
+            .addOnFailureListener { exception ->
+                onFailure(exception)
+            }
+    }
+
+    fun updateStatusMove(
+        emergencyId: String,
+        status: Int,
+        onSuccess: () -> Unit,
+        onFailure: (Exception) -> Unit
+    ) {
+        val responseRef = getDatabase().collection("responses")
+        responseRef
+            .whereEqualTo("rescuerUid", emergencyId)
+            .whereEqualTo("professionalUid", getIdUser().toString())
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                if (!querySnapshot.isEmpty) {
+                    val responseDoc = querySnapshot.documents[0]
+                    responseRef.document(responseDoc.id)
+                        .update("willProfessionalMove", status)
+                        .addOnSuccessListener {
+                            onSuccess()
+                        }
+                        .addOnFailureListener { exception ->
+                            onFailure(exception)
+                        }
+                } else {
+                    onFailure(Exception("Response document not found"))
+                }
             }
             .addOnFailureListener { exception ->
                 onFailure(exception)

@@ -44,6 +44,7 @@ class FirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         val notification = remoteMessage.notification
+
         if(notification != null) {
             sendNotificationReview(notification.title,notification.body)
         }
@@ -84,7 +85,7 @@ class FirebaseMessagingService : FirebaseMessagingService() {
     private fun sendNotificationReview(title: String?, body: String?) {
         val channelId = "channel 12"
         val builder = NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(R.drawable.baseline_warning_24)
+            .setSmallIcon(R.drawable.outline_reviews_24)
             .setContentTitle(title)
             .setContentText(body)
             .setAutoCancel(true)

@@ -23,6 +23,7 @@ import me.relex.circleindicator.CircleIndicator3
 import android.Manifest
 import android.location.Location
 import android.util.Log
+import com.example.teethkids.dao.EmergencyDao
 import com.example.teethkids.service.MyLocation
 import com.example.teethkids.ui.dialog.SendLocationEmergency
 import com.google.android.material.snackbar.Snackbar
@@ -38,6 +39,10 @@ class MyEmergencyDetailsFragment : Fragment() {
 
     private lateinit var viewPager: ViewPager2
     private lateinit var circleIndicator: CircleIndicator3
+
+
+    private var lat2: String? = null
+    private var lon2: String? = null
 
     private var phone: String? = null
 
@@ -88,6 +93,8 @@ class MyEmergencyDetailsFragment : Fragment() {
         }
 
         binding.btnViewMap.setOnClickListener {
+            val dao = EmergencyDao()
+            dao.updateStatusMove(emergencyId.toString(),1, onSuccess = {}, onFailure = {})
             val addressGeoPoint = AddressPrimaryId.addressGeoPoint
 
             val myLocation = MyLocation(context)
@@ -96,8 +103,10 @@ class MyEmergencyDetailsFragment : Fragment() {
                     val lat1 = location.latitude
                     val lon1 = location.longitude
 
-                    val lat2 = addressGeoPoint!!.latitude
-                    val lon2 = addressGeoPoint.longitude
+                    if(locationArray != null) {
+                        lat2 = locationArray[0].toString()
+                        lon2 = locationArray[1].toString()
+                    }
 
                     val uri =
                         Uri.parse("https://www.google.com/maps/dir/?api=1&origin=$lat1,$lon1&destination=$lat2,$lon2")

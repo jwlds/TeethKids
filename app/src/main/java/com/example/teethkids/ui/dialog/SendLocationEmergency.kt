@@ -9,6 +9,7 @@ import android.util.Log
 import android.widget.CheckBox
 import android.widget.LinearLayout
 import androidx.core.app.ActivityCompat
+import com.example.teethkids.dao.EmergencyDao
 import com.example.teethkids.service.MyLocation
 import com.example.teethkids.ui.home.MyEmergencyDetailsFragment
 import com.example.teethkids.utils.AddressPrimaryId
@@ -44,10 +45,12 @@ class SendLocationEmergency(
         checkboxActivateListener(checkbox1, checkbox2)
 
         setButton(BUTTON_POSITIVE, "Confirmar") { _, _ ->
-            val sendCurrentLocation = checkbox1.isChecked
-            val sendDefaultAddressLocation = checkbox2.isChecked
-
-            handleLocationSending(sendCurrentLocation, sendDefaultAddressLocation)
+            val dao = EmergencyDao()
+            dao.updateStatusMove(emergencyId,0, onSuccess = {}, onFailure = {})
+//            val sendCurrentLocation = checkbox1.isChecked
+//            val sendDefaultAddressLocation = checkbox2.isChecked
+//
+//            handleLocationSending(sendCurrentLocation, sendDefaultAddressLocation)
         }
         setButton(BUTTON_NEGATIVE, "Cancelar") { _, _ ->
             dismiss()
