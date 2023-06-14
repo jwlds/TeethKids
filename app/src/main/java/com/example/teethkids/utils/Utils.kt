@@ -102,7 +102,7 @@ object Utils {
         val c = 2 * atan2(sqrt(a), sqrt(1 - a))
         val distance = raio * c
 
-        return DecimalFormat("#.#").format(distance) + " km"
+        return DecimalFormat("#.#").format(distance/1000) + " km"
     }
 
     fun showSnackBarError(view: View, message: String) {

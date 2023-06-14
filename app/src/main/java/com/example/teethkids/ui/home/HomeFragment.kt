@@ -110,9 +110,10 @@ class HomeFragment : Fragment(){
                 putString("phone", emergency.phoneNumber)
                 putString("createdAt", Utils.formatTimestamp(emergency.createdAt!!))
                 putStringArrayList("photos", ArrayList(emergency.photos))
-             //   val locationArray = emergency.location?.toDoubleArray()
-              //  putDoubleArray("location", locationArray)
+                val locationArray = emergency.location?.toDoubleArray()
+                putDoubleArray("location", locationArray)
             }
+            findNavController().navigate(R.id.action_homeFragment_to_myEmergencyDetailsFragment,data)
         }
         binding.listMyEmergency.adapter = listMyEmergenciesAdapter
     }
