@@ -22,9 +22,9 @@ import com.google.firebase.firestore.GeoPoint
 import me.relex.circleindicator.CircleIndicator3
 import android.Manifest
 import android.location.Location
+import android.util.Log
 import com.example.teethkids.service.MyLocation
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
+import com.example.teethkids.ui.dialog.SendLocationEmergency
 import com.google.android.material.snackbar.Snackbar
 
 class MyEmergencyDetailsFragment : Fragment() {
@@ -111,11 +111,17 @@ class MyEmergencyDetailsFragment : Fragment() {
                         startActivity(intent)
                     }
                 } else {
-                    Snackbar.make(
-                        binding.root,
-                        "Não foi possível obter a localização do dispositivo.",
-                        Snackbar.LENGTH_SHORT
-                    ).show()
+                    ActivityCompat.requestPermissions(
+                        requireActivity(),
+                        arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                        REQUEST_CALL_PERMISSION
+                    )
+
+//                    Snackbar.make(
+//                        binding.root,
+//                        "Não foi possível obter a localização do dispositivo.",
+//                        Snackbar.LENGTH_SHORT
+//                    ).show()
                 }
             }
         }
@@ -138,34 +144,8 @@ class MyEmergencyDetailsFragment : Fragment() {
         }
 
         binding.btnSendLoc.setOnClickListener{
-            Snackbar.make(
-                binding.root,
-                "Localização enviada ao socorrista.",
-                Snackbar.LENGTH_SHORT
-            ).show()
-        }
-
-//        binding.btnReciveLoc.setOnClickListener{
-//            Snackbar.make(
-//                binding.root,
-//                "Localização recebida pelo socorrista.",
-//                Snackbar.LENGTH_SHORT
-//            ).show()
-//        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        if (requestCode == REQUEST_CALL_PERMISSION) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:$phone"))
-                startActivity(intent)
-            } else {
-                // A permissão foi negada, tratar de acordo com o seu caso
-            }
+            val dialogLoc = SendLocationEmergency(context, emergencyId.toString())
+            dialogLoc.show()
         }
     }
 
