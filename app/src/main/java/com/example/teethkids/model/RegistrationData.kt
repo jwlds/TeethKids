@@ -26,7 +26,7 @@ data class RegistrationData(
     var addressId: String = "",
     var primary: Boolean? = false,
     var professionalDescription: String? = null,
-    var rating: Double? = null,
+    var rating: Double? = 0.0,
     var lat: Double? = null,
     var lng: Double? = null,
 

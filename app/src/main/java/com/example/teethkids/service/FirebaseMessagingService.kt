@@ -16,9 +16,12 @@ import com.example.teethkids.database.FirebaseHelper.Companion.getIdUser
 import com.example.teethkids.model.Emergency
 import com.example.teethkids.ui.auth.AuthenticateActivity
 import com.example.teethkids.ui.home.MainActivity
+import com.example.teethkids.utils.Utils
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.google.type.Date
 import org.json.JSONArray
+import org.json.JSONObject
 
 class FirebaseMessagingService : FirebaseMessagingService() {
 
@@ -44,24 +47,58 @@ class FirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         val notification = remoteMessage.notification
+        val data = remoteMessage.data
 
         if(notification != null) {
-            sendNotificationReview(notification.title,notification.body)
+            if(data["key"] == "40")  sendNotificationReview(notification.title,notification.body)
+            if(data["key"] == "50") {
+                //list photos
+                val photosString = data["photos"]
+                val photosArray = JSONArray(photosString)
+                val photosList = mutableListOf<String>()
+                for (i in 0 until photosArray.length()) {
+                    val photo = photosArray.getString(i)
+                    photosList.add(photo)
+                }
+                //list location
+                val locationString = data["location"]
+                val locationArray = JSONArray(locationString)
+                val locationList = mutableListOf<Double>()
+                for (i in 0 until locationArray.length()) {
+                    val location = locationArray.getString(i)
+                    locationList.add(location.toDouble())
+                }
+
+                val createdAtString = data["createdAt"]
+                val createdAtJson = JSONObject(createdAtString)
+                val seconds = createdAtJson.getLong("_seconds")
+                val nanoseconds = createdAtJson.getInt("_nanoseconds")
+                val createdAt = com.google.firebase.Timestamp(seconds, nanoseconds)
+
+
+                Log.d("333",createdAtString.toString())
+                val emergencyDate = Emergency(
+                    rescuerUid = data["rescuerUid"],
+                    name = data["name"],
+                    status = data["status"],
+                    createdAt = createdAt,
+                    photos = photosList,
+                    location = locationList
+                )
+                sendNotification(notification.title, notification.body,emergencyDate)
+            }
         }
-           // sendNotification(title, body,emergencyDate)
         }
     private fun sendNotification(title: String?, body: String?,data: Emergency) {
         val bundle = Bundle().apply {
             putString("emergencyId", data.rescuerUid)
             putString("name", data.name)
-            putString("phone", data.phoneNumber)
             putString("status", data.status)
-            //   putString("dateTime", data.dateTime)
+            putString("createdAt", Utils.formatTimestamp(data.createdAt!!) )
             putStringArrayList("photos", ArrayList<String>(data.photos))
-            //  val locationArray = data.location?.toDoubleArray()
-            //  putDoubleArray("location", locationArray)
+            val locationArray = data.location?.toDoubleArray()
+            putDoubleArray("location", locationArray)
         }
-
         val pendingIntent = NavDeepLinkBuilder(this)
             .setGraph(R.navigation.main_graph)
             .setDestination(R.id.emergencyDetailsFragment2)
@@ -90,7 +127,6 @@ class FirebaseMessagingService : FirebaseMessagingService() {
             .setContentText(body)
             .setAutoCancel(true)
 
-        // Crie o Intent para abrir a AuthActivity
         val intent = Intent(this, AuthenticateActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE) // Adicione a flag FLAG_IMMUTABLE aqui
 

@@ -20,10 +20,12 @@ import com.example.teethkids.model.ResponseEmergency
 
 import com.example.teethkids.ui.adapter.viewPagerAdapter.PhotoAdapter
 import com.example.teethkids.ui.adapter.viewPagerAdapter.StageRegisterAdapter
+import com.example.teethkids.utils.AddressPrimaryId
 import com.example.teethkids.utils.Utils
 import com.example.teethkids.viewmodel.EmergencyResponseViewModel
 import com.example.teethkids.viewmodel.EmergencyViewModel
 import com.google.firebase.Timestamp
+import com.google.firebase.firestore.GeoPoint
 import me.relex.circleindicator.CircleIndicator
 import me.relex.circleindicator.CircleIndicator3
 
@@ -66,7 +68,6 @@ class EmergencyDetailsFragment : Fragment(), OnClickListener {
         val emergencyId = arguments?.getString("emergencyId")
         val name = arguments?.getString("name")
         val status = arguments?.getString("status")
-        val phone = arguments?.getString("phone")
         val createdAt = arguments?.getString("createdAt")
         val locationArray = arguments?.getDoubleArray("location")
         val photos = arguments?.getStringArrayList("photos")
@@ -85,9 +86,10 @@ class EmergencyDetailsFragment : Fragment(), OnClickListener {
 
 
 
-        binding.tvNome.text = name
-       // binding.tvPhone.text = phone
         binding.tvDate.text = createdAt
+        binding.tvNome.text = name
+        binding.tvDate.text = createdAt
+        binding.tvStatusText.text = status
 
         val adapter = photos?.let { PhotoAdapter(it) }
         binding.viewPager.adapter = adapter
@@ -95,17 +97,13 @@ class EmergencyDetailsFragment : Fragment(), OnClickListener {
         viewPager.adapter = adapter
         circleIndicator.setViewPager(viewPager)
 
+        if(locationArray != null ) {
+            binding.tvLocation.text = Utils.calculateDistance(AddressPrimaryId.addressGeoPoint!!,
+                GeoPoint(locationArray[0],locationArray[1]))
+        }
 
     }
-//        if(locationArray != null ) {
-//            binding.tvLocation.text = Utils.calculateDistance(
-//                -22.903449,
-//                -47.063588,
-//                locationArray[0],
-//                locationArray[1],
-//
-//                ).toString()
-//        }
+
 
     override fun onDestroy() {
         super.onDestroy()
