@@ -17,7 +17,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             android:src="@drawable/person_add"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,8 +27,8 @@
             android:id="@+id/user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:text="Nome do Usuário"
+            android:layout_marginStart="16dp"
+            android:text="@string/string_user_name"
             android:textColor="@color/grey"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/profile_image"
@@ -43,7 +43,7 @@
             app:layout_constraintStart_toEndOf="@id/user_name"
             app:layout_constraintTop_toTopOf="@id/user_name"
             app:layout_constraintBottom_toBottomOf="@id/user_name"
-            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             android:textSize="12sp"
             tools:text="4.2" />
 
@@ -55,7 +55,7 @@
             app:layout_constraintBottom_toBottomOf="@id/ratingTextView"
             android:src="@drawable/baseline_stars_24"
             android:tint="#957108"
-            android:layout_marginLeft="6dp"
+            android:layout_marginStart="6dp"
             tools:ignore="UseAppTint" />
 
         <ImageButton
@@ -66,7 +66,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
             android:clickable="true"
             android:src="@drawable/baseline_logout_24" />
 

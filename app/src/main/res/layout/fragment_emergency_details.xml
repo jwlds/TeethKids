@@ -68,10 +68,10 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="8dp"
+                        android:layout_marginStart="8dp"
                         android:layout_weight="1"
                         android:orientation="horizontal">
 
@@ -80,7 +80,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginRight="4dp"
+                            android:layout_marginEnd="4dp"
                             android:src="@drawable/status_pill"
                             tools:ignore="UseAppTint" />
 
@@ -89,20 +89,20 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="Aguardando resposta"
+                            android:text="@string/string_user_emergency_status"
                             android:textSize="12sp" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="8dp"
+                        android:layout_marginEnd="8dp"
                         android:orientation="horizontal">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="4dp"
+                            android:layout_marginEnd="4dp"
                             android:src="@drawable/outline_location_on_24"
                             tools:ignore="UseAppTint" />
 
@@ -110,7 +110,7 @@
                             android:id="@+id/tvLocation"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:hint="Distância"
+                            android:hint="@string/string_user_distance"
                             android:maxLines="1"
                             android:textSize="16sp" />
                     </LinearLayout>
@@ -121,13 +121,13 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:layout_marginTop="8dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_marginEnd="8dp"
                     android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="4dp"
+                        android:layout_marginEnd="4dp"
                         android:src="@drawable/baseline_access_time_24"
                         tools:ignore="UseAppTint" />
 
@@ -135,7 +135,7 @@
                         android:id="@+id/tvDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="Data da ocorrência"
+                        android:hint="@string/string_user_send_date"
                         android:maxLines="1"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -166,7 +166,7 @@
                         android:id="@+id/tvNome"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="Nome do socorrista"
+                        android:hint="@string/string_user_name"
                         android:inputType="textPersonName"
                         android:maxLines="1"
                         android:textSize="14sp" />
@@ -192,7 +192,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="40dp"
                 android:backgroundTint="#34A853"
-                android:text="Aceitar"
+                android:text="@string/string_text_btn_accept"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="18sp"
@@ -204,7 +204,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
                 android:backgroundTint="#EA4335"
-                android:text="Recusar"
+                android:text="@string/string_text_btn_cancel2"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="18sp"

@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:gravity="center"
-            android:text="Academico"
+            android:text="@string/string_education_register_page_title"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +39,7 @@
                 android:id="@+id/edtInstitution"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nome da instituição"
+                android:hint="@string/string_education_institution_field"
                 android:inputType="textEmailAddress" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -59,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusable="false"
-                android:hint="Data de formação" />
+                android:hint="@string/string_education_graduation_field" />
 
         </com.google.android.material.textfield.TextInputLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

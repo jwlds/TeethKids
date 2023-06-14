@@ -44,7 +44,7 @@
                 android:id="@+id/edtName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nome Completo"
+                android:hint="@string/string_profile_name_field"
                 android:inputType="textEmailAddress" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -65,7 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusable="false"
-                android:hint="Endereço de E-mail" />
+                android:hint="@string/string_profile_email_field" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -85,7 +85,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusable="false"
-                android:hint="Data de Nascimento" />
+                android:hint="@string/string_profile_age_field" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -104,7 +104,7 @@
                 android:id="@+id/edtNumberPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Telefone"
+                android:hint="@string/string_profile_phone_field"
                 android:inputType="number"
                 app:mask="(__) _____ - ____"
                 app:maskCharacter="_"
@@ -127,7 +127,7 @@
                 android:id="@+id/edtCro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Número do CRO"
+                android:hint="@string/string_profile_cro_field"
                 android:inputType="number"
                 app:mask="__.____"
                 app:maskCharacter="_"
@@ -142,7 +142,7 @@
             android:layout_margin="16dp"
             android:layout_marginBottom="26dp"
             android:padding="8dp"
-            android:text="Atualizar"
+            android:text="@string/string_btn_text_update"
             android:textAllCaps="false"
             android:textStyle="bold"
             app:cornerRadius="10dp"

@@ -1,60 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/errorLayout"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/errorLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/disconnectedImage"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="64dp"
         android:src="@drawable/disconnected_vector"
-        android:layout_marginTop="64dp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/disconnectedText"
         android:layout_width="245dp"
         android:layout_height="wrap_content"
-        android:text="Você está offline. Reconecte-se para continuar."
+        android:layout_marginTop="8dp"
+        android:text="@string/string_error_internet_disconnected_text"
         android:textAlignment="center"
-        android:textStyle="bold"
         android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@+id/disconnectedImage"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/disconnectedImage" />
 
     <Button
+        android:id="@+id/btnReconnect"
+        style="?attr/materialButtonOutlinedStyle"
         android:layout_width="235dp"
         android:layout_height="wrap_content"
-        android:text="Reconectar"
-        style="?attr/materialButtonOutlinedStyle"
-        android:theme="@style/Theme.M3"
+        android:layout_marginTop="24dp"
+        android:text="@string/string_text_btn_reconnect"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:theme="@style/Theme.M3"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/disconnectedText"
-        app:strokeColor="@color/blue"
-        android:layout_marginTop="24dp"/>
+        app:strokeColor="@color/blue" />
 
     <TextView
-        android:background="#B44848"
         android:id="@+id/disconnectedTextBottom"
         android:layout_width="match_parent"
         android:layout_height="35dp"
-        android:text="Você está Offline."
+        android:layout_marginTop="8dp"
+        android:background="#B44848"
         android:padding="6dp"
+        android:text="@string/string_error_internet_disconnected_text_bottom"
         android:textAlignment="center"
-        android:textStyle="normal"
-        android:textSize="16sp"
         android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

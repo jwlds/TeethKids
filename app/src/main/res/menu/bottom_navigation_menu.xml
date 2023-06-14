@@ -11,7 +11,6 @@
         android:icon="@drawable/outline_home_24"
         android:title="Início"/>
 
-
     <item
         android:id="@+id/notificationFragment"
         android:enabled="true"

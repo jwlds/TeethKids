@@ -27,7 +27,7 @@
             android:id="@+id/screen_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nome da Tela"
+            android:text="@string/string_card_title"
             android:textColor="@color/grey"
             android:textSize="16sp"
             android:layout_centerInParent="true"

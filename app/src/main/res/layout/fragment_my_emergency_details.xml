@@ -47,7 +47,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
-                    android:text="Recebida em: dd/mm - hh:mm"
+                    android:text="@string/string_user_send_date"
                     app:layout_constraintBottom_toBottomOf="@id/iconDate"
                     app:layout_constraintStart_toEndOf="@id/iconDate"
                     app:layout_constraintTop_toTopOf="@id/iconDate" />
@@ -91,7 +91,7 @@
                     android:layout_marginTop="8dp"
                     android:text="Nome"
                     android:textColor="@color/black"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="@id/cvMyDetialsImage"
                     app:layout_constraintTop_toBottomOf="@id/indicator" />
 
@@ -99,7 +99,7 @@
                     android:id="@+id/tvMyDetialsName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nome Completo do Socorrista"
+                    android:text="@string/string_user_name"
                     app:layout_constraintStart_toStartOf="@id/tvMyDetialsLabelName"
                     app:layout_constraintTop_toBottomOf="@id/tvMyDetialsLabelName" />
 
@@ -118,7 +118,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    android:text="Distancia"
+                    android:text="@string/string_user_distance"
                     app:layout_constraintBottom_toBottomOf="@id/tvMyDetialsName"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tvMyDetialsLabelName" />
@@ -130,7 +130,7 @@
                     android:layout_marginTop="8dp"
                     android:text="Telefone"
                     android:textColor="@color/black"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="@id/tvMyDetialsLabelName"
                     app:layout_constraintTop_toBottomOf="@id/tvMyDetialsName" />
 
@@ -138,7 +138,7 @@
                     android:id="@+id/tvMyDetialsPhone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Telefone do Socorrista"
+                    android:text="@string/string_user_phone"
                     app:layout_constraintStart_toStartOf="@id/tvMyDetialsLabelPhone"
                     app:layout_constraintTop_toBottomOf="@id/tvMyDetialsLabelPhone" />
 
@@ -172,26 +172,12 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
-                    android:text="Enviar Localização"
+                    android:text="@string/string_text_btn_send_location"
                     android:textAlignment="textStart"
                     android:textAllCaps="false"
                     app:icon="@drawable/baseline_gps_fixed_24"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/lineView" />
-
-<!--                <Button-->
-<!--                    android:id="@+id/btnReciveLoc"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="8dp"-->
-<!--                    android:layout_marginLeft="8dp"-->
-<!--                    android:layout_marginRight="8dp"-->
-<!--                    android:text="Solicitar Localização"-->
-<!--                    android:textAlignment="textStart"-->
-<!--                    android:textAllCaps="false"-->
-<!--                    app:icon="@drawable/baseline_pin_drop_24"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@id/btnSendLoc" />-->
 
                 <Button
                     android:id="@+id/btnViewMap"
@@ -199,7 +185,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="Ver no mapa"
+                    android:text="@string/string_text_btn_view_map"
                     android:theme="@style/Theme.M3"
                     app:icon="@drawable/outline_location_on_24"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -219,7 +205,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="28dp"
             android:backgroundTint="#EA4335"
-            android:text="Finalizar Ocorrência"
+            android:text="@string/string_text_btn_finish_emergency"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="18sp"

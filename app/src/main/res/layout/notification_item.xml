@@ -18,7 +18,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="8dp"
+        android:paddingStart="8dp"
         android:paddingTop="8dp"
         android:paddingBottom="16dp">
 
@@ -26,7 +26,7 @@
             android:id="@+id/btnViewNotification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Body" />
+            android:text="@string/string_card_body" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/notification_item_date"
@@ -47,7 +47,7 @@
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="@+id/notification_item_body"
             app:layout_constraintTop_toBottomOf="@+id/notification_item_body"
-            tools:text="Data" />
+            android:text="@string/string_card_date" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

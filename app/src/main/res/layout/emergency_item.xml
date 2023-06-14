@@ -53,7 +53,7 @@
             <LinearLayout
                 android:layout_width="260dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/btnDetails"
@@ -70,12 +70,12 @@
                         android:id="@+id/nameTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dp"
+                        android:layout_marginStart="4dp"
                         android:ellipsize="end"
                         android:maxLines="2"
                         android:textColor="@color/black"
                         android:textSize="18sp"
-                        tools:text="Nome do cliente" />
+                        android:text="@string/string_user_name" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -89,13 +89,13 @@
                         android:id="@+id/phoneTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dp"
+                        android:layout_marginStart="4dp"
                         android:ellipsize="end"
                         android:maxLines="2"
                         android:visibility="invisible"
                         android:textColor="@color/black"
                         android:textSize="18sp"
-                        tools:text="(19) 9999 - 9999" />
+                        android:text="@string/string_user_phone" />
 
                 </LinearLayout>
 
@@ -115,18 +115,18 @@
                         android:id="@+id/dateTimeTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dp"
+                        android:layout_marginStart="4dp"
                         android:ellipsize="end"
                         android:maxLines="1"
                         android:textColor="@android:color/darker_gray"
                         android:textSize="16sp"
                         android:textStyle="normal"
-                        tools:text="18:55" />
+                        android:text="@string/string_user_send_date" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
+                        android:layout_marginStart="8dp"
                         android:src="@drawable/outline_location_on_24" />
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -134,12 +134,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
-
                         android:maxLines="1"
                         android:textColor="@android:color/darker_gray"
                         android:textSize="16sp"
                         android:textStyle="normal"
-                        tools:text="6.3 km de você" />
+                        android:text="@string/string_user_distance" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -159,10 +158,10 @@
                         android:id="@+id/tvStatus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dp"
+                        android:layout_marginStart="4dp"
                         android:max="50"
                         android:progress="42"
-                        android:text="Status"
+                        android:text="@string/string_user_emergency_status"
                         app:indicatorColor="@color/blue"
                         app:indicatorSize="28dp"
                         app:trackColor="@color/purple_100" />

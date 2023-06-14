@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:text="Novo Endereço"
+        android:text="@string/string_dialog_add_address_title"
         android:textColor="@color/grey"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +36,7 @@
             android:id="@+id/edtZipe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Insira seu cep"
+            android:hint="@string/string_address_zip_field"
             android:inputType="number"
             app:mask="_____-___"
             app:maskCharacter="_"
@@ -58,7 +58,7 @@
             android:id="@+id/edtStreet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Rua"
+            android:hint="@string/string_address_street_name"
             android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -77,7 +77,7 @@
             android:id="@+id/edtNeighbBorhood"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Bairro"
+            android:hint="@string/string_address_neighborhood"
             android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -87,7 +87,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/streetInputLayout"
         app:layout_constraintEnd_toEndOf="@+id/zipCodeInputLayout"
         app:layout_constraintStart_toEndOf="@id/streetInputLayout"
@@ -98,7 +98,7 @@
             android:id="@+id/edtNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Number"
+            android:hint="@string/string_address_number"
             android:inputType="number" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -117,7 +117,7 @@
             android:id="@+id/edtCity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Cidade"
+            android:hint="@string/string_address_city"
             android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -127,7 +127,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/cityInputLayout"
         app:layout_constraintEnd_toEndOf="@id/neighborhoodCodeInputLayout"
         app:layout_constraintStart_toEndOf="@id/cityInputLayout"
@@ -138,7 +138,7 @@
             android:id="@+id/edtState"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Estado"
+            android:hint="@string/string_address_state"
             android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -151,7 +151,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="24dp"
         android:backgroundTint="@color/blue"
-        android:text="Adicionar"
+        android:text="@string/string_text_btn_add"
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -161,20 +161,5 @@
         app:spinning_bar_color="#FFF"
         app:spinning_bar_padding="6dp"
         app:spinning_bar_width="4dp" />
-
-<!--    <ProgressBar-->
-<!--        android:id="@+id/loading"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:foregroundGravity="center_horizontal"-->
-<!--        android:indeterminateTint="@color/blue"-->
-<!--        android:visibility="invisible"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/btnAdd"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/titleTextView"-->
-<!--        tools:visibility="visible"-->
-<!--        android:layout_marginBottom="24dp"/>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

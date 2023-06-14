@@ -17,17 +17,16 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="8dp"
+        android:paddingStart="8dp"
         android:paddingTop="8dp"
         android:paddingBottom="16dp">
-
 
         <ImageView
             android:id="@+id/btnOption"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_marginRight="8dp"
             android:layout_marginTop="30dp"
+            android:layout_marginEnd="8dp"
             android:tint="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -40,10 +39,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:maxLines="1"
+            android:text="@string/string_card_title"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Apelido" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/address_item_date"
@@ -52,7 +51,7 @@
             android:layout_marginTop="2dp"
             app:layout_constraintStart_toStartOf="@+id/address_item_name"
             app:layout_constraintTop_toBottomOf="@+id/address_item_name"
-            tools:text="Endereço, Numero, Bairro, Cidade - UF" />
+            android:text="@string/string_card_body" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         tools:context=".ui.auth.register.PhotoFragment">
 
-
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgUser"
             android:layout_marginTop="40dp"
@@ -24,14 +23,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
-
         <Button
             android:id="@+id/btnCamera"
             android:layout_width="0dp"
             android:layout_margin="60dp"
             android:layout_height="wrap_content"
             android:textAllCaps="false"
-            android:text="Tirar Selfie"
+            android:text="@string/string_text_btn_camera"
             app:icon="@drawable/baseline_camera_alt_24"
             android:layout_marginTop="10dp"
             style="@style/Widget.MaterialComponents.Button.TextButton"
@@ -46,15 +44,11 @@
             android:textAllCaps="false"
             app:icon="@drawable/baseline_add_photo_alternate_24"
             style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:text="Pegar da Galeria"
+            android:text="@string/string_text_btn_gallery"
             android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="@+id/btnCamera"
             app:layout_constraintEnd_toEndOf="@+id/btnCamera"
             app:layout_constraintTop_toBottomOf="@+id/btnCamera" />
-
-
-
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

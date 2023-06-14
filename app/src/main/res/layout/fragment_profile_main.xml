@@ -27,10 +27,6 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:ignore="UnknownIdInLayout" />
 
-
-
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

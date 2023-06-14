@@ -41,14 +41,14 @@
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="DISPONÍVEL" />
+                    android:text="@string/string_emergency_filter1" />
 
                 <Button
                     android:id="@+id/filterWaiting"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="em espera" />
+                    android:text="@string/string_emergency_filter2" />
 
             </com.google.android.material.button.MaterialButtonToggleGroup>
 
@@ -58,7 +58,7 @@
             android:id="@+id/textViewStateList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ative o seu status para visualizar as emergências."
+            android:text="@string/string_state_list_emergency_off"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
