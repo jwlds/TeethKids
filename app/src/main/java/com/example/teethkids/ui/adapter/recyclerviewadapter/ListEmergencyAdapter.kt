@@ -59,12 +59,7 @@ private val onEmergencyClicked: (Emergency) -> Unit
             binding.btnDetails.setOnClickListener {
                 onEmergencyClicked(emergencies)
             }
-            binding.btnCall.setOnClickListener{
 
-                val intent = Intent(Intent.ACTION_DIAL)
-                intent.data = Uri.parse("tel:${emergencies.phoneNumber}")
-                ContextCompat.startActivity(binding.root.context, intent, null)
-            }
 
 //            binding.btnOption.setOnClickListener {
 //                Utils.showToast(binding.root.context,addresses.addressId)

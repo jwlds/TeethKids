@@ -30,7 +30,6 @@ class ConfirmationFinalizeEmergency(
 
         setButton(BUTTON_POSITIVE, "Confirmar") { _, _ ->
             val dao = EmergencyDao()
-            dao.updateStatusEmergency(emergencyId, "finished", onSuccess = {}, onFailure = {})
             dao.updateStatusMyEmergency(emergencyId, "finished", onSuccess = {}, onFailure = {})
 
             val receiveEvaluation = checkbox.isChecked

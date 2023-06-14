@@ -97,10 +97,10 @@ class EmergencyDetailsFragment : Fragment(), OnClickListener {
         viewPager.adapter = adapter
         circleIndicator.setViewPager(viewPager)
 
-        if(locationArray != null ) {
-            binding.tvLocation.text = Utils.calculateDistance(AddressPrimaryId.addressGeoPoint!!,
-                GeoPoint(locationArray[0],locationArray[1]))
-        }
+//        if(locationArray != null ) {
+//            binding.tvLocation.text = Utils.calculateDistance(AddressPrimaryId.addressGeoPoint!!,
+//                GeoPoint(locationArray[0],locationArray[1]))
+//        }
 
     }
 

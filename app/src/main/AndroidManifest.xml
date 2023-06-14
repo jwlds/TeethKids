@@ -28,11 +28,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyC84r-IA5PPwDiicNuIRS_kH2weH1zsu5o" />
-        <activity
-            android:name=".testMapa.MapaActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"/>
-
         <service
             android:name=".service.FirebaseMessagingService"
             android:exported="false">

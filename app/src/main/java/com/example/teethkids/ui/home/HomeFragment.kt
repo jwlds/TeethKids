@@ -17,19 +17,13 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.teethkids.dao.UserDao
-import com.example.teethkids.database.FirebaseHelper.Companion.getAuth
 import com.example.teethkids.databinding.FragmentHomeBinding
-import com.example.teethkids.databinding.StatusBarBinding
 import com.example.teethkids.utils.Utils
 import com.example.teethkids.R
-import com.example.teethkids.testMapa.MapaActivity
-import com.example.teethkids.ui.adapter.recyclerviewadapter.ListAddressesAdapter
-import com.example.teethkids.ui.adapter.recyclerviewadapter.ListEmergencyAdapter
 import com.example.teethkids.ui.adapter.recyclerviewadapter.ListMyEmergenciesAdapter
 import com.example.teethkids.utils.AddressPrimaryId
 import com.example.teethkids.viewmodel.*
 import com.google.firebase.firestore.GeoPoint
-import com.google.firebase.messaging.FirebaseMessaging
 
 class HomeFragment : Fragment(){
 
@@ -158,8 +152,9 @@ class HomeFragment : Fragment(){
 
         myEmergencyViewModel.myEmergenciesList.observe(viewLifecycleOwner) { responses ->
             val myEmergencies = responses
+                .filter { it.status == "finished" || it.status == "expired" }
                 .map { it.emergencyId.toString() }
-            Log.d("tes11",myEmergencies.toString())
+            Log.d("tes11", myEmergencies.toString())
 
             emergencyViewModel.emergencyList.observe(viewLifecycleOwner) { emergencies ->
                 val filteredEmergencies =

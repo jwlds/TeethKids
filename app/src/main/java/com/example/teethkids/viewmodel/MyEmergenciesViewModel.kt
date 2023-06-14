@@ -26,7 +26,7 @@ class MyEmergenciesViewModel : ViewModel(){
                         val myEmergenciesList = mutableListOf<MyEmergency>()
                         for (document in querySnapshot.documents) {
                             val data = document.toObject(MyEmergency::class.java)
-                            data?.let { myEmergenciesList.add(it) }
+                                data?.let { myEmergenciesList.add(it) }
 
                         }
                         _myEmergenciesList.value = myEmergenciesList

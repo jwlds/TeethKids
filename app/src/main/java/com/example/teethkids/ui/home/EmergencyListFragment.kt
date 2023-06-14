@@ -45,6 +45,18 @@ class EmergencyListFragment : Fragment() {
         userViewModel.user.observe(viewLifecycleOwner) { user ->
             binding.statusBar.btnStatus.isChecked = user.status
             if (user.status) {
+                binding.toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->
+                    if (isChecked) {
+                        when (checkedId) {
+                            R.id.filterAvailable -> {
+                                loadEmergencies()
+                            }
+                            R.id.filterWaiting -> {
+                                loadEmergenciesByAccepted()
+                            }
+                        }
+                    }
+                }
                 binding.toggleButton.isEnabled = true
                 binding.toggleButton.check(R.id.filterAvailable)
                 binding.textViewStateList.isVisible = false
@@ -69,23 +81,9 @@ class EmergencyListFragment : Fragment() {
             val dao = UserDao()
             dao.updateStatus(
                 FirebaseHelper.getAuth().uid!!, isChecked,
-                onSuccess = {
-
-                })
+                onSuccess = {})
         }
 
-        binding.toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->
-            if (isChecked) {
-                when (checkedId) {
-                    R.id.filterAvailable -> {
-                        loadEmergencies()
-                    }
-                    R.id.filterWaiting -> {
-                        loadEmergenciesByAccepted()
-                    }
-                }
-            }
-        }
 
 
     }

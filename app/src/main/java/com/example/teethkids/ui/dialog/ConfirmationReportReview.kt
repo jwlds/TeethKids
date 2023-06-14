@@ -19,6 +19,7 @@ review: Review
         setMessage("Deseja reportar o comentário?")
         setButton(BUTTON_POSITIVE, "Confirmar") { _, _ ->
             val dao = ReviewDao()
+            Log.d("222",review.toString())
             dao.reportReview(review,
                 onSuccess = {
                 Utils.showToast(context,"Revisão enviada com sucesso")

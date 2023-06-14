@@ -87,6 +87,9 @@ class FirebaseMessagingService : FirebaseMessagingService() {
                 )
                 sendNotification(notification.title, notification.body,emergencyDate)
             }
+            if(data["key"] == "60") {
+                sendNotificationMyEmergency(notification.title,notification.body)
+            }
         }
         }
     private fun sendNotification(title: String?, body: String?,data: Emergency) {
@@ -123,6 +126,25 @@ class FirebaseMessagingService : FirebaseMessagingService() {
         val channelId = "channel 12"
         val builder = NotificationCompat.Builder(this, channelId)
             .setSmallIcon(R.drawable.outline_reviews_24)
+            .setContentTitle(title)
+            .setContentText(body)
+            .setAutoCancel(true)
+
+        val intent = Intent(this, AuthenticateActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE) // Adicione a flag FLAG_IMMUTABLE aqui
+
+        builder.setContentIntent(pendingIntent)
+
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val channel = NotificationChannel(channelId, "Default", NotificationManager.IMPORTANCE_DEFAULT)
+        notificationManager.createNotificationChannel(channel)
+        notificationManager.notify(0, builder.build())
+    }
+
+    private fun sendNotificationMyEmergency(title: String?, body: String?) {
+        val channelId = "channel 12"
+        val builder = NotificationCompat.Builder(this, channelId)
+            .setSmallIcon(R.drawable.baseline_warning_24)
             .setContentTitle(title)
             .setContentText(body)
             .setAutoCancel(true)

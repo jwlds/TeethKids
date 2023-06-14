@@ -95,5 +95,36 @@ class EmergencyDao {
                 onFailure(exception)
             }
     }
+
+    fun updateStatusResponse(
+        emergencyId: String,
+        status: String,
+        onSuccess: () -> Unit,
+        onFailure: (Exception) -> Unit
+    ) {
+        val responseRef = getDatabase().collection("responses")
+        responseRef
+            .whereEqualTo("rescuerUid", emergencyId)
+            .whereEqualTo("professionalUid", getIdUser().toString())
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                if (!querySnapshot.isEmpty) {
+                    val responseDoc = querySnapshot.documents[0]
+                    responseRef.document(responseDoc.id)
+                        .update("status", status)
+                        .addOnSuccessListener {
+                            onSuccess()
+                        }
+                        .addOnFailureListener { exception ->
+                            onFailure(exception)
+                        }
+                } else {
+                    onFailure(Exception("Response document not found"))
+                }
+            }
+            .addOnFailureListener { exception ->
+                onFailure(exception)
+            }
+    }
     
 }

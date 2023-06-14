@@ -69,6 +69,11 @@ class ListMyEmergenciesAdapter(
                     "onGoing",
                     onSuccess = {},
                     onFailure = {})
+                dao.updateStatusResponse(
+                    emergencies.rescuerUid,
+                    "onGoing",
+                    onSuccess = {},
+                    onFailure = {})
                 val intent = Intent(Intent.ACTION_DIAL)
                 intent.data = Uri.parse("tel:${emergencies.phoneNumber}")
                 ContextCompat.startActivity(binding.root.context, intent, null)
