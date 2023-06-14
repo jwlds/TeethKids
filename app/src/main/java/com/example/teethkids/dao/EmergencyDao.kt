@@ -1,11 +1,14 @@
 package com.example.teethkids.dao
 
+import android.content.Context
 import com.example.teethkids.database.FirebaseHelper
 import com.example.teethkids.database.FirebaseHelper.Companion.getDatabase
 import com.example.teethkids.database.FirebaseHelper.Companion.getIdUser
+import com.example.teethkids.datastore.UserPreferencesRepository
 import com.example.teethkids.model.ResponseEmergency
 
-class EmergencyDao {
+class EmergencyDao(){
+
 
     fun createResponseEmergency(
         responseEmergency: ResponseEmergency,

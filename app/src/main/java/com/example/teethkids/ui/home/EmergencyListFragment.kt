@@ -78,9 +78,8 @@ class EmergencyListFragment : Fragment() {
 
 
         binding.statusBar.btnStatus.setOnCheckedChangeListener { _, isChecked ->
-            val dao = UserDao()
-            dao.updateStatus(
-                FirebaseHelper.getAuth().uid!!, isChecked,
+            val dao = UserDao(requireContext())
+            dao.updateStatus( isChecked,
                 onSuccess = {})
         }
 

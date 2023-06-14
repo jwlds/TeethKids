@@ -69,7 +69,7 @@ class ProfileMainFragment : Fragment(),View.OnClickListener{
             R.id.btnLogout -> {
                 val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
                 userPreferencesRepository.updateUid("")
-                val auth = AuthenticationDAO()
+                val auth = AuthenticationDAO(requireContext())
                 auth.logout()
                 val intent = Intent(activity, AuthenticateActivity::class.java)
                 startActivity(intent)

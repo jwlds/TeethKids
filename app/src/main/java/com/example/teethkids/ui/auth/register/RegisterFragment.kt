@@ -87,7 +87,7 @@ class RegisterFragment : Fragment(),View.OnClickListener{
                     {
                         binding.loading.isVisible = true
                         val registrationData = RegistrationDataHolder.registrationData
-                        val auth = AuthenticationDAO()
+                        val auth = AuthenticationDAO(requireContext())
                         auth.registerAccount(
                             registrationData,
                             onSuccess = {

@@ -1,13 +1,16 @@
 package com.example.teethkids.dao
 
+import android.content.Context
 import com.example.teethkids.database.FirebaseHelper
 import com.example.teethkids.database.FirebaseHelper.Companion.getIdUser
+import com.example.teethkids.datastore.UserPreferencesRepository
 import com.example.teethkids.model.ResponseEmergency
 import com.example.teethkids.model.Review
 import com.google.firebase.Timestamp
 
-class ReviewDao {
+class ReviewDao(context: Context){
 
+    private val userPreferencesRepository = UserPreferencesRepository.getInstance(context)
     fun reportReview(
         review: Review,
         onSuccess: () -> Unit,
@@ -19,7 +22,7 @@ class ReviewDao {
         updateStatusReview(review.EmergencyId!!,onSuccess =  {})
         val reportReviewData = hashMapOf(
             "reportId" to id,
-            "professionalUid" to FirebaseHelper.getIdUser(),
+            "professionalUid" to userPreferencesRepository.uid,
             "emergencyId" to review.EmergencyId,
             "createdAt" to currentTimestamp,
             "commentReported" to hashMapOf("review" to review.review,"dataTime" to review.createdAt)
@@ -37,7 +40,7 @@ class ReviewDao {
     }
 
     fun updateStatusReview(id: String, onSuccess: () -> Unit) {
-        val userRef = FirebaseHelper.getDatabase().collection("profiles").document(getIdUser().toString())
+        val userRef = FirebaseHelper.getDatabase().collection("profiles").document(userPreferencesRepository.uid)
         val reviewRef = userRef.collection("reviews").document(id)
 
         reviewRef.update("revision", true)

@@ -66,9 +66,8 @@ class PersonalInformationFragment : Fragment(),View.OnClickListener, DatePickerD
     override fun onClick(v: View?) {
         when(v!!.id) {
             R.id.btnUpdate -> {
-                val user = UserDao()
+                val user = UserDao(requireContext())
                 user.updateUser(
-                    authUid = getIdUser().toString(),
                     name = binding.edtName.text.toString().trim(),
                     dateOfBirth = binding.edtDateBirth.text.toString().trim(),
                     phone = binding.edtNumberPhone.text.toString().trim(),

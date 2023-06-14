@@ -1,15 +1,24 @@
 package com.example.teethkids.dao
+import android.content.Context
 import android.util.Log
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.teethkids.database.FirebaseHelper
 import com.example.teethkids.database.FirebaseHelper.Companion.getDatabase
 import com.example.teethkids.database.FirebaseHelper.Companion.getIdUser
+import com.example.teethkids.datastore.UserPreferencesRepository
 import com.example.teethkids.model.Address
+import com.example.teethkids.service.ConnectivityManager
 
 //Classe responsável por acessar e manipular dados de endereços no Firebase
-class AddressDao {
+class AddressDao(context: Context) {
+
+
+    private val userPreferencesRepository = UserPreferencesRepository.getInstance(context)
 
     // Função para adicionar um endereço
+
     fun addAddress(address: Address, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
+
         val addressData = hashMapOf(
             "addressId" to address.addressId,
             "userId" to address.userId,
@@ -24,7 +33,7 @@ class AddressDao {
             "lng" to address.lng
         )
         val data = hashMapOf(
-            "authUid" to getIdUser().toString(),
+            "authUid" to userPreferencesRepository.uid,
             "addressData" to addressData
         )
         val addAddress = FirebaseHelper.getFunctions().getHttpsCallable("addAddress")
@@ -53,7 +62,7 @@ class AddressDao {
             "primary" to address.primary
         )
         val data = hashMapOf(
-            "authUid" to getIdUser().toString(),
+            "authUid" to userPreferencesRepository.uid,
             "addressData" to addressData
         )
         val update = FirebaseHelper.getFunctions().getHttpsCallable("updateAddress")
@@ -70,9 +79,9 @@ class AddressDao {
     }
 
     // Função para excluir um endereço
-    fun deleteAddress(authUid: String, addressId: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
+    fun deleteAddress(addressId: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
         val data = hashMapOf(
-            "authUid" to authUid,
+            "authUid" to userPreferencesRepository.uid,
             "addressId" to addressId
         )
         val remove = FirebaseHelper.getFunctions().getHttpsCallable("deleteAddress")

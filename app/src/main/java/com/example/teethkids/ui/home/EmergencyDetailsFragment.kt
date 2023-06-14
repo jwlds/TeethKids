@@ -124,7 +124,7 @@ class EmergencyDetailsFragment : Fragment(), OnClickListener {
                     willProfessionalMove = -1
                 )
                 val dao = EmergencyDao()
-                val daoUser = UserDao()
+                val daoUser = UserDao(requireContext())
 //                daoUser.updateStatusEmergency(id.toString(), onSuccess = {
 //
 //                })

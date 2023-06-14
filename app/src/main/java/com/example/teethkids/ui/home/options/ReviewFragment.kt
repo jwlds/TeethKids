@@ -92,7 +92,7 @@ class ReviewFragment : Fragment() {
             listReviewsAdapter.submitList(reviews)
             val totalRating = reviews.map { it.rating }
             val average =  Utils.calculateAverageRating(totalRating as List<Float>)
-            val dao = UserDao()
+            val dao = UserDao(requireContext())
             dao.updateRating(average, onSuccess = {})
 
             binding.tvTotalRating.text = "Voce tem ${reviews.size} avaliações "

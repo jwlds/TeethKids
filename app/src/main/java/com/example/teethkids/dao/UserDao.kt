@@ -1,8 +1,10 @@
 package com.example.teethkids.dao
 
+import android.content.Context
 import com.example.teethkids.database.FirebaseHelper
 import com.example.teethkids.database.FirebaseHelper.Companion.getDatabase
 import com.example.teethkids.database.FirebaseHelper.Companion.getIdUser
+import com.example.teethkids.datastore.UserPreferencesRepository
 import com.example.teethkids.model.Address
 import com.example.teethkids.model.User
 import com.example.teethkids.utils.Utils
@@ -10,14 +12,15 @@ import com.google.firebase.Timestamp
 import com.google.firebase.firestore.GeoPoint
 import kotlinx.coroutines.tasks.await
 
-class UserDao {
+class UserDao(context: Context){
 
     private val collection = getDatabase().collection("profiles")
+
+    private val userPreferencesRepository = UserPreferencesRepository.getInstance(context)
 
 
 
     fun updateUser(
-        authUid: String,
         name: String,
         dateOfBirth: String,
         phone: String,
@@ -25,7 +28,7 @@ class UserDao {
         onSuccess: () -> Unit,
 //        onFailure: (exeception) -> Unit,
     ) {
-        val userRef = collection.document(authUid)
+        val userRef = collection.document(userPreferencesRepository.uid)
         userRef.update(
             "name", name,
             "dateBirth", dateOfBirth,
@@ -40,16 +43,16 @@ class UserDao {
 
     }
 
-    fun updateStatus(authUid: String, status: Boolean, onSuccess: () -> Unit) {
-        val userRef = collection.document(authUid)
+    fun updateStatus(status: Boolean, onSuccess: () -> Unit) {
+        val userRef = collection.document(userPreferencesRepository.uid)
         userRef.update("status", status)
             .addOnSuccessListener {
                 onSuccess()
             }
     }
 
-    fun updateUrlProfileImage(authUid: String, url: String, onSuccess: () -> Unit) {
-        val userRef = collection.document(authUid)
+    fun updateUrlProfileImage(url: String, onSuccess: () -> Unit) {
+        val userRef = collection.document(userPreferencesRepository.uid)
         userRef.update("urlImg", url)
             .addOnSuccessListener {
                 onSuccess()
@@ -93,7 +96,7 @@ class UserDao {
             "review" to "sdjsdhlshsada",
             "revision" to false,
         )
-        val userRef = getDatabase().collection("profiles").document(getIdUser().toString())
+        val userRef = getDatabase().collection("profiles").document(userPreferencesRepository.uid)
         val reviewRef = userRef.collection("reviews")
             .document(id)
             .set(data)
@@ -105,16 +108,9 @@ class UserDao {
             }
     }
 
-    fun updateStatusEmergency(id: String, onSuccess: () -> Unit) {
-        val userRef = getDatabase().collection("emergencies").document(id)
-        userRef.update("status", "ACEITADO")
-            .addOnSuccessListener {
-                onSuccess()
-            }
-    }
 
     fun updateRating(average: Double, onSuccess: () -> Unit) {
-        val userRef = collection.document(FirebaseHelper.getIdUser().toString())
+        val userRef = collection.document(userPreferencesRepository.uid)
         userRef.update("rating", average)
             .addOnSuccessListener {
                 onSuccess()

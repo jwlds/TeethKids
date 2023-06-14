@@ -67,7 +67,7 @@ class LoginFragment : Fragment(), View.OnClickListener {
                 hideKeyboard()
                 if (isValid()) {
                     binding.loading.isVisible = true
-                    val auth = AuthenticationDAO()
+                    val auth = AuthenticationDAO(requireContext())
                     auth.login(
                         binding.edtEmail.text.toString().trim(),
                         binding.edtPassword.text.toString().trim(),

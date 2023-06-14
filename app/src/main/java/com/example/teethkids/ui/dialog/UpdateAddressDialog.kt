@@ -71,7 +71,7 @@ class UpdateAddressDialog(private var _address: Address) : BottomSheetDialogFrag
             Log.d("111",_address.addressId)
             if(isValid()){
                 binding.btnAdd.startAnimation()
-                val dao = AddressDao()
+                val dao = AddressDao(requireContext())
                 val geoPointer = Utils.geocodeAddress(
                     Utils.getFullAddress(
                         street = binding.edtStreet.text.toString().trim(),

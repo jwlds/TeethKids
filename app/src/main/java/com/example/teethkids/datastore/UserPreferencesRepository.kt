@@ -44,7 +44,6 @@ class UserPreferencesRepository private constructor(context: Context) {
     companion object {
         @Volatile
         private var INSTANCE: UserPreferencesRepository? = null
-
         fun getInstance(context: Context): UserPreferencesRepository {
             return INSTANCE ?: synchronized(this) {
                 INSTANCE?.let {

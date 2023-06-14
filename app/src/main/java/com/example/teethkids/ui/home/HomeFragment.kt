@@ -76,7 +76,7 @@ class HomeFragment : Fragment(){
         }
 
         binding.btnReviewFake.setOnClickListener{
-            val dao = UserDao()
+            val dao = UserDao(requireContext())
             dao.fakeReview(onSuccess = {}, onFailure = {})
         }
         binding.btnNoti.setOnClickListener{
@@ -88,7 +88,7 @@ class HomeFragment : Fragment(){
         }
 
         binding.btnTest.setOnClickListener{
-            val dao = UserDao()
+            val dao = UserDao(requireContext())
             dao.fakeCall(onSuccess = {
                 Utils.showToast(requireContext(),"Chamado foi")
             },

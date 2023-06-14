@@ -68,7 +68,7 @@ class AddAddressDialog() : BottomSheetDialogFragment() {
         binding.btnAdd.setOnClickListener {
             if(isValid()){
                 binding.btnAdd.startAnimation();
-                val dao = AddressDao()
+                val dao = AddressDao(requireContext())
                 val geoPointer = geocodeAddress(
                     getFullAddress(street = binding.edtStreet.text.toString().trim(),
                         number = binding.edtNumber.text.toString().trim(),

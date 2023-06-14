@@ -8,6 +8,9 @@ import com.google.firebase.ktx.Firebase
 
 // Classe responsável por fornece métodos auxiliares para acessar recursos do Firebase
 class FirebaseHelper {
+
+
+
     companion object {
         // Obtém a instância do banco de dados do Firestore
         fun getDatabase() =  FirebaseFirestore.getInstance()
@@ -20,6 +23,7 @@ class FirebaseHelper {
 
         // Obtém o Uid do usuário autenticado
         fun getIdUser() = getAuth().uid
+
 
         // Verifica se há um usuário autenticado
         fun isAuth() = getAuth().currentUser != null

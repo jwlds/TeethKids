@@ -41,8 +41,8 @@ class OptionAddressDialog(
             }
             else {
                 binding.loading.isVisible = true
-                val dao = AddressDao()
-                dao.deleteAddress(getIdUser().toString(), address.addressId,
+                val dao = AddressDao(requireContext())
+                dao.deleteAddress(address.addressId,
                     onSuccess = {
                         binding.loading.isVisible = false
                         dismiss()

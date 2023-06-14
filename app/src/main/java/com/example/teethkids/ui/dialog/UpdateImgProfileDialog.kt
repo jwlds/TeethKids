@@ -66,8 +66,8 @@ class UpdateImgProfileDialog() : BottomSheetDialogFragment(),OnClickListener{
                 Utils.updateProfileImage(bitmap,getIdUser().toString())
                     .addOnSuccessListener { url ->
                         binding.loading.isVisible = false
-                        val dao = UserDao()
-                        dao.updateUrlProfileImage(getIdUser().toString(),url.toString(), onSuccess = {
+                        val dao = UserDao(requireContext())
+                        dao.updateUrlProfileImage(url.toString(), onSuccess = {
                             dismiss()
                         })
                     }
@@ -120,8 +120,8 @@ class UpdateImgProfileDialog() : BottomSheetDialogFragment(),OnClickListener{
                 Utils.updateProfileImage(bitmap,getIdUser().toString())
                     .addOnSuccessListener { url ->
                         binding.loading.isVisible = false
-                        val dao = UserDao()
-                        dao.updateUrlProfileImage(getIdUser().toString(),url.toString(), onSuccess = {
+                        val dao = UserDao(requireContext())
+                        dao.updateUrlProfileImage(url.toString(), onSuccess = {
                             dismiss()
                         })
                     }

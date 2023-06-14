@@ -20,7 +20,7 @@ class ConfirmationMainAddressDialog(
         setTitle("Confirmação")
         setMessage("Deseja confirmar o endereço como principal?")
         setButton(BUTTON_POSITIVE, "Confirmar") { _, _ ->
-            val dao = AddressDao()
+            val dao = AddressDao(context)
             if(currentAddressPrimary == null) {
                 dao.updatePrimaryAddress(true,newAddressPrimary,
                     onSuccess = {

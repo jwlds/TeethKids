@@ -1,8 +1,10 @@
 package com.example.teethkids.dao
 
+import android.content.Context
 import com.example.teethkids.database.FirebaseHelper
 import com.example.teethkids.database.FirebaseHelper.Companion.getFunctions
 import com.example.teethkids.database.FirebaseHelper.Companion.getIdUser
+import com.example.teethkids.datastore.UserPreferencesRepository
 import com.example.teethkids.model.RegistrationData
 import com.example.teethkids.utils.Utils
 import com.example.teethkids.utils.Utils.getFirebaseErrorMessage
@@ -10,7 +12,9 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.messaging.FirebaseMessaging
 
-class AuthenticationDAO {
+class AuthenticationDAO(context: Context){
+
+    private val userPreferencesRepository = UserPreferencesRepository.getInstance(context)
 
 
     //login
@@ -42,7 +46,7 @@ class AuthenticationDAO {
                 onFailure = {
 
                 })
-                val currentUser = getIdUser().toString()
+                val currentUser = userPreferencesRepository.uid
                Utils.uploadProfileImage(data.photo,currentUser)
                    .addOnSuccessListener { url ->
                        val userData = hashMapOf(
