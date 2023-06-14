@@ -125,20 +125,20 @@ class UpdateAddressDialog(private var _address: Address) : BottomSheetDialogFrag
         viaCepRepository.getAddressByCep(
             cep,
             onResponse = { address ->
-                binding.loading.isVisible = true
+
                 if (address != null) {
                     hideKeyboard()
                     binding.zipCodeInputLayout.endIconDrawable = ContextCompat.getDrawable(
                         requireContext(),
                         R.drawable.baseline_done_24
                     )
-                    binding.loading.isVisible = false
+
                     binding.edtStreet.setText(address.logradouro)
                     binding.edtNeighbBorhood.setText(address.bairro)
                     binding.edtCity.setText(address.localidade)
                     binding.edtState.setText(address.uf)
                 } else {
-                    binding.loading.isVisible = false
+
                     Utils.showToast(
                         requireContext(),
                         "Não foi possível carregar os dados do CEP. Por favor, digite manualmente."

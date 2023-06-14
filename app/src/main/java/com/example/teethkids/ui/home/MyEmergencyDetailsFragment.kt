@@ -62,8 +62,8 @@ class MyEmergencyDetailsFragment : Fragment() {
         val locationArray = arguments?.getDoubleArray("location")
         val photos = arguments?.getStringArrayList("photos")
 
-        binding.tvMyDetialsLabelName.text = name
-        binding.tvMyDetialsLabelPhone.text = phone
+        binding.tvMyDetialsName.text = name
+        binding.tvMyDetialsPhone.text = phone
         binding.tvMyDetialsDate.text = createdAt
 
         val adapter = photos?.let { PhotoAdapter(it) }
@@ -136,6 +136,22 @@ class MyEmergencyDetailsFragment : Fragment() {
                 )
             }
         }
+
+        binding.btnSendLoc.setOnClickListener{
+            Snackbar.make(
+                binding.root,
+                "Localização enviada ao socorrista.",
+                Snackbar.LENGTH_SHORT
+            ).show()
+        }
+
+//        binding.btnReciveLoc.setOnClickListener{
+//            Snackbar.make(
+//                binding.root,
+//                "Localização recebida pelo socorrista.",
+//                Snackbar.LENGTH_SHORT
+//            ).show()
+//        }
     }
 
     override fun onRequestPermissionsResult(

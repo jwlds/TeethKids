@@ -161,34 +161,20 @@
         app:spinning_bar_color="#FFF"
         app:spinning_bar_padding="6dp"
         app:spinning_bar_width="4dp" />
-    <!--    app:spinning_bar_width="4dp" &lt;!&ndash; Optional &ndash;&gt;-->
-    <!--    app:spinning_bar_color="#FFF" &lt;!&ndash; Optional &ndash;&gt;-->
-    <!--    app:spinning_bar_padding="6dp" &lt;!&ndash; Optional &ndash;&gt;-->
 
-    <!--    <com.google.android.material.button.MaterialButton-->
-    <!--        android:id="@+id/btnAdd"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginHorizontal="20dp"-->
-    <!--        android:layout_marginTop="10dp"-->
-    <!--        android:textAllCaps="false"-->
-    <!--        android:text="Adicionar"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/stateInputLayout"-->
-    <!--        app:layout_constraintStart_toStartOf="@id/cityInputLayout"-->
-    <!--        app:layout_constraintEnd_toEndOf="@id/stateInputLayout"/>-->
-
-    <ProgressBar
-        android:id="@+id/loading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:foregroundGravity="center_horizontal"
-        android:indeterminateTint="@color/blue"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/btnAdd"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleTextView"
-        tools:visibility="visible" />
+<!--    <ProgressBar-->
+<!--        android:id="@+id/loading"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:foregroundGravity="center_horizontal"-->
+<!--        android:indeterminateTint="@color/blue"-->
+<!--        android:visibility="invisible"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/btnAdd"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/titleTextView"-->
+<!--        tools:visibility="visible"-->
+<!--        android:layout_marginBottom="24dp"/>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

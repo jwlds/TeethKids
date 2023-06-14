@@ -22,11 +22,7 @@ import java.util.logging.Handler
 class ListMyEmergenciesAdapter(
     private val context: Context,
     private val onEmergencyClicked: (Emergency) -> Unit
-): ListAdapter<Emergency, ListMyEmergenciesAdapter.MyEmergencyViewHolder>(DIFF_CALLBACK) {
-
-
-
-
+) : ListAdapter<Emergency, ListMyEmergenciesAdapter.MyEmergencyViewHolder>(DIFF_CALLBACK) {
 
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Emergency>() {
@@ -40,12 +36,12 @@ class ListMyEmergenciesAdapter(
         }
     }
 
-    class MyEmergencyViewHolder(val binding: MyEmergencyItemBinding):
+    class MyEmergencyViewHolder(val binding: MyEmergencyItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(emergencies: Emergency, onEmergencyClicked: (Emergency) -> Unit) {
-            if(emergencies.location != null && AddressPrimaryId.addressGeoPoint != null){
+            if (emergencies.location != null && AddressPrimaryId.addressGeoPoint != null) {
                 binding.myEmergencyDistance.text = Utils.calculateDistance(
-                    GeoPoint(emergencies.location[0],emergencies.location[1]),
+                    GeoPoint(emergencies.location[0], emergencies.location[1]),
                     AddressPrimaryId.addressGeoPoint!!
                 )
             }
@@ -61,17 +57,23 @@ class ListMyEmergenciesAdapter(
             binding.btnDetails.setOnClickListener {
                 onEmergencyClicked(emergencies)
             }
-            binding.btnCall.setOnClickListener{
+            binding.btnCall.setOnClickListener {
                 val dao = EmergencyDao()
-                dao.updateStatusEmergency(emergencies.rescuerUid!!,"onGoing", onSuccess = {}, onFailure = {})
-                dao.updateStatusMyEmergency(emergencies.rescuerUid,"onGoing", onSuccess = {}, onFailure = {})
+                dao.updateStatusEmergency(
+                    emergencies.rescuerUid!!,
+                    "onGoing",
+                    onSuccess = {},
+                    onFailure = {})
+                dao.updateStatusMyEmergency(
+                    emergencies.rescuerUid,
+                    "onGoing",
+                    onSuccess = {},
+                    onFailure = {})
                 val intent = Intent(Intent.ACTION_DIAL)
                 intent.data = Uri.parse("tel:${emergencies.phoneNumber}")
                 ContextCompat.startActivity(binding.root.context, intent, null)
             }
-
         }
-
     }
 
     private fun startTimer(holder: MyEmergencyViewHolder, emergency: Emergency) {
@@ -86,7 +88,11 @@ class ListMyEmergenciesAdapter(
                     handler.postDelayed(this, delay)
                 } else {
                     val dao = EmergencyDao()
-                    dao.updateStatusMyEmergency(emergencyId = emergency.rescuerUid.toString(),"expired", onSuccess = {}, onFailure = {} )
+                    dao.updateStatusMyEmergency(
+                        emergencyId = emergency.rescuerUid.toString(),
+                        "expired",
+                        onSuccess = {},
+                        onFailure = {})
                 }
             }
         }
@@ -94,13 +100,11 @@ class ListMyEmergenciesAdapter(
         handler.postDelayed(runnable, delay)
     }
 
-
     override fun onBindViewHolder(holder: MyEmergencyViewHolder, position: Int) {
         val emergencies = getItem(position)
         holder.bind(emergencies, onEmergencyClicked)
-        if(emergencies.status == "waiting") startTimer(holder, emergencies)
+        if (emergencies.status == "waiting") startTimer(holder, emergencies)
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyEmergencyViewHolder {
         val inflater = LayoutInflater.from(context)
