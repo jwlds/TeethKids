@@ -2,79 +2,63 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.emergencies.EmergencyActivity"
-    android:fillViewport="true">
-
-
-
+    android:fillViewport="true"
+    tools:context=".ui.emergencies.EmergencyActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
-
-
-
-
         <TextView
             android:id="@+id/tvName"
-            android:gravity="center"
-            android:layout_marginTop="80dp"
-            android:textSize="20sp"
-            tools:text="Nome"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="80dp"
+            android:gravity="center"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            tools:text="Nome" />
 
-            />
         <TextView
             android:id="@+id/tvPhone"
-            android:gravity="center"
-            android:layout_marginTop="8dp"
-            android:textSize="20sp"
-            tools:text="Nome"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/tvName"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="@+id/tvName"
+            app:layout_constraintStart_toStartOf="@+id/tvName"
             app:layout_constraintTop_toBottomOf="@+id/tvName"
+            tools:text="Nome" />
 
-
-            />
         <TextView
             android:id="@+id/tvStatus"
-            android:gravity="center"
-            android:layout_marginTop="8dp"
-            android:textSize="20sp"
-            tools:text="Nome"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/tvPhone"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="@+id/tvPhone"
+            app:layout_constraintStart_toStartOf="@+id/tvPhone"
             app:layout_constraintTop_toBottomOf="@+id/tvPhone"
+            tools:text="Nome" />
 
-
-            />
         <TextView
             android:id="@+id/tvDate"
-            android:gravity="center"
-            android:layout_marginTop="8dp"
-            android:textSize="20sp"
-            tools:text="Nome"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/tvStatus"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="@+id/tvStatus"
+            app:layout_constraintStart_toStartOf="@+id/tvStatus"
             app:layout_constraintTop_toBottomOf="@+id/tvStatus"
-
-
-            />
+            tools:text="Nome" />
 
         <ImageView
             android:id="@+id/img1"
@@ -97,7 +81,6 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
 
         <Button
             android:id="@+id/btnCancel"
@@ -126,24 +109,20 @@
             app:layout_constraintHorizontal_bias="0.413"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <ProgressBar android:id="@+id/loading"
-        android:indeterminateTint="@color/blue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="230dp"
-        android:visibility="invisible"
-        tools:visibility="visible"
-        android:foregroundGravity="center_horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-
-        />
-
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="230dp"
+            android:foregroundGravity="center_horizontal"
+            android:indeterminateTint="@color/blue"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 </ScrollView>

@@ -21,6 +21,11 @@ import com.example.teethkids.utils.Utils
 import com.google.firebase.firestore.GeoPoint
 import me.relex.circleindicator.CircleIndicator3
 import android.Manifest
+import android.location.Location
+import com.example.teethkids.service.MyLocation
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.material.snackbar.Snackbar
 
 class MyEmergencyDetailsFragment : Fragment() {
 
@@ -28,17 +33,13 @@ class MyEmergencyDetailsFragment : Fragment() {
     private val binding get() = _binding!!
 
     companion object {
-        private const val LOCATION_PERMISSION_REQUEST_CODE = 123
+        private const val REQUEST_CALL_PERMISSION = 456
     }
 
     private lateinit var viewPager: ViewPager2
-
     private lateinit var circleIndicator: CircleIndicator3
 
-    private lateinit var adapter: PhotoAdapter
-
-    private var lat1: Double? = null
-    private var lon1: Double? = null
+    private var phone: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,10 +52,12 @@ class MyEmergencyDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val context = requireContext()
+
         circleIndicator = binding.indicator
         val emergencyId = arguments?.getString("emergencyId")
         val name = arguments?.getString("name")
-        val phone = arguments?.getString("phone")
+        phone = arguments?.getString("phone")
         val createdAt = arguments?.getString("createdAt")
         val locationArray = arguments?.getDoubleArray("location")
         val photos = arguments?.getStringArrayList("photos")
@@ -69,56 +72,84 @@ class MyEmergencyDetailsFragment : Fragment() {
         viewPager.adapter = adapter
         circleIndicator.setViewPager(viewPager)
 
-
-        if(locationArray != null) {
+        if (locationArray != null) {
             binding.tvLocation.text = Utils.calculateDistance(
                 AddressPrimaryId.addressGeoPoint!!,
-                GeoPoint(locationArray[0],locationArray[1])
+                GeoPoint(locationArray[0], locationArray[1])
             )
         }
 
-        binding.tvMyDetialsLabelName.text = name
-        binding.tvMyDetialsLabelName.text = name
-
-
-        binding.toolbar.btnBack.setOnClickListener{
+        binding.toolbar.btnBack.setOnClickListener {
             findNavController().navigate(R.id.action_myEmergencyDetailsFragment_to_homeFragment)
         }
-        binding.btnFinish.setOnClickListener{
-            val dialog = ConfirmationFinalizeEmergency(requireContext(),emergencyId.toString())
+        binding.btnFinish.setOnClickListener {
+            val dialog = ConfirmationFinalizeEmergency(context, emergencyId.toString())
             dialog.show()
         }
 
-        binding.btnViewMap.setOnClickListener{
+        binding.btnViewMap.setOnClickListener {
             val addressGeoPoint = AddressPrimaryId.addressGeoPoint
 
+            val myLocation = MyLocation(context)
+            myLocation.getCurrentLocation { location: Location? ->
+                if (location != null) {
+                    val lat1 = location.latitude
+                    val lon1 = location.longitude
 
-//            if(locationArray != null) {
-//                 lat1 = locationArray[0]
-//                  lon1 = locationArray[1]
-//            }
+                    val lat2 = addressGeoPoint!!.latitude
+                    val lon2 = addressGeoPoint.longitude
 
-             lat1 =  -22.834980
-             lon1 = -47.053018
-            val lat2 = addressGeoPoint!!.latitude
-            val lon2 = addressGeoPoint.longitude
+                    val uri =
+                        Uri.parse("https://www.google.com/maps/dir/?api=1&origin=$lat1,$lon1&destination=$lat2,$lon2")
+                    val intent = Intent(Intent.ACTION_VIEW, uri)
 
-
-
-            val uri = Uri.parse("https://www.google.com/maps/dir/?api=1&origin=$lat1,$lon1&destination=$lat2,$lon2")
-            val intent = Intent(Intent.ACTION_VIEW, uri)
-            intent.setPackage("com.google.android.apps.maps") // abrir no aplicativo do Google Maps
-            if (intent.resolveActivity(requireActivity().packageManager) != null) {
-                startActivity(intent)
-            } else {
-                // O aplicativo do Google Maps não está instalado, abrir em um navegador
-                intent.setPackage(null)
-                startActivity(intent)
+                    if (intent.resolveActivity(requireActivity().packageManager) != null) {
+                        intent.setPackage("com.google.android.apps.maps")
+                        startActivity(intent)
+                    } else {
+                        intent.setPackage(null)
+                        startActivity(intent)
+                    }
+                } else {
+                    Snackbar.make(
+                        binding.root,
+                        "Não foi possível obter a localização do dispositivo.",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
 
-        binding.btnStartCall.setOnClickListener{
+        binding.btnStartCall.setOnClickListener {
+            if (ContextCompat.checkSelfPermission(
+                    context,
+                    Manifest.permission.CALL_PHONE
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
+                val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:$phone"))
+                startActivity(intent)
+            } else {
+                ActivityCompat.requestPermissions(
+                    requireActivity(),
+                    arrayOf(Manifest.permission.CALL_PHONE),
+                    REQUEST_CALL_PERMISSION
+                )
+            }
+        }
+    }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == REQUEST_CALL_PERMISSION) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:$phone"))
+                startActivity(intent)
+            } else {
+                // A permissão foi negada, tratar de acordo com o seu caso
+            }
         }
     }
 

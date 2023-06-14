@@ -30,12 +30,14 @@
         android:backgroundTint="@android:color/transparent"
         android:text="Excluir"
         android:textAllCaps="false"
-        android:textColor="@color/black"
+        android:textColor="#EA4335"
+        app:icon="@drawable/baseline_delete"
+        app:iconGravity="textStart"
+        app:iconTint="#EA4335"
         app:layout_constraintEnd_toStartOf="@+id/btnUpdate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titleTextView"
-        app:strokeColor="#EA4335"
-        app:tint="@android:color/darker_gray" />
+        app:strokeColor="#EA4335" />
 
     <Button
         android:id="@+id/btnUpdate"
@@ -48,7 +50,10 @@
         android:backgroundTint="@android:color/transparent"
         android:text="Editar"
         android:textAllCaps="false"
-        android:textColor="@color/black"
+        android:textColor="@android:color/darker_gray"
+        app:icon="@drawable/baseline_edit_24"
+        app:iconGravity="textStart"
+        app:iconTint="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnDelete"
         app:layout_constraintTop_toBottomOf="@+id/titleTextView"
