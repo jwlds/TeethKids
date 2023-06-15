@@ -23,9 +23,11 @@ import me.relex.circleindicator.CircleIndicator3
 import android.Manifest
 import android.location.Location
 import android.util.Log
+import androidx.lifecycle.ViewModelProvider
 import com.example.teethkids.dao.EmergencyDao
 import com.example.teethkids.service.MyLocation
 import com.example.teethkids.ui.dialog.SendLocationEmergency
+import com.example.teethkids.viewmodel.EmergencyResponseViewModel
 import com.google.android.material.snackbar.Snackbar
 
 class MyEmergencyDetailsFragment : Fragment() {
@@ -57,6 +59,9 @@ class MyEmergencyDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+
+
         val context = requireContext()
 
         circleIndicator = binding.indicator
@@ -76,6 +81,23 @@ class MyEmergencyDetailsFragment : Fragment() {
         viewPager = binding.viewPager
         viewPager.adapter = adapter
         circleIndicator.setViewPager(viewPager)
+
+        val emergencyResponseViewModel =
+            ViewModelProvider(this).get(EmergencyResponseViewModel::class.java)
+
+        emergencyResponseViewModel.emergencyResponseList.observe(viewLifecycleOwner) { emergencies ->
+            val response = emergencies.find { it.rescuerUid == emergencyId }
+            if(response?.willProfessionalMove == 0)
+            {
+                binding.btnViewMap.isEnabled = false
+                binding.btnSendLoc.isEnabled = true
+            }
+            if(response?.willProfessionalMove == 1)
+            {
+                binding.btnSendLoc.isEnabled = false
+                binding.btnViewMap.isEnabled = true
+            }
+        }
 
         if (locationArray != null) {
             binding.tvLocation.text = Utils.calculateDistance(
@@ -125,12 +147,6 @@ class MyEmergencyDetailsFragment : Fragment() {
                         arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                         REQUEST_CALL_PERMISSION
                     )
-
-//                    Snackbar.make(
-//                        binding.root,
-//                        "Não foi possível obter a localização do dispositivo.",
-//                        Snackbar.LENGTH_SHORT
-//                    ).show()
                 }
             }
         }

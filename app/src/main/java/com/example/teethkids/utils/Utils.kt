@@ -22,6 +22,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.example.teethkids.R
 import com.example.teethkids.databinding.AddressItemBinding
 import com.example.teethkids.databinding.StatusBarBinding
 import com.example.teethkids.model.Address
@@ -212,6 +213,17 @@ object Utils {
             "accepted" -> "aceito"
             else -> ""
         }
+    }
+
+     fun setStatusIconColor(imageView: ImageView, status: String) {
+        val colorResId = when (status) {
+            "waiting" -> R.color.colorStatus2
+            "onGoing" -> R.color.orange
+            "finished" -> R.color.red
+            else -> R.color.white // Cor padrão caso o status não corresponda a nenhum caso acima
+        }
+        val color = ContextCompat.getColor(imageView.context, colorResId)
+        imageView.setColorFilter(color, PorterDuff.Mode.SRC_IN)
     }
 
     fun TextView.setUnderlinedText(text: String){

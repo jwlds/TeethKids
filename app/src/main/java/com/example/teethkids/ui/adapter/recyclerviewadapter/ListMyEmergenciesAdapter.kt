@@ -45,6 +45,7 @@ class ListMyEmergenciesAdapter(
                     AddressPrimaryId.addressGeoPoint!!
                 )
             }
+            Utils.setStatusIconColor(binding.statusIcon,emergencies.status!!)
             binding.btnDetails.isEnabled = emergencies.status != "waiting"
             binding.btnCall.isVisible = emergencies.status != "onGoing"
             binding.myEmergencyTimeRemaing.isVisible = emergencies.status != "onGoing"

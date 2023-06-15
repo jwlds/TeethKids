@@ -19,6 +19,9 @@
     <color name="purple_300">#a16296</color>
     <color name="purple_400">#934086</color>
 
+    <color name="colorStatus1">#FF0000</color>
+    <color name="colorStatus2">#00FF00</color>
+
     <color name="purple_600">#781b71</color>
 
     <color name="purple_800">#5b0e62</color>

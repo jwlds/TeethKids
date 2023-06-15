@@ -18,13 +18,10 @@ class ConfirmationFinalizeEmergency(
         setTitle("Confirmação")
         setMessage("Deseja Finalizar essa emergencia?")
 
-        val checkbox = CheckBox(context)
-        checkbox.text = "Solicitar avaliação do socorrista."
-        checkbox.isChecked = false
+
 
         val layout = LinearLayout(context)
         layout.orientation = LinearLayout.VERTICAL
-        layout.addView(checkbox)
 
         setView(layout)
 
@@ -32,8 +29,6 @@ class ConfirmationFinalizeEmergency(
             val dao = EmergencyDao()
             dao.updateStatusEmergency(emergencyId,"finished", onSuccess = {}, onFailure = {})
             dao.updateStatusMyEmergency(emergencyId, "finished", onSuccess = {}, onFailure = {})
-
-            val receiveEvaluation = checkbox.isChecked
         }
         setButton(BUTTON_NEGATIVE, "Cancelar") { _, _ ->
             dismiss()

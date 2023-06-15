@@ -127,7 +127,6 @@ class EmergencyListFragment : Fragment() {
     }
 
 
-
     private fun loadEmergencies() {
         val emergencyViewModel = ViewModelProvider(this).get(EmergencyViewModel::class.java)
         val emergencyResponseViewModel =
@@ -135,7 +134,7 @@ class EmergencyListFragment : Fragment() {
 
         emergencyResponseViewModel.emergencyResponseList.observe(viewLifecycleOwner) { responses ->
             val acceptedResourceIds = responses
-                .filter { it.status == "rejected" || it.status == "waiting" }
+                .filter { it.status in listOf("rejected", "finished", "expired","waiting","onGoing") }
                 .map { it.rescuerUid }
 
             emergencyViewModel.emergencyList.observe(viewLifecycleOwner) { emergencies ->
@@ -146,7 +145,7 @@ class EmergencyListFragment : Fragment() {
         }
     }
 
-    fun setAddressPrimary() {
+    private fun setAddressPrimary() {
         val addressViewModel = ViewModelProvider(this).get(AddressViewModel::class.java)
         addressViewModel.addressList.observe(viewLifecycleOwner) { addresses ->
             Log.d("test1", addresses.toString())

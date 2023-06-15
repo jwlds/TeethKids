@@ -55,6 +55,7 @@ private val onEmergencyClicked: (Emergency) -> Unit
 
 
 
+            Utils.setStatusIconColor(binding.statusIcon,emergencies.status!!)
             binding.nameTextView.text = emergencies.name
             binding.phoneTextView.text = emergencies.phoneNumber
             binding.tvStatus.text = Utils.translateStatus(emergencies.status)
@@ -64,16 +65,7 @@ private val onEmergencyClicked: (Emergency) -> Unit
             }
         }
 
-//        fun setStatusIconColor(imageView: ImageView, status: String) {
-//            val colorResId = when (status) {
-//                "waiting" -> R.color.colorStatus1
-//                "onGoing" -> R.color.colorStatus2
-//                "finished" -> R.color.colorStatus3
-//                else -> R.color.defaultColor // Cor padrão caso o status não corresponda a nenhum caso acima
-//            }
-//            val color = ContextCompat.getColor(imageView.context, colorResId)
-//            imageView.setColorFilter(color, PorterDuff.Mode.SRC_IN)
-//        }
+
 
     }
 

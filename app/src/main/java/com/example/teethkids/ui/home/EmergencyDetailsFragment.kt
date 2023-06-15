@@ -51,7 +51,9 @@ class EmergencyDetailsFragment : Fragment(), OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.toolbar.screenName.text = "Detalhes"
+
+
+            binding.toolbar.screenName.text = "Detalhes"
         binding.toolbar.btnBack.setOnClickListener(this)
 
         circleIndicator = binding.indicator
@@ -77,6 +79,7 @@ class EmergencyDetailsFragment : Fragment(), OnClickListener {
             }
         }
 
+        Utils.setStatusIconColor(binding.tvStatus,status!!)
         binding.tvDate.text = createdAt
         binding.tvNome.text = name
         binding.tvDate.text = createdAt
