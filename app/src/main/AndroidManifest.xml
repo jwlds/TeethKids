@@ -41,10 +41,6 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.emergencies.EmergencyActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".ui.auth.AuthenticateActivity"
             android:exported="true"
             android:screenOrientation="portrait">

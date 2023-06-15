@@ -11,9 +11,11 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavDeepLinkBuilder
 import com.example.teethkids.R
+import com.example.teethkids.dao.NotificationDao
 import com.example.teethkids.database.FirebaseHelper.Companion.getDatabase
 import com.example.teethkids.database.FirebaseHelper.Companion.getIdUser
 import com.example.teethkids.model.Emergency
+import com.example.teethkids.model.Notification
 import com.example.teethkids.ui.auth.AuthenticateActivity
 import com.example.teethkids.ui.home.MainActivity
 import com.example.teethkids.utils.Utils
@@ -49,7 +51,10 @@ class FirebaseMessagingService : FirebaseMessagingService() {
         val notification = remoteMessage.notification
         val data = remoteMessage.data
 
+
         if(notification != null) {
+            val dao = NotificationDao()
+            dao.addNotification(Notification(notification.title,notification.body))
             if(data["key"] == "40")  sendNotificationReview(notification.title,notification.body)
             if(data["key"] == "50") {
                 //list photos
