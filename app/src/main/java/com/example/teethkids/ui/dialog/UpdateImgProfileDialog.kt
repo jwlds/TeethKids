@@ -6,13 +6,15 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.ImageDecoder
+import android.graphics.Paint
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Settings
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
@@ -21,24 +23,26 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.example.teethkids.R
-import com.example.teethkids.dao.AddressDao
 import com.example.teethkids.dao.UserDao
-import com.example.teethkids.database.FirebaseHelper
 import com.example.teethkids.database.FirebaseHelper.Companion.getIdUser
-import com.example.teethkids.databinding.DialogContentOptionsAddressBinding
 import com.example.teethkids.databinding.DialogContentOptionsUpdateImgProfileBinding
-import com.example.teethkids.ui.auth.register.PhotoFragment
 import com.example.teethkids.utils.RegistrationDataHolder
 import com.example.teethkids.utils.Utils
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
+import java.io.ByteArrayOutputStream
+import java.util.Locale
+import java.util.Random
 
-class UpdateImgProfileDialog() : BottomSheetDialogFragment(),OnClickListener{
+class UpdateImgProfileDialog(private val name: String?) : BottomSheetDialogFragment(),
+    OnClickListener {
 
     private var _binding: DialogContentOptionsUpdateImgProfileBinding? = null
     private val binding get() = _binding!!
-
     private lateinit var dialog: AlertDialog
-
     private var bitmap: Bitmap? = null
 
     companion object {
@@ -52,6 +56,7 @@ class UpdateImgProfileDialog() : BottomSheetDialogFragment(),OnClickListener{
                 permission -> {
                     openCamera()
                 }
+
                 else -> {
                     showDialogPermissionCamera()
                 }
@@ -62,8 +67,8 @@ class UpdateImgProfileDialog() : BottomSheetDialogFragment(),OnClickListener{
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             binding.loading.isVisible = true
             if (result.resultCode == Activity.RESULT_OK) {
-                bitmap =  result.data?.extras?.get("data") as Bitmap?
-                Utils.updateProfileImage(bitmap,getIdUser().toString())
+                bitmap = result.data?.extras?.get("data") as Bitmap?
+                Utils.updateProfileImage(bitmap, getIdUser().toString())
                     .addOnSuccessListener { url ->
                         binding.loading.isVisible = false
                         val dao = UserDao(requireContext())
@@ -73,7 +78,6 @@ class UpdateImgProfileDialog() : BottomSheetDialogFragment(),OnClickListener{
                     }
             }
         }
-
 
     private val requestGallery =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { permission ->
@@ -86,6 +90,7 @@ class UpdateImgProfileDialog() : BottomSheetDialogFragment(),OnClickListener{
                         )
                     )
                 }
+
                 else -> {
                     showDialogPermisson()
                 }
@@ -97,6 +102,7 @@ class UpdateImgProfileDialog() : BottomSheetDialogFragment(),OnClickListener{
         when (v!!.id) {
             R.id.btnGallery -> checkPermissionGallery()
             R.id.btnCamera -> checkPermissionCamera()
+            R.id.btnDeletePhoto -> createInitialsImage()
         }
     }
 
@@ -117,7 +123,7 @@ class UpdateImgProfileDialog() : BottomSheetDialogFragment(),OnClickListener{
                     ImageDecoder.decodeBitmap(source)
                 }
                 binding.loading.isVisible = true
-                Utils.updateProfileImage(bitmap,getIdUser().toString())
+                Utils.updateProfileImage(bitmap, getIdUser().toString())
                     .addOnSuccessListener { url ->
                         binding.loading.isVisible = false
                         val dao = UserDao(requireContext())
@@ -126,27 +132,25 @@ class UpdateImgProfileDialog() : BottomSheetDialogFragment(),OnClickListener{
                         })
                     }
             }
-
         }
-
-
-
-
-
-
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.btnCamera.setOnClickListener(this)
         binding.btnGallery.setOnClickListener(this)
-
+        binding.btnDeletePhoto.setOnClickListener(this)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = DialogContentOptionsUpdateImgProfileBinding.inflate(LayoutInflater.from(requireContext()))
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding =
+            DialogContentOptionsUpdateImgProfileBinding.inflate(LayoutInflater.from(requireContext()))
         return binding.root
     }
+
 
     private fun checkPermissionCamera() {
         val permissionCamera = checkPermission(PERMISSION_CAMERA)
@@ -155,6 +159,7 @@ class UpdateImgProfileDialog() : BottomSheetDialogFragment(),OnClickListener{
             permissionCamera -> {
                 openCamera()
             }
+
             shouldShowRequestPermissionRationale(PERMISSION_CAMERA) -> showDialogPermissionCamera()
 
             else -> requestCamera.launch(PERMISSION_CAMERA)
@@ -173,6 +178,7 @@ class UpdateImgProfileDialog() : BottomSheetDialogFragment(),OnClickListener{
                     )
                 )
             }
+
             shouldShowRequestPermissionRationale(PERMISSION_GALLERY) -> showDialogPermisson()
 
             else -> requestGallery.launch(PERMISSION_GALLERY)
@@ -197,9 +203,6 @@ class UpdateImgProfileDialog() : BottomSheetDialogFragment(),OnClickListener{
         dialog.show()
     }
 
-
-
-
     private fun showDialogPermisson() {
         val builder = AlertDialog.Builder(requireContext())
             .setTitle("Atenção")
@@ -217,7 +220,85 @@ class UpdateImgProfileDialog() : BottomSheetDialogFragment(),OnClickListener{
             }
         dialog = builder.create()
         dialog.show()
+    }
 
+    private fun createInitialsImage() {
+        val initials = name?.take(2)?.toUpperCase(Locale.getDefault())
+        val width = 120
+        val height = 120
+
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        val paint = Paint().apply {
+            val random = Random()
+            color = Color.rgb(random.nextInt(255), random.nextInt(256), random.nextInt(256))
+            style = Paint.Style.FILL
+        }
+
+        canvas.drawCircle(
+            (width / 2).toFloat(),
+            (height / 2).toFloat(),
+            (width / 2).toFloat(),
+            paint
+        )
+
+        paint.apply {
+            color = Color.WHITE
+            textSize = 60f
+            textAlign = Paint.Align.CENTER
+        }
+
+        val xPos = canvas.width / 2
+        val yPos = (canvas.height / 2) - ((paint.descent() + paint.ascent()) / 2)
+
+        initials?.let { canvas.drawText(it, xPos.toFloat(), yPos, paint) }
+
+        // Enviar a imagem para o Firebase Storage
+        val storageRef = Firebase.storage.reference
+        val profileImagesRef = storageRef.child("profile_images")
+        val imageRef = profileImagesRef.child("${getIdUser()}.jpg")
+
+        val baos = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        val imageData = baos.toByteArray()
+
+        val uploadTask = imageRef.putBytes(imageData)
+        uploadTask.continueWithTask { task ->
+            if (!task.isSuccessful) {
+                task.exception?.let {
+                    throw it
+                }
+            }
+            imageRef.downloadUrl
+        }.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val downloadUri = task.result
+                binding.loading.isVisible = true
+                setProfileImage(downloadUri.toString())
+            } else {
+                // Tratar falha ao enviar a imagem para o Firebase Storage
+            }
+        }
+    }
+
+    private fun setProfileImage(url: String) {
+
+        val user = FirebaseAuth.getInstance().currentUser
+        val profileUpdates = UserProfileChangeRequest.Builder()
+            .setPhotoUri(Uri.parse(url))
+            .build()
+        user?.updateProfile(profileUpdates)?.addOnCompleteListener { updateTask ->
+            if (updateTask.isSuccessful) {
+
+                val dao = UserDao(requireContext())
+                binding.loading.isVisible = false
+                dao.updateUrlProfileImage(url) {
+                    dismiss()
+                }
+            } else {
+                // Tratar falha ao atualizar a imagem do perfil no Firebase Auth
+            }
+        }
     }
 
     private fun openCamera() {
@@ -239,11 +320,8 @@ class UpdateImgProfileDialog() : BottomSheetDialogFragment(),OnClickListener{
         return true
     }
 
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
-
 }

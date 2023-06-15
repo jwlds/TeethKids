@@ -13,13 +13,11 @@ import com.google.firebase.Timestamp
 import com.google.firebase.firestore.GeoPoint
 import kotlinx.coroutines.tasks.await
 
-class UserDao(context: Context){
+class UserDao(context: Context) {
 
     private val collection = getDatabase().collection("profiles")
 
     private val userPreferencesRepository = UserPreferencesRepository.getInstance(context)
-
-
 
     fun updateUser(
         name: String,
@@ -44,6 +42,12 @@ class UserDao(context: Context){
 
     }
 
+    fun updateDescription(professionalDescription: String, onSuccess: () -> Unit) {
+        val userRef = collection.document(userPreferencesRepository.uid)
+        userRef.update("professionalDescription", professionalDescription)
+            .addOnSuccessListener { onSuccess() }
+    }
+
     fun updateStatus(status: Boolean, onSuccess: () -> Unit) {
         val userRef = collection.document(userPreferencesRepository.uid)
         userRef.update("status", status)
@@ -62,7 +66,7 @@ class UserDao(context: Context){
 
 
     fun fakeCall(onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
-        val id =  getDatabase().collection("emergencies").document().id
+        val id = getDatabase().collection("emergencies").document().id
         val currentTimestamp: Timestamp = Timestamp.now()
         val data = hashMapOf(
             "rescuerUid" to id,
@@ -70,9 +74,11 @@ class UserDao(context: Context){
             "phoneNumber" to "(19) 99999 - 9999",
             "status" to "waiting",
             "createdAt" to currentTimestamp,
-            "location" to listOf(-24.3333,-22.2222),
-            "photos" to listOf("https://firebasestorage.googleapis.com/v0/b/teethkids-49f4b.appspot.com/o/EMERGENCIES%2FPHOTOS%2F1.jpg?alt=media&token=a15a465a-86d4-4e4d-942c-383e1dfb5edc",
-                "https://firebasestorage.googleapis.com/v0/b/teethkids-49f4b.appspot.com/o/EMERGENCIES%2FPHOTOS%2F1.jpg?alt=media&token=a15a465a-86d4-4e4d-942c-383e1dfb5edc")
+            "location" to listOf(-24.3333, -22.2222),
+            "photos" to listOf(
+                "https://firebasestorage.googleapis.com/v0/b/teethkids-49f4b.appspot.com/o/EMERGENCIES%2FPHOTOS%2F1.jpg?alt=media&token=a15a465a-86d4-4e4d-942c-383e1dfb5edc",
+                "https://firebasestorage.googleapis.com/v0/b/teethkids-49f4b.appspot.com/o/EMERGENCIES%2FPHOTOS%2F1.jpg?alt=media&token=a15a465a-86d4-4e4d-942c-383e1dfb5edc"
+            )
         )
         getDatabase()
             .collection("emergencies")
@@ -87,7 +93,7 @@ class UserDao(context: Context){
     }
 
     fun fakeReview(onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
-        val id =  getDatabase().collection("emergencies").document().id
+        val id = getDatabase().collection("emergencies").document().id
         val currentTimestamp: Timestamp = Timestamp.now()
         val data = hashMapOf(
             "EmergencyId" to id,
@@ -118,16 +124,16 @@ class UserDao(context: Context){
             }
     }
 
-     fun sendRegistrationToServer(token: String) {
+    fun sendRegistrationToServer(token: String) {
         val authUid = userPreferencesRepository.uid
-            val userRef = getDatabase().collection("profiles").document(authUid)
-            userRef.update("fcmToken", token)
-                .addOnSuccessListener {
-                    Log.d("sendRegistrationToServer", "Refreshed token: $token")
-                }
-                .addOnFailureListener { exception ->
-                    Log.d("sendRegistrationToServer", "Erro Refreshed token: $exception")
-                }
+        val userRef = getDatabase().collection("profiles").document(authUid)
+        userRef.update("fcmToken", token)
+            .addOnSuccessListener {
+                Log.d("sendRegistrationToServer", "Refreshed token: $token")
+            }
+            .addOnFailureListener { exception ->
+                Log.d("sendRegistrationToServer", "Erro Refreshed token: $exception")
+            }
     }
 
 }

@@ -52,6 +52,7 @@ class ProfileMainFragment : Fragment(),View.OnClickListener{
             when (option.name) {
                 "Endereços" -> findNavController().navigate(R.id.action_profileMainFragment_to_myAndressesFragment)
                 "Meus Dados" -> findNavController().navigate(R.id.action_profileMainFragment_to_personalInformationFragment)
+                "Mini Currículo" -> findNavController().navigate(R.id.action_profileMainFragment_to_myDescriptionFragment)
                 "Avaliações" -> findNavController().navigate(R.id.action_profileMainFragment_to_reviewFragment)
                 "Ajuda" -> findNavController().navigate(R.id.action_profileMainFragment_to_helpFragment)
             }

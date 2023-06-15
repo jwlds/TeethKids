@@ -32,7 +32,7 @@ class PersonalInformationFragment : Fragment(),View.OnClickListener, DatePickerD
     private var _binding: FragmentPersonalInformationBinding? = null
     private val binding get() = _binding!!
     private lateinit var userViewModel: UserViewModel
-
+    private var name: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,6 +49,8 @@ class PersonalInformationFragment : Fragment(),View.OnClickListener, DatePickerD
         userViewModel.user.observe(viewLifecycleOwner) { user ->
             Utils.loadImageFromUrl(user.urlImg, binding.imgProfile)
             binding.edtName.setText(user.name)
+            name = user.name
+
             binding.edtDateBirth.setText(user.dateBrith)
             binding.edtNumberPhone.setText(user.numberPhone)
             binding.edtCro.setText(user.cro)
@@ -99,10 +101,9 @@ class PersonalInformationFragment : Fragment(),View.OnClickListener, DatePickerD
     }
 
     private fun showDialogUpdateImgProfile() {
-        val dialog = UpdateImgProfileDialog()
+        val dialog = UpdateImgProfileDialog(name)
         dialog.show(requireActivity().supportFragmentManager, "dialogUpdateImgProfile")
     }
-
 
     override fun onDestroy() {
         super.onDestroy()

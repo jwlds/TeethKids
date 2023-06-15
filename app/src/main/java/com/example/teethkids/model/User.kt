@@ -11,6 +11,7 @@ data class User(
     var dateBrith: String = "",
     var email: String = "",
     var graduationDate: String = "",
+    var professionalDescription: String = "",
     val name:String = "",
     var numberPhone: String = "",
     var university: String = "",

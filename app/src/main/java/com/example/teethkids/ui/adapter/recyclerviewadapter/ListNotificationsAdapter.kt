@@ -28,9 +28,6 @@ class ListNotificationsAdapter(
             binding.notificationItemDate.text = formatDate(notifications.timeStamp!!)
         }
 
-
-
-
         private fun formatDate(timestamp: Timestamp): String {
             val currentDateTime = LocalDateTime.now()
             val notificationDateTime = timestamp.toDate().toInstant()

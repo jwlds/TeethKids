@@ -8,8 +8,8 @@
     <item
         android:id="@+id/homeFragment"
         android:enabled="true"
-        android:icon="@drawable/outline_home_24"
-        android:title="Início"/>
+        android:icon="@drawable/baseline_health_and_safety_24"
+        android:title="Atendimentos"/>
 
     <item
         android:id="@+id/notificationFragment"

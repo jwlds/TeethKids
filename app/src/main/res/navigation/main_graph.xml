@@ -33,6 +33,9 @@
         <action
             android:id="@+id/action_profileMainFragment_to_reviewFragment"
             app:destination="@id/reviewFragment" />
+        <action
+            android:id="@+id/action_profileMainFragment_to_myDescriptionFragment"
+            app:destination="@id/myDescriptionFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -101,5 +104,13 @@
         <action
             android:id="@+id/action_myEmergencyDetailsFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myDescriptionFragment"
+        android:name="com.example.teethkids.ui.home.options.MyDescriptionFragment"
+        android:label="MyDescriptionFragment" >
+        <action
+            android:id="@+id/action_myDescriptionFragment_to_profileMainFragment"
+            app:destination="@id/profileMainFragment" />
     </fragment>
 </navigation>
