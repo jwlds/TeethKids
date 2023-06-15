@@ -35,11 +35,11 @@
         <Button
             android:id="@+id/btnNext"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:textAllCaps="false"
             android:text="@string/string_text_btn_register"
             android:layout_marginTop="10dp"
-            android:backgroundTint="@color/blue"
+            android:backgroundTint="#0072C6"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
