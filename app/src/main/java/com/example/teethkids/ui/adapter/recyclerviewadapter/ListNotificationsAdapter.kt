@@ -25,7 +25,7 @@ class ListNotificationsAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(notifications: Notification) {
             binding.notificationItemBody.text = notifications.body
-            binding.notificationItemDate.text = formatDate(notifications.timestamp!!)
+            binding.notificationItemDate.text = formatDate(notifications.timeStamp!!)
         }
 
 

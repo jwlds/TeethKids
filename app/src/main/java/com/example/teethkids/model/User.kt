@@ -1,7 +1,9 @@
 package com.example.teethkids.model
 
-import android.graphics.Bitmap
 
+
+
+// Classe representando um "User".
 data class User(
     var status: Boolean = false,
     var authUid: String = "",

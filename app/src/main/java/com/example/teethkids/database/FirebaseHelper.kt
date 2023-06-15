@@ -10,9 +10,6 @@ import com.google.firebase.messaging.FirebaseMessaging
 
 // Classe responsável por fornece métodos auxiliares para acessar recursos do Firebase
 class FirebaseHelper {
-
-
-
     companion object {
         // Obtém a instância do banco de dados do Firestore
         fun getDatabase() =  FirebaseFirestore.getInstance()

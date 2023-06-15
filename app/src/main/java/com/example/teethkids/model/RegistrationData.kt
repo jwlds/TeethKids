@@ -5,6 +5,8 @@ import android.os.Parcelable
 import com.example.teethkids.database.FirebaseHelper
 import kotlinx.parcelize.Parcelize
 
+
+// Classe representando os dados do processo de registro.
 @Parcelize
 data class RegistrationData(
     var email: String? = "",
@@ -31,7 +33,9 @@ data class RegistrationData(
     var lng: Double? = null,
 
 ) : Parcelable {
+    //Antes de inicializar a classe.
     init {
-        this.addressId = FirebaseHelper.getDatabase().collection("address").document().id
+        // Atribui um ID único a addressId.
+        this.addressId = FirebaseHelper.getDatabase().collection("addresses").document().id
     }
 }

@@ -16,36 +16,51 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+
+
+    // Gerenciador de conectividade para verificar o estado da conexão de rede
     private lateinit var connectivityManager: ConnectivityManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // Inicialização do ConnectivityManager
         connectivityManager = ConnectivityManager(this)
 
+        // Inicialização do FirebaseApp
         FirebaseApp.initializeApp(this);
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //val errorLayout = binding.errorLayout
 
+
+
+        // Observa as alterações na conectividade de rede usando o ConnectivityManager
         connectivityManager.observe(this) { isConnected ->
             if (isConnected) {
+                // Se há conexão de rede, o layout de erro não é mostrado
                 binding.contentMain.errorLayout.errorLayout.isVisible = false
                 binding.contentMain.navHostFragment.isVisible = true
             } else {
+                // Se não há conexão de rede, o layout de erro é mostrado
                 binding.contentMain.errorLayout.errorLayout.isVisible = true
                 binding.contentMain.navHostFragment.isVisible = false
             }
         }
-        supportFragmentManager.findFragmentById(binding.contentMain.navHostFragment.id) as NavHostFragment
 
+        // Encontra o fragmento de navegação pelo ID e obtém o NavController associado a ele
         val navHostFragment =
             supportFragmentManager.findFragmentById(binding.contentMain.navHostFragment.id) as NavHostFragment
         navController = navHostFragment.navController
+
+        // Configura a navegação do BottomNavigationView com o NavController
         binding.bottomNavigationView.setupWithNavController(navController)
+
+        // Adiciona um listener para detectar mudanças de destino na navegação
         navController.addOnDestinationChangedListener { _, destination, _ ->
+
+            // Se o destino for um dos seguintes fragmentos, torna o BottomNavigationView visível
             when (destination.id) {
                 R.id.homeFragment,
                 R.id.profileMainFragment,
@@ -54,10 +69,18 @@ class MainActivity : AppCompatActivity() {
                 R.id.emergencyListFragment -> {
                     binding.bottomNavigationView.isVisible = true
                 }
+                // Caso contrário, torna o BottomNavigationView invisível (Para não a bottomBar nas sub_telas)
                 else -> {
                     binding.bottomNavigationView.isVisible = false
                 }
             }
         }
+
+
+
     }
+
+
+
+
 }

@@ -15,7 +15,6 @@ import com.example.teethkids.database.FirebaseHelper
 import com.example.teethkids.database.FirebaseHelper.Companion.getIdUser
 import com.example.teethkids.databinding.DialogContentAddAddressBinding
 import com.example.teethkids.model.Address
-import com.example.teethkids.model.Coordinates
 import com.example.teethkids.repository.ViaCepRepository
 import com.example.teethkids.utils.Utils
 import com.example.teethkids.utils.Utils.geocodeAddress

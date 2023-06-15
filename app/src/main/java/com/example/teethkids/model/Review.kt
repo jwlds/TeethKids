@@ -2,6 +2,7 @@ package com.example.teethkids.model
 
 import com.google.firebase.Timestamp
 
+// Classe representando uma avaliação.
 data class Review(
     val EmergencyId: String? = null,
     val image: Int? = null,

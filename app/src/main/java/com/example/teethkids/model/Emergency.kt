@@ -1,8 +1,9 @@
 package com.example.teethkids.model
 
 import com.google.firebase.Timestamp
-import com.google.firebase.firestore.GeoPoint
 
+
+// Classe representando uma emergência
 data class Emergency
     (
     val name: String? = null,

@@ -22,8 +22,13 @@ data class Address(
   var lat: Double? = null,
   var lng: Double? = null,
 ) : Parcelable {
-  init {
-    this.addressId = FirebaseHelper.getDatabase().collection("address").document().id
-  }
 
+  //Antes de inicializar a classe.
+  init {
+    // Atribui um ID único a addressId.
+    this.addressId = FirebaseHelper.getDatabase().collection("addresses").document().id
+  }
+  override fun toString(): String {
+    return "$street, $number, $neighborhood, $city, $state, $zipeCode"
+  }
 }
