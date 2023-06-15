@@ -223,7 +223,7 @@ class UpdateImgProfileDialog(private val name: String?) : BottomSheetDialogFragm
     }
 
     private fun createInitialsImage() {
-        val initials = name?.take(2)?.toUpperCase(Locale.getDefault())
+        val initials = Utils.getInitials(name!!)
         val width = 120
         val height = 120
 

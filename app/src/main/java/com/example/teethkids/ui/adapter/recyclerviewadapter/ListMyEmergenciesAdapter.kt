@@ -3,6 +3,7 @@ package com.example.teethkids.ui.adapter.recyclerviewadapter
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -11,13 +12,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.teethkids.dao.EmergencyDao
-import com.example.teethkids.databinding.EmergencyItemBinding
 import com.example.teethkids.databinding.MyEmergencyItemBinding
 import com.example.teethkids.model.Emergency
 import com.example.teethkids.utils.AddressPrimaryId
 import com.example.teethkids.utils.Utils
 import com.google.firebase.firestore.GeoPoint
-import java.util.logging.Handler
 
 class ListMyEmergenciesAdapter(
     private val context: Context,
@@ -38,6 +37,8 @@ class ListMyEmergenciesAdapter(
 
     class MyEmergencyViewHolder(val binding: MyEmergencyItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        private var countDownTimer: CountDownTimer? = null
+
         fun bind(emergencies: Emergency, onEmergencyClicked: (Emergency) -> Unit) {
             if (emergencies.location != null && AddressPrimaryId.addressGeoPoint != null) {
                 binding.myEmergencyDistance.text = Utils.calculateDistance(
@@ -79,37 +80,47 @@ class ListMyEmergenciesAdapter(
                 intent.data = Uri.parse("tel:${emergencies.phoneNumber}")
                 ContextCompat.startActivity(binding.root.context, intent, null)
             }
+
+            if (emergencies.status == "waiting") {
+                startCountDownTimer(emergencies)
+            } else {
+                stopCountDownTimer()
+            }
         }
-    }
 
-    private fun startTimer(holder: MyEmergencyViewHolder, emergency: Emergency) {
-        val handler = android.os.Handler()
-        val delay = 1000L
+        private fun startCountDownTimer(emergencies: Emergency) {
+            stopCountDownTimer()
 
-        val runnable = object : Runnable {
-            override fun run() {
-                if (emergency.timer > 0) {
-                    emergency.timer -= 1
-                    holder.binding.myEmergencyTimeRemaing.text = emergency.timer.toString()
-                    handler.postDelayed(this, delay)
-                } else {
+            val timerDuration = emergencies.timer * 1000L
+
+            countDownTimer = object : CountDownTimer(timerDuration, 1000) {
+                override fun onTick(millisUntilFinished: Long) {
+                    val secondsRemaining = millisUntilFinished / 1000
+                    binding.myEmergencyTimeRemaing.text = secondsRemaining.toString()
+                }
+
+                override fun onFinish() {
                     val dao = EmergencyDao()
                     dao.updateStatusMyEmergency(
-                        emergencyId = emergency.rescuerUid.toString(),
+                        emergencyId = emergencies.rescuerUid.toString(),
                         "expired",
                         onSuccess = {},
                         onFailure = {})
                 }
             }
+
+            countDownTimer?.start()
         }
 
-        handler.postDelayed(runnable, delay)
+         fun stopCountDownTimer() {
+            countDownTimer?.cancel()
+            countDownTimer = null
+        }
     }
 
     override fun onBindViewHolder(holder: MyEmergencyViewHolder, position: Int) {
         val emergencies = getItem(position)
         holder.bind(emergencies, onEmergencyClicked)
-        if (emergencies.status == "waiting") startTimer(holder, emergencies)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyEmergencyViewHolder {
@@ -119,4 +130,8 @@ class ListMyEmergenciesAdapter(
         return MyEmergencyViewHolder(binding)
     }
 
+    override fun onViewRecycled(holder: MyEmergencyViewHolder) {
+        super.onViewRecycled(holder)
+        holder.stopCountDownTimer()
+    }
 }

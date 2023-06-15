@@ -30,7 +30,7 @@ class ListReviewsAdapter(
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Review>() {
             override fun areItemsTheSame(oldItem: Review, newItem: Review): Boolean {
                 // Check if the items have the same ID or unique identifier
-                return oldItem.EmergencyId == newItem.EmergencyId
+                return oldItem.emergencyId == newItem.emergencyId
             }
 
             override fun areContentsTheSame(oldItem: Review, newItem: Review): Boolean {

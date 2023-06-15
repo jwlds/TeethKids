@@ -22,6 +22,10 @@ import com.example.teethkids.viewmodel.EmergencyResponseViewModel
 import com.example.teethkids.viewmodel.EmergencyViewModel
 import com.example.teethkids.viewmodel.UserViewModel
 import com.google.firebase.firestore.GeoPoint
+import android.app.NotificationManager
+import android.content.Context
+import android.content.Intent
+import android.provider.Settings
 
 
 class EmergencyListFragment : Fragment() {
@@ -83,9 +87,18 @@ class EmergencyListFragment : Fragment() {
         binding.statusBar.btnStatus.setOnCheckedChangeListener { _, isChecked ->
             val dao = UserDao(requireContext())
             dao.updateStatus(isChecked,
-                onSuccess = {})
+                onSuccess = {
+                    if (isChecked && !isNotificationPermissionGranted()) {
+                        requestNotificationPermission()
+                    }
+                })
         }
 
+    }
+
+    private fun isNotificationPermissionGranted(): Boolean {
+        val notificationManager = requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        return notificationManager.areNotificationsEnabled()
     }
 
     private fun loadEmergenciesByAccepted() {
@@ -124,6 +137,12 @@ class EmergencyListFragment : Fragment() {
             )
         }
         binding.listEmergency.adapter = listEmergenciesAdapter
+    }
+
+    private fun requestNotificationPermission() {
+        val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+            .putExtra(Settings.EXTRA_APP_PACKAGE, requireContext().packageName)
+        startActivity(intent)
     }
 
 

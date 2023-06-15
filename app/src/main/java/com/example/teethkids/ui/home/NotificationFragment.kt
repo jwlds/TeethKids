@@ -37,10 +37,6 @@ class NotificationFragment : Fragment() {
         binding.toolbar.screenName.text = "Notificações"
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
-
 
     override fun onDestroy() {
         super.onDestroy()

@@ -13,6 +13,6 @@ data class Emergency
     val photos: List<String>? = null,
     val location: List<Double>? = null,
     val rescuerUid: String? = null,
-    var timer: Int = 60,
+    var timer: Long = 60,
     var fcmToken: String? = null
     )

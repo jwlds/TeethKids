@@ -15,9 +15,6 @@ import com.google.firebase.messaging.FirebaseMessaging
 
 class AuthenticationDAO(){
 
-
-
-
     //login
      fun login(
         email: String,
@@ -97,7 +94,6 @@ class AuthenticationDAO(){
                 onFailure(getFirebaseErrorMessage(exception))
             }
     }
-
 
 
 

@@ -19,11 +19,11 @@ class ReviewDao(context: Context){
         val id =  FirebaseHelper.getDatabase().collection("disputes").document().id
         val currentTimestamp: Timestamp = Timestamp.now()
         val db = FirebaseHelper.getDatabase()
-        updateStatusReview(review.EmergencyId!!,onSuccess =  {})
+        updateStatusReview(review.emergencyId!!,onSuccess =  {})
         val reportReviewData = hashMapOf(
             "reportId" to id,
             "professionalUid" to userPreferencesRepository.uid,
-            "emergencyId" to review.EmergencyId,
+            "emergencyId" to review.emergencyId,
             "createdAt" to currentTimestamp,
             "commentReported" to hashMapOf("review" to review.review,"dataTime" to review.createdAt)
         )

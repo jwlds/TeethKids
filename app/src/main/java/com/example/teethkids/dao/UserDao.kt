@@ -96,7 +96,7 @@ class UserDao(context: Context) {
         val id = getDatabase().collection("emergencies").document().id
         val currentTimestamp: Timestamp = Timestamp.now()
         val data = hashMapOf(
-            "EmergencyId" to id,
+            "emergencyId" to id,
             "createdAt" to currentTimestamp,
             "name" to "Gustavo",
             "rating" to 3.0,

@@ -29,7 +29,7 @@ class SendLocationEmergency(
 
         val checkbox2 = CheckBox(context)
         checkbox2.text = "Enviar localização do endereço principal."
-        checkbox2.isChecked = false
+        checkbox2.isChecked = true
 
         val layout = LinearLayout(context)
         layout.orientation = LinearLayout.VERTICAL
