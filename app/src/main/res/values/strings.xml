@@ -51,7 +51,7 @@
     <string name="string_text_btn_reconnect">Reconectar</string>
     <string name="string_text_btn_accept">Aceitar</string>
     <string name="string_text_btn_cancel2">Recusar</string>
-    <string name="string_text_btn_recover">Recuperar senha</string>
+    <string name="string_text_btn_recover">Esqueceu sua senha?</string>
     <string name="string_text_btn_login">Entrar</string>
     <string name="string_text_btn_register">Cadastre-se</string>
     <string name="string_text_btn_send_location">Enviar Localização</string>

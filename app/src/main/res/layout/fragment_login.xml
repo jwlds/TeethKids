@@ -17,7 +17,7 @@
             android:layout_height="238dp"
             android:layout_marginTop="30dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/logo_app3"
+            android:src="@drawable/logo_final"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -93,7 +93,7 @@
             android:layout_marginTop="8dp"
             android:linksClickable="true"
             android:text="@string/string_text_btn_recover"
-            android:textColor="@color/blue"
+            android:textColor="#0072C6"
             app:layout_constraintEnd_toEndOf="@+id/inputPassword"
             app:layout_constraintStart_toStartOf="@+id/inputPassword"
             app:layout_constraintTop_toBottomOf="@+id/tvErrorMessage" />
@@ -101,10 +101,10 @@
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_marginTop="10dp"
             android:height="60dp"
-            android:backgroundTint="@color/blue"
+            android:backgroundTint="#0072C6"
             android:text="@string/string_text_btn_login"
             android:textAllCaps="false"
             app:layout_constraintEnd_toEndOf="@+id/inputPassword"
@@ -130,7 +130,7 @@
             android:gravity="center"
             android:layout_marginStart="4dp"
             android:text="@string/string_text_btn_register"
-            android:textColor="@color/blue"
+            android:textColor="#0072C6"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/labelRegister"
             app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
