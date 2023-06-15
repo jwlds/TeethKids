@@ -16,7 +16,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
-
     private lateinit var connectivityManager: ConnectivityManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,10 +28,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-
         //val errorLayout = binding.errorLayout
-
 
         connectivityManager.observe(this) { isConnected ->
             if (isConnected) {
@@ -63,12 +59,5 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
-
-
     }
-
-
-
-
 }

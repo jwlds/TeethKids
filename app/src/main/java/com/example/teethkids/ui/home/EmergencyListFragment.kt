@@ -51,6 +51,7 @@ class EmergencyListFragment : Fragment() {
                             R.id.filterAvailable -> {
                                 loadEmergencies()
                             }
+
                             R.id.filterWaiting -> {
                                 loadEmergenciesByAccepted()
                             }
@@ -74,16 +75,11 @@ class EmergencyListFragment : Fragment() {
             binding.statusBar.toolbar.setBackgroundColor(color)
         }
 
-
-
-
         binding.statusBar.btnStatus.setOnCheckedChangeListener { _, isChecked ->
             val dao = UserDao(requireContext())
-            dao.updateStatus( isChecked,
+            dao.updateStatus(isChecked,
                 onSuccess = {})
         }
-
-
 
     }
 
@@ -139,7 +135,7 @@ class EmergencyListFragment : Fragment() {
 
         emergencyResponseViewModel.emergencyResponseList.observe(viewLifecycleOwner) { responses ->
             val acceptedResourceIds = responses
-                .filter { it.status == "rejected" || it.status == "waiting"}
+                .filter { it.status == "rejected" || it.status == "waiting" }
                 .map { it.rescuerUid }
 
             emergencyViewModel.emergencyList.observe(viewLifecycleOwner) { emergencies ->

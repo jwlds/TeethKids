@@ -29,9 +29,7 @@ import com.google.firebase.firestore.GeoPoint
 import me.relex.circleindicator.CircleIndicator
 import me.relex.circleindicator.CircleIndicator3
 
-
 class EmergencyDetailsFragment : Fragment(), OnClickListener {
-
 
     private var _binding: FragmentEmergencyDetailsBinding? = null
     private val binding get() = _binding!!
@@ -58,12 +56,8 @@ class EmergencyDetailsFragment : Fragment(), OnClickListener {
 
         circleIndicator = binding.indicator
 
-
-
-
         binding.btnAccept.setOnClickListener(this)
         binding.btnCancel.setOnClickListener(this)
-
 
         val emergencyId = arguments?.getString("emergencyId")
         val name = arguments?.getString("name")
@@ -71,7 +65,6 @@ class EmergencyDetailsFragment : Fragment(), OnClickListener {
         val createdAt = arguments?.getString("createdAt")
         val locationArray = arguments?.getDoubleArray("location")
         val photos = arguments?.getStringArrayList("photos")
-
 
         val emergencyResponseViewModel =
             ViewModelProvider(this).get(EmergencyResponseViewModel::class.java)
@@ -83,8 +76,6 @@ class EmergencyDetailsFragment : Fragment(), OnClickListener {
                 binding.btnCancel.text = "Cancelar"
             }
         }
-
-
 
         binding.tvDate.text = createdAt
         binding.tvNome.text = name
