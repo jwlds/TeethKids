@@ -16,24 +16,35 @@
             android:id="@+id/labelTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
             android:text="@string/string_education_register_page_title"
+            android:textAlignment="center"
+            android:textColor="#333333"
             android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/education"
+            android:layout_marginTop="64dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/labelTitle" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputInstitutionLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="32dp"
             app:layout_constraintEnd_toEndOf="@+id/labelTitle"
             app:layout_constraintStart_toStartOf="@+id/labelTitle"
-            app:layout_constraintTop_toBottomOf="@+id/labelTitle"
-            app:startIconDrawable="@drawable/baseline_gps_fixed_24">
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:startIconDrawable="@drawable/baseline_location_city_24">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtInstitution"
@@ -52,7 +63,7 @@
             app:layout_constraintEnd_toEndOf="@id/inputInstitutionLayout"
             app:layout_constraintStart_toStartOf="@id/inputInstitutionLayout"
             app:layout_constraintTop_toBottomOf="@id/inputInstitutionLayout"
-            app:startIconDrawable="@drawable/baseline_gps_fixed_24">
+            app:startIconDrawable="@drawable/outline_calendar_month_24">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtGraduationDate"
