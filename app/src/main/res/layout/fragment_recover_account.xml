@@ -13,8 +13,8 @@
 
         <ImageButton
             android:id="@+id/btnBack"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:backgroundTint="@color/white"
@@ -27,24 +27,25 @@
             android:id="@+id/labelTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="140dp"
             android:text="@string/string_recover_account_page_title"
+            android:textColor="#333333"
             android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/btnBack"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/btnBack" />
 
-        <TextView
-            android:id="@+id/titleInfo"
-            android:layout_width="340dp"
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/string_recover_account_page_label"
-            android:textAlignment="textStart"
-            android:textSize="13sp"
+            android:layout_marginTop="80dp"
+            android:src="@drawable/password_recover"
+            app:layout_constraintBottom_toTopOf="@+id/inputEmail"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/labelTitle" />
+            app:layout_constraintTop_toBottomOf="@+id/labelTitle" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputEmail"
@@ -54,8 +55,8 @@
             android:layout_margin="32dp"
             app:layout_constraintEnd_toEndOf="@+id/labelTitle"
             app:layout_constraintStart_toStartOf="@+id/labelTitle"
-            app:layout_constraintTop_toBottomOf="@+id/titleInfo"
-            app:startIconDrawable="@drawable/baseline_email_24">
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:startIconDrawable="@drawable/outline_email_24">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtEmail"
@@ -70,8 +71,8 @@
             android:id="@+id/tvRecoverErrorMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             android:text="@string/string_recover_account_text_error"
             android:textColor="#FF5252"
             app:layout_constraintBottom_toTopOf="@+id/btnRecover"
@@ -85,12 +86,24 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:height="60dp"
-            android:backgroundTint="@color/blue"
-            android:text="@string/string_text_btn_recover"
+            android:backgroundTint="#0072C6"
+            android:text="Recuperar"
             android:textAllCaps="false"
             app:layout_constraintEnd_toEndOf="@+id/inputEmail"
             app:layout_constraintStart_toStartOf="@+id/inputEmail"
             app:layout_constraintTop_toBottomOf="@+id/tvRecoverErrorMessage" />
+
+        <TextView
+            android:id="@+id/titleInfo"
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/string_recover_account_page_label"
+            android:textAlignment="textStart"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnRecover" />
 
         <ProgressBar
             android:id="@+id/loading"

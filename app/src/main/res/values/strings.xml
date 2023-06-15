@@ -38,7 +38,7 @@
     <string name="string_error_internet_disconnected_text">Você está offline. Reconecte-se para continuar.</string>
     <string name="string_error_internet_disconnected_text_bottom">Você está Offline.</string>
     <string name="string_error_login">Email ou senha inválidos. Tente novamente!</string>
-    <string name="string_recover_account_text_error">Email inválido ou incompleto. Tente novamente!</string>
+    <string name="string_recover_account_text_error">E-mail inválido ou incompleto. Tente novamente!</string>
 
     <!-- TODO: Strings para textos de botões -->
     <string name="string_text_btn_send_revision">Solicitar Revisão</string>
@@ -79,7 +79,7 @@
     <string name="string_help_page_title">Sobre o App</string>
     <string name="string_address_register_page_title">Você esta quase lá!</string>
     <string name="string_personal_informations_page_title">Quem é você?</string>
-    <string name="string_recover_account_page_title">Recupera senha</string>
+    <string name="string_recover_account_page_title">Recuperar senha</string>
     <string name="string_review_page_title">Notas e avaliações</string>
 
     <!-- TODO: Strings para os campos de input -->
