@@ -13,9 +13,9 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.messaging.FirebaseMessaging
 
-class AuthenticationDAO(context: Context){
+class AuthenticationDAO(){
 
-    private val userPreferencesRepository = UserPreferencesRepository.getInstance(context)
+
 
 
     //login
@@ -47,7 +47,7 @@ class AuthenticationDAO(context: Context){
                 onFailure = {
 
                 })
-                val currentUser = userPreferencesRepository.uid
+                val currentUser = getIdUser().toString()
                Utils.uploadProfileImage(data.photo,currentUser)
                    .addOnSuccessListener { url ->
                        val userData = hashMapOf(

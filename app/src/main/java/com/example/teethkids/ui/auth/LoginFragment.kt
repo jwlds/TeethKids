@@ -71,7 +71,7 @@ class LoginFragment : Fragment(), View.OnClickListener {
                     userPreferencesRepository.updateUid("")
                     userPreferencesRepository.updateFcmToken("")
                     binding.loading.isVisible = true
-                    val auth = AuthenticationDAO(requireContext())
+                    val auth = AuthenticationDAO()
                     auth.login(
                         binding.edtEmail.text.toString().trim(),
                         binding.edtPassword.text.toString().trim(),

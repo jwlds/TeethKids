@@ -44,7 +44,7 @@ class RecoverAccountFragment : Fragment(), View.OnClickListener{
                 hideKeyboard()
                 if (isValid()){
                     binding.loading.isVisible = true
-                    val auth = AuthenticationDAO(requireContext())
+                    val auth = AuthenticationDAO()
                     auth.recoverAccount(binding.edtEmail.text.toString().trim(),
                         onSuccess = {
                             binding.loading.isVisible = false
