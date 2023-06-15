@@ -2,15 +2,20 @@ package com.example.teethkids.ui.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.teethkids.R
 import com.example.teethkids.databinding.ActivityMainBinding
 import com.example.teethkids.service.ConnectivityManager
+import com.example.teethkids.utils.AddressPrimaryId
+import com.example.teethkids.viewmodel.AddressViewModel
 import com.google.firebase.FirebaseApp
+import com.google.firebase.firestore.GeoPoint
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
         // Inicialização do ConnectivityManager
         connectivityManager = ConnectivityManager(this)
 
@@ -32,8 +38,6 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
 
 
         // Observa as alterações na conectividade de rede usando o ConnectivityManager
@@ -77,10 +81,14 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-
     }
 
 
 
 
+
 }
+
+
+
+

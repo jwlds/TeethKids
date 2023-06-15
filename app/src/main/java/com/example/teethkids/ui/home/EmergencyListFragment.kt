@@ -1,6 +1,7 @@
 package com.example.teethkids.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,10 +15,13 @@ import com.example.teethkids.dao.UserDao
 import com.example.teethkids.database.FirebaseHelper
 import com.example.teethkids.databinding.FragmentEmergencyListBinding
 import com.example.teethkids.ui.adapter.recyclerviewadapter.ListEmergencyAdapter
+import com.example.teethkids.utils.AddressPrimaryId
 import com.example.teethkids.utils.Utils
+import com.example.teethkids.viewmodel.AddressViewModel
 import com.example.teethkids.viewmodel.EmergencyResponseViewModel
 import com.example.teethkids.viewmodel.EmergencyViewModel
 import com.example.teethkids.viewmodel.UserViewModel
+import com.google.firebase.firestore.GeoPoint
 
 
 class EmergencyListFragment : Fragment() {
@@ -40,6 +44,7 @@ class EmergencyListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setAddressPrimary()
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         setupListAdapter()
         userViewModel.user.observe(viewLifecycleOwner) { user ->
@@ -121,11 +126,6 @@ class EmergencyListFragment : Fragment() {
         binding.listEmergency.adapter = listEmergenciesAdapter
     }
 
-//    private fun stopObservingEmergencies() {
-//        val emergencyViewModel = ViewModelProvider(this).get(EmergencyViewModel::class.java)
-//        emergencyViewModel.emergencyList.removeObserver(emergencyListObserver!!)
-//        emergencyListObserver = null
-//    }
 
 
     private fun loadEmergencies() {
@@ -144,6 +144,29 @@ class EmergencyListFragment : Fragment() {
                 listEmergenciesAdapter.submitList(filteredEmergencies)
             }
         }
+    }
+
+    fun setAddressPrimary() {
+        val addressViewModel = ViewModelProvider(this).get(AddressViewModel::class.java)
+        addressViewModel.addressList.observe(viewLifecycleOwner) { addresses ->
+            Log.d("test1", addresses.toString())
+            val primaryAddress = addresses.find { it.primary }
+            val primaryAddressId = primaryAddress?.addressId
+            if (primaryAddress != null) {
+                val lat = primaryAddress.lat
+                val lng = primaryAddress.lng
+                val geoPoint = GeoPoint(lat!!, lng!!)
+                Log.d("444", geoPoint.toString())
+                AddressPrimaryId.addressPrimaryId = primaryAddressId
+                AddressPrimaryId.addressGeoPoint = geoPoint
+            }
+
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding
     }
 
 

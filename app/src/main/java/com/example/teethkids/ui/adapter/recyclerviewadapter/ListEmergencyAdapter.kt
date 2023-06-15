@@ -2,14 +2,17 @@ package com.example.teethkids.ui.adapter.recyclerviewadapter
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.PorterDuff
 import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.teethkids.R
 import com.example.teethkids.dao.EmergencyDao
 import com.example.teethkids.databinding.EmergencyItemBinding
 import com.example.teethkids.model.Emergency
@@ -59,14 +62,18 @@ private val onEmergencyClicked: (Emergency) -> Unit
             binding.btnDetails.setOnClickListener {
                 onEmergencyClicked(emergencies)
             }
-
-
-//            binding.btnOption.setOnClickListener {
-//                Utils.showToast(binding.root.context,addresses.addressId)
-//                val dialog = OptionAddressDialog(addresses.addressId,"${addresses.street}, ${addresses.number}" )
-//                dialog.show((binding.root.context as AppCompatActivity).supportFragmentManager, "bottomSheetTag")
-//            }
         }
+
+//        fun setStatusIconColor(imageView: ImageView, status: String) {
+//            val colorResId = when (status) {
+//                "waiting" -> R.color.colorStatus1
+//                "onGoing" -> R.color.colorStatus2
+//                "finished" -> R.color.colorStatus3
+//                else -> R.color.defaultColor // Cor padrão caso o status não corresponda a nenhum caso acima
+//            }
+//            val color = ContextCompat.getColor(imageView.context, colorResId)
+//            imageView.setColorFilter(color, PorterDuff.Mode.SRC_IN)
+//        }
 
     }
 

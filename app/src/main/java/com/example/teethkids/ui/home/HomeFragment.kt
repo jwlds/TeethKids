@@ -48,6 +48,8 @@ class HomeFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
 
 
+
+
         val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
 
 
@@ -158,6 +160,8 @@ class HomeFragment : Fragment(){
 
         myEmergencyViewModel.myEmergenciesList.observe(viewLifecycleOwner) { responses ->
             val myEmergencies = responses
+                .filter { it.status != "finished"}
+                .filter { it.status != "expired"}
                 .map { it.emergencyId.toString() }
             Log.d("tes11", myEmergencies.toString())
 
@@ -169,6 +173,8 @@ class HomeFragment : Fragment(){
             }
         }
     }
+
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null

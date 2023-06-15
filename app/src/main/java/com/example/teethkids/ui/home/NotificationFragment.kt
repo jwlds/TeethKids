@@ -29,17 +29,16 @@ class NotificationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val notifications = NotificationDao.getNotificationList()
+        val adapter = ListNotificationsAdapter(requireContext(),notifications)
+        binding.listNotifications.adapter = adapter
+        binding.listNotifications.layoutManager = LinearLayoutManager(requireContext())
         binding.toolbar.btnBack.isVisible = false
         binding.toolbar.screenName.text = "Notificações"
     }
 
     override fun onResume() {
         super.onResume()
-        val notifications = NotificationDao.getNotificationList()
-        val adapter = ListNotificationsAdapter(requireContext(),notifications)
-        binding.listNotifications.adapter = adapter
-        binding.listNotifications.layoutManager = LinearLayoutManager(requireContext())
     }
 
 
