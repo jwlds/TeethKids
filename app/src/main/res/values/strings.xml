@@ -77,8 +77,8 @@
     <string name="string_education_register_page_title">Acadêmico</string>
     <string name="string_login_page_title">Seja bem vindo!</string>
     <string name="string_help_page_title">Sobre o App</string>
-    <string name="string_address_register_page_title">Você esta quase lá!</string>
-    <string name="string_personal_informations_page_title">Quem é você?</string>
+    <string name="string_address_register_page_title">Onde podemos te encontrar?</string>
+    <string name="string_personal_informations_page_title">Nos conte sobre você</string>
     <string name="string_recover_account_page_title">Recuperar senha</string>
     <string name="string_review_page_title">Notas e avaliações</string>
 

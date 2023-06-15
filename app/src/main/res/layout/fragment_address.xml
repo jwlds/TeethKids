@@ -16,35 +16,36 @@
             android:id="@+id/labelTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
             android:text="@string/string_address_register_page_title"
+            android:textAlignment="center"
+            android:textColor="#333333"
             android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/labelAndress"
-            android:layout_width="0dp"
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
-            android:text="@string/string_address_register_title_fields"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="@+id/labelTitle"
-            app:layout_constraintStart_toStartOf="@+id/labelTitle"
-            app:layout_constraintTop_toTopOf="@+id/labelTitle" />
+            android:layout_marginTop="64dp"
+            android:src="@drawable/address"
+            app:layout_constraintBottom_toTopOf="@+id/zipCodeInputLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/labelTitle" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/zipCodeInputLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="92dp"
+            android:layout_marginTop="32dp"
             app:endIconMode="custom"
             app:layout_constraintEnd_toEndOf="@id/labelTitle"
             app:layout_constraintStart_toStartOf="@id/labelTitle"
-            app:layout_constraintTop_toBottomOf="@id/labelTitle"
+            app:layout_constraintTop_toBottomOf="@id/imageView"
             app:startIconDrawable="@drawable/baseline_gps_fixed_24">
 
             <com.santalu.maskara.widget.MaskEditText
