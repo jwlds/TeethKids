@@ -200,6 +200,20 @@ object Utils {
         this.text = spannableString
     }
 
+    fun translateStatus(status: String?): String {
+        return when (status) {
+            "drafting" -> "rascunho"
+            "waiting" -> "aguardando"
+            "onGoing" -> "em andamento"
+            "reviewing" -> "em revisão"
+            "finished" -> "finalizado"
+            "canceled" -> "cancelado"
+            "rejected" -> "rejeitado"
+            "accepted" -> "aceito"
+            else -> ""
+        }
+    }
+
     fun TextView.setUnderlinedText(text: String){
         val underlineSpan = UnderlineSpan()
         val spannableString = SpannableString(text)

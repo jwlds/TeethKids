@@ -18,6 +18,7 @@ import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.example.teethkids.R
 import com.example.teethkids.dao.AuthenticationDAO
+import com.example.teethkids.dao.UserDao
 import com.example.teethkids.database.FirebaseHelper
 import com.example.teethkids.databinding.FragmentLoginBinding
 import com.example.teethkids.datastore.UserPreferencesRepository
@@ -65,7 +66,10 @@ class LoginFragment : Fragment(), View.OnClickListener {
         when (v!!.id) {
             R.id.btnLogin -> {
                 hideKeyboard()
+                val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
                 if (isValid()) {
+                    userPreferencesRepository.updateUid("")
+                    userPreferencesRepository.updateFcmToken("")
                     binding.loading.isVisible = true
                     val auth = AuthenticationDAO(requireContext())
                     auth.login(
@@ -73,7 +77,10 @@ class LoginFragment : Fragment(), View.OnClickListener {
                         binding.edtPassword.text.toString().trim(),
 
                         onSuccess = {
-                            val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
+                            FirebaseHelper.getFcmToken(onSuccess = {token ->
+                                val dao = UserDao(requireContext())
+                                dao.sendRegistrationToServer(token)
+                            }, onFailure = {})
                             userPreferencesRepository.updateUid(FirebaseHelper.getIdUser().toString())
                             binding.loading.isVisible = false
                             Utils.showToast(requireContext(), "Login realizado com sucesso!")

@@ -15,8 +15,11 @@ class EmergencyDao(){
         onSuccess: () -> Unit,
         onFailure: (Exception) -> Unit
     ) {
+        val responseId = getDatabase().collection("responses").document().id
         val db = getDatabase()
+
         val emergencyData = hashMapOf(
+            "responseId" to responseId,
             "professionalUid" to responseEmergency.professionalUid,
             "rescuerUid" to responseEmergency.rescuerUid,
             "status" to responseEmergency.status,
@@ -25,8 +28,9 @@ class EmergencyDao(){
         )
 
         db.collection("responses")
-            .add(emergencyData)
-            .addOnSuccessListener { documentReference ->
+            .document(responseId)
+            .set(emergencyData)
+            .addOnSuccessListener {
                 onSuccess()
             }
             .addOnFailureListener { exception ->

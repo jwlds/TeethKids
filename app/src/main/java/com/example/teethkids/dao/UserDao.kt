@@ -1,6 +1,7 @@
 package com.example.teethkids.dao
 
 import android.content.Context
+import android.util.Log
 import com.example.teethkids.database.FirebaseHelper
 import com.example.teethkids.database.FirebaseHelper.Companion.getDatabase
 import com.example.teethkids.database.FirebaseHelper.Companion.getIdUser
@@ -115,6 +116,18 @@ class UserDao(context: Context){
             .addOnSuccessListener {
                 onSuccess()
             }
+    }
+
+     fun sendRegistrationToServer(token: String) {
+        val authUid = userPreferencesRepository.uid
+            val userRef = getDatabase().collection("profiles").document(authUid)
+            userRef.update("fcmToken", token)
+                .addOnSuccessListener {
+                    Log.d("sendRegistrationToServer", "Refreshed token: $token")
+                }
+                .addOnFailureListener { exception ->
+                    Log.d("sendRegistrationToServer", "Erro Refreshed token: $exception")
+                }
     }
 
 }

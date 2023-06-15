@@ -54,7 +54,7 @@ private val onEmergencyClicked: (Emergency) -> Unit
 
             binding.nameTextView.text = emergencies.name
             binding.phoneTextView.text = emergencies.phoneNumber
-            binding.tvStatus.text = emergencies.status
+            binding.tvStatus.text = Utils.translateStatus(emergencies.status)
             binding.dateTimeTextView.text = Utils.formatTimestamp(emergencies.createdAt!!)
             binding.btnDetails.setOnClickListener {
                 onEmergencyClicked(emergencies)

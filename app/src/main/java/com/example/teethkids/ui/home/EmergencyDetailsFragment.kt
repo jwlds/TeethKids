@@ -89,7 +89,7 @@ class EmergencyDetailsFragment : Fragment(), OnClickListener {
         binding.tvDate.text = createdAt
         binding.tvNome.text = name
         binding.tvDate.text = createdAt
-        binding.tvStatusText.text = status
+        binding.tvStatusText.text = Utils.translateStatus(status)
 
         val adapter = photos?.let { PhotoAdapter(it) }
         binding.viewPager.adapter = adapter

@@ -52,7 +52,7 @@ class ListMyEmergenciesAdapter(
             binding.myEmergencyPhone.isVisible = true
             binding.myEmergencyName.text = emergencies.name
             binding.myEmergencyPhone.text = emergencies.phoneNumber
-            binding.myEmergencyStatus.text = emergencies.status
+            binding.myEmergencyStatus.text = Utils.translateStatus(emergencies.status)
             binding.myEmergencyDate.text = Utils.formatTimestamp(emergencies.createdAt!!)
             binding.btnDetails.setOnClickListener {
                 onEmergencyClicked(emergencies)

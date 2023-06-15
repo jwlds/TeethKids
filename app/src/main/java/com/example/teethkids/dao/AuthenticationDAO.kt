@@ -2,6 +2,7 @@ package com.example.teethkids.dao
 
 import android.content.Context
 import com.example.teethkids.database.FirebaseHelper
+import com.example.teethkids.database.FirebaseHelper.Companion.getFcmToken
 import com.example.teethkids.database.FirebaseHelper.Companion.getFunctions
 import com.example.teethkids.database.FirebaseHelper.Companion.getIdUser
 import com.example.teethkids.datastore.UserPreferencesRepository
@@ -97,15 +98,7 @@ class AuthenticationDAO(context: Context){
             }
     }
 
-    private fun getFcmToken(onSuccess: (String) -> Unit, onFailure: (Exception) -> Unit) {
-        FirebaseMessaging.getInstance().token
-            .addOnSuccessListener { token ->
-                onSuccess(token)
-            }
-            .addOnFailureListener { exception ->
-                onFailure(exception)
-            }
-    }
+
 
 
     //recover
