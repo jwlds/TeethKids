@@ -83,8 +83,8 @@ class UserDao(context: Context) {
             "createdAt" to currentTimestamp,
             "location" to listOf(-22.835326, -47.052990),
             "photos" to listOf(
-                "https://firebasestorage.googleapis.com/v0/b/teethkids-49f4b.appspot.com/o/EMERGENCIES%2FPHOTOS%2F1.jpg?alt=media&token=a15a465a-86d4-4e4d-942c-383e1dfb5edc",
-                "https://firebasestorage.googleapis.com/v0/b/teethkids-49f4b.appspot.com/o/EMERGENCIES%2FPHOTOS%2F1.jpg?alt=media&token=a15a465a-86d4-4e4d-942c-383e1dfb5edc"
+                "https://firebasestorage.googleapis.com/v0/b/teethkids-49f4b.appspot.com/o/emergencies%2Fimages%2F1.jpg?alt=media&token=3538d2eb-b0d8-43ed-89c2-40a55defe11f",
+                "https://firebasestorage.googleapis.com/v0/b/teethkids-49f4b.appspot.com/o/emergencies%2Fimages%2F1.jpg?alt=media&token=3538d2eb-b0d8-43ed-89c2-40a55defe11f"
             )
         )
         getDatabase()
