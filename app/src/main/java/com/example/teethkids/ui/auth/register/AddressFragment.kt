@@ -102,7 +102,6 @@ class AddressFragment : Fragment(){
 
         if (zipe.isEmpty()) {
             binding.edtZipe.error = "Cep não pode ser vazio"
-           // binding.edtZipe.
             return false
         }
 

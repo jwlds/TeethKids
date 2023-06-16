@@ -37,9 +37,19 @@ class ListNotificationsAdapter(
             val timeFormat = DateTimeFormatter.ofPattern("HH:mm", Locale.getDefault())
 
             return when {
-                isToday(currentDateTime, notificationDateTime) -> "hoje às ${notificationDateTime.format(timeFormat)}"
-                isYesterday(currentDateTime, notificationDateTime) -> "ontem às ${notificationDateTime.format(timeFormat)}"
-                else -> "${notificationDateTime.format(dateFormat)} às ${notificationDateTime.format(timeFormat)}"
+                isToday(
+                    currentDateTime,
+                    notificationDateTime
+                ) -> "hoje às ${notificationDateTime.format(timeFormat)}"
+                isYesterday(
+                    currentDateTime,
+                    notificationDateTime
+                ) -> "ontem às ${notificationDateTime.format(timeFormat)}"
+                else -> "${notificationDateTime.format(dateFormat)} às ${
+                    notificationDateTime.format(
+                        timeFormat
+                    )
+                }"
             }
         }
 
@@ -47,7 +57,10 @@ class ListNotificationsAdapter(
             return currentDate.toLocalDate() == notificationDate.toLocalDate()
         }
 
-        private fun isYesterday(currentDate: LocalDateTime, notificationDate: LocalDateTime): Boolean {
+        private fun isYesterday(
+            currentDate: LocalDateTime,
+            notificationDate: LocalDateTime
+        ): Boolean {
             val yesterday = currentDate.minusDays(1)
 
             return yesterday.toLocalDate() == notificationDate.toLocalDate()

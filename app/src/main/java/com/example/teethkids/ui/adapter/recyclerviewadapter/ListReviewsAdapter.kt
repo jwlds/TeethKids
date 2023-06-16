@@ -44,24 +44,21 @@ class ListReviewsAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(reviews: Review) {
-            if(reviews.revision!!) {
-                binding.btnSendRevision.isEnabled = false
-            } else {
-                binding.btnSendRevision.isEnabled = true
-            }
+            binding.btnSendRevision.isEnabled = !reviews.revision!!
 
             binding.reviewDate.text = Utils.formatTimestampReviews(reviews.createdAt!!)
 
             binding.reviewImage.setImageDrawable(generateProfilePhoto(Utils.getInitials(reviews.name!!)))
             binding.reviewName.text = reviews.name
             binding.reviewRating.rating = reviews.rating!!
-        //    binding.reviewDate.text = Utils.formatTimestampReviews(reviews.createdAt!!)
+            //    binding.reviewDate.text = Utils.formatTimestampReviews(reviews.createdAt!!)
             binding.reviewBody.text = reviews.review
-            binding.btnSendRevision.setOnClickListener{
-                val confirmationDialog = ConfirmationReportReview(binding.root.context,reviews)
+            binding.btnSendRevision.setOnClickListener {
+                val confirmationDialog = ConfirmationReportReview(binding.root.context, reviews)
                 confirmationDialog.show()
             }
         }
+
         private fun generateProfilePhoto(name: String): Drawable {
             val initials = name.take(2).toUpperCase(Locale.getDefault())
             val width = 120
@@ -75,7 +72,12 @@ class ListReviewsAdapter(
                 style = Paint.Style.FILL
             }
 
-            canvas.drawCircle((width / 2).toFloat(), (height / 2).toFloat(), (width / 2).toFloat(), paint)
+            canvas.drawCircle(
+                (width / 2).toFloat(),
+                (height / 2).toFloat(),
+                (width / 2).toFloat(),
+                paint
+            )
 
             paint.apply {
                 color = Color.WHITE
@@ -97,7 +99,10 @@ class ListReviewsAdapter(
         holder.bind(reviews)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListReviewsAdapter.ReviewViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): ListReviewsAdapter.ReviewViewHolder {
         val inflater = LayoutInflater.from(context)
         val binding = ReviewItemBinding.inflate(inflater, parent, false)
 

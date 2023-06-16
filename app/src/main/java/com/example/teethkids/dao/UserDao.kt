@@ -19,6 +19,8 @@ class UserDao(context: Context) {
 
     private val userPreferencesRepository = UserPreferencesRepository.getInstance(context)
 
+
+    // Função para atualizar os dados do usuário.
     fun updateUser(
         name: String,
         dateOfBirth: String,
@@ -42,12 +44,15 @@ class UserDao(context: Context) {
 
     }
 
+    // Função para atualizar a descrição profissional do usuário.
     fun updateDescription(professionalDescription: String, onSuccess: () -> Unit) {
         val userRef = collection.document(userPreferencesRepository.uid)
         userRef.update("professionalDescription", professionalDescription)
             .addOnSuccessListener { onSuccess() }
     }
 
+
+    // Função para atualizar o status de emergencias do usuário.
     fun updateStatus(status: Boolean, onSuccess: () -> Unit) {
         val userRef = collection.document(userPreferencesRepository.uid)
         userRef.update("status", status)
@@ -56,6 +61,7 @@ class UserDao(context: Context) {
             }
     }
 
+    // Função para atualizar a URL da imagem de perfil do usuário.
     fun updateUrlProfileImage(url: String, onSuccess: () -> Unit) {
         val userRef = collection.document(userPreferencesRepository.uid)
         userRef.update("urlImg", url)
@@ -65,6 +71,7 @@ class UserDao(context: Context) {
     }
 
 
+    // Função para simular uma chamada falsa de emergência (Apenas para teste)
     fun fakeCall(onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
         val id = getDatabase().collection("emergencies").document().id
         val currentTimestamp: Timestamp = Timestamp.now()
@@ -74,7 +81,7 @@ class UserDao(context: Context) {
             "phoneNumber" to "(19) 99999 - 9999",
             "status" to "waiting",
             "createdAt" to currentTimestamp,
-            "location" to listOf(-24.3333, -22.2222),
+            "location" to listOf(-22.835326, -47.052990),
             "photos" to listOf(
                 "https://firebasestorage.googleapis.com/v0/b/teethkids-49f4b.appspot.com/o/EMERGENCIES%2FPHOTOS%2F1.jpg?alt=media&token=a15a465a-86d4-4e4d-942c-383e1dfb5edc",
                 "https://firebasestorage.googleapis.com/v0/b/teethkids-49f4b.appspot.com/o/EMERGENCIES%2FPHOTOS%2F1.jpg?alt=media&token=a15a465a-86d4-4e4d-942c-383e1dfb5edc"
@@ -92,6 +99,8 @@ class UserDao(context: Context) {
             }
     }
 
+
+    // Função para simular uma avaliação falsa (Apenas para teste)
     fun fakeReview(onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
         val id = getDatabase().collection("emergencies").document().id
         val currentTimestamp: Timestamp = Timestamp.now()
@@ -104,7 +113,7 @@ class UserDao(context: Context) {
             "revision" to false,
         )
         val userRef = getDatabase().collection("profiles").document(userPreferencesRepository.uid)
-        val reviewRef = userRef.collection("reviews")
+        userRef.collection("reviews")
             .document(id)
             .set(data)
             .addOnSuccessListener { documentReference ->
@@ -116,6 +125,7 @@ class UserDao(context: Context) {
     }
 
 
+    // Função para atualizar a  média da nota do usuário.
     fun updateRating(average: Double, onSuccess: () -> Unit) {
         val userRef = collection.document(userPreferencesRepository.uid)
         userRef.update("rating", average)
@@ -124,9 +134,10 @@ class UserDao(context: Context) {
             }
     }
 
+    // Função para atualizar o fcmToken de registro do usuário.
     fun sendRegistrationToServer(token: String) {
         val authUid = userPreferencesRepository.uid
-        val userRef = getDatabase().collection("profiles").document(authUid)
+        val userRef =collection.document(authUid)
         userRef.update("fcmToken", token)
             .addOnSuccessListener {
                 Log.d("sendRegistrationToServer", "Refreshed token: $token")

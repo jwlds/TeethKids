@@ -1,5 +1,6 @@
 package com.example.teethkids.ui.home
 
+import android.location.Location
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,16 +18,13 @@ import com.example.teethkids.database.FirebaseHelper
 import com.example.teethkids.databinding.FragmentEmergencyDetailsBinding
 import com.example.teethkids.databinding.FragmentEmergencyListBinding
 import com.example.teethkids.model.ResponseEmergency
-
+import com.example.teethkids.service.MyLocation
 import com.example.teethkids.ui.adapter.viewPagerAdapter.PhotoAdapter
-import com.example.teethkids.ui.adapter.viewPagerAdapter.StageRegisterAdapter
-import com.example.teethkids.utils.AddressPrimaryId
 import com.example.teethkids.utils.Utils
+import com.example.teethkids.utils.Utils.formatDistance
 import com.example.teethkids.viewmodel.EmergencyResponseViewModel
-import com.example.teethkids.viewmodel.EmergencyViewModel
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.GeoPoint
-import me.relex.circleindicator.CircleIndicator
 import me.relex.circleindicator.CircleIndicator3
 
 class EmergencyDetailsFragment : Fragment(), OnClickListener {
@@ -53,7 +51,7 @@ class EmergencyDetailsFragment : Fragment(), OnClickListener {
         super.onViewCreated(view, savedInstanceState)
 
 
-            binding.toolbar.screenName.text = "Detalhes"
+        binding.toolbar.screenName.text = "Detalhes"
         binding.toolbar.btnBack.setOnClickListener(this)
 
         circleIndicator = binding.indicator
@@ -91,10 +89,16 @@ class EmergencyDetailsFragment : Fragment(), OnClickListener {
         viewPager.adapter = adapter
         circleIndicator.setViewPager(viewPager)
 
-        if(locationArray != null ) {
-            binding.tvLocation.text = Utils.calculateDistance(AddressPrimaryId.addressGeoPoint!!,
-                GeoPoint(locationArray[0],locationArray[1]))
+        val myLocation = MyLocation(requireContext())
+        myLocation.getCurrentLocation { location: Location? ->
+            if (locationArray != null && location != null) {
+                binding.tvLocation.text =formatDistance(Utils.calculateDistance(
+                    GeoPoint(locationArray[0], locationArray[1]),
+                    GeoPoint(location.latitude, location.longitude)
+                ))
+            }
         }
+
 
     }
 
@@ -118,10 +122,6 @@ class EmergencyDetailsFragment : Fragment(), OnClickListener {
                     willProfessionalMove = -1
                 )
                 val dao = EmergencyDao()
-                val daoUser = UserDao(requireContext())
-//                daoUser.updateStatusEmergency(id.toString(), onSuccess = {
-//
-//                })
                 dao.createResponseEmergency(responseEmergency,
                     onSuccess = {
                         findNavController().navigate(R.id.action_emergencyDetailsFragment2_to_emergencyListFragment)

@@ -4,13 +4,9 @@ import com.example.teethkids.model.Notification
 
 class NotificationDao {
 
-
+    // Função para adicionar uma notificação à lista de notificações
     fun addNotification(notification: Notification) {
         notificationList.add(notification)
-    }
-
-    fun clearNotifications() {
-        notificationList.clear()
     }
 
 

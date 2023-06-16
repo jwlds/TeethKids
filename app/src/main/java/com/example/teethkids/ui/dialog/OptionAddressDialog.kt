@@ -28,8 +28,6 @@ class OptionAddressDialog(
     private val binding get() = _binding!!
 
 
-
-
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -15,18 +15,13 @@ import android.provider.Settings
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
-import androidx.navigation.fragment.findNavController
 import com.example.teethkids.R
-import com.example.teethkids.dao.AuthenticationDAO
 import com.example.teethkids.databinding.FragmentPhotoBinding
 import com.example.teethkids.utils.RegistrationDataHolder
 import com.example.teethkids.utils.Utils
-import com.google.firebase.storage.StorageReference
 
 
 class PhotoFragment : Fragment(),View.OnClickListener{
@@ -117,6 +112,8 @@ class PhotoFragment : Fragment(),View.OnClickListener{
         binding.btnCamera.setOnClickListener(this)
     }
 
+
+    // Permissão para acessar a câmera
     private fun checkPermissionCamera() {
         val permissionCamera = checkPermission(PERMISSION_CAMERA)
 
@@ -130,6 +127,7 @@ class PhotoFragment : Fragment(),View.OnClickListener{
         }
     }
 
+    //permissão para acessar a galera
     private fun checkPermissionGallery() {
         val permissionGallery = checkPermission(PERMISSION_GALLERY)
 
@@ -189,11 +187,16 @@ class PhotoFragment : Fragment(),View.OnClickListener{
 
     }
 
+
+    //
+    // Abre a câmera
     private fun openCamera() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         resultCamera.launch(intent)
     }
 
+
+    //  Verifica se a permissão foi concedida
     private fun checkPermission(permission: String) =
         ContextCompat.checkSelfPermission(
             requireContext(),

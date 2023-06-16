@@ -13,10 +13,12 @@ import retrofit2.converter.gson.GsonConverterFactory
      private lateinit var service: APIRetrofitService
 
     private val retrofit: Retrofit = Retrofit.Builder()
-        .baseUrl("https://viacep.com.br/ws/")
-        .addConverterFactory(GsonConverterFactory.create())
+        .baseUrl("https://viacep.com.br/ws/") // URL base da API do ViaCEP
+        .addConverterFactory(GsonConverterFactory.create()) // Conversor para Gson
         .build()
 
+
+     // Função para obter o endereço pelo CEP.
      fun getAddressByCep(cep: String, onResponse: (ViaCepResponse?) -> Unit, onFailure: (Throwable) -> Unit) {
         service = retrofit.create(APIRetrofitService::class.java)
         val call = service.getAddress(cep)

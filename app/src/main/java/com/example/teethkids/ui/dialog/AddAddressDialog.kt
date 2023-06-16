@@ -8,10 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import com.example.teethkids.R
 import com.example.teethkids.dao.AddressDao
-import com.example.teethkids.database.FirebaseHelper
 import com.example.teethkids.database.FirebaseHelper.Companion.getIdUser
 import com.example.teethkids.databinding.DialogContentAddAddressBinding
 import com.example.teethkids.model.Address
@@ -20,12 +18,7 @@ import com.example.teethkids.utils.Utils
 import com.example.teethkids.utils.Utils.geocodeAddress
 import com.example.teethkids.utils.Utils.getFullAddress
 import com.example.teethkids.utils.Utils.hideKeyboard
-import com.google.android.gms.maps.model.LatLng
-
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.firebase.firestore.GeoPoint
-import io.grpc.Status.Code
-
 
 class AddAddressDialog() : BottomSheetDialogFragment() {
 

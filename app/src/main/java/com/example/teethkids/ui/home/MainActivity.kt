@@ -14,6 +14,7 @@ import com.example.teethkids.databinding.ActivityMainBinding
 import com.example.teethkids.service.ConnectivityManager
 import com.example.teethkids.utils.AddressPrimaryId
 import com.example.teethkids.viewmodel.AddressViewModel
+import com.example.teethkids.viewmodel.UserViewModel
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.GeoPoint
 
@@ -22,12 +23,16 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
 
+    private lateinit var userViewModel: UserViewModel
+
 
     // Gerenciador de conectividade para verificar o estado da conexão de rede
     private lateinit var connectivityManager: ConnectivityManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
 
         // Inicialização do ConnectivityManager

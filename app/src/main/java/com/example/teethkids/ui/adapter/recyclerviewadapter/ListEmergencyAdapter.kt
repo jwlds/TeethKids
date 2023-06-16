@@ -3,6 +3,7 @@ package com.example.teethkids.ui.adapter.recyclerviewadapter
 import android.content.Context
 import android.content.Intent
 import android.graphics.PorterDuff
+import android.location.Location
 import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,17 +17,16 @@ import com.example.teethkids.R
 import com.example.teethkids.dao.EmergencyDao
 import com.example.teethkids.databinding.EmergencyItemBinding
 import com.example.teethkids.model.Emergency
+import com.example.teethkids.service.MyLocation
 import com.example.teethkids.utils.AddressPrimaryId
 import com.example.teethkids.utils.Utils
+import com.example.teethkids.utils.Utils.formatDistance
 import com.google.firebase.firestore.GeoPoint
 
 class ListEmergencyAdapter(
-private val context: Context,
-private val onEmergencyClicked: (Emergency) -> Unit
-): ListAdapter<Emergency, ListEmergencyAdapter.EmergencyViewHolder>(DIFF_CALLBACK) {
-
-
-
+    private val context: Context,
+    private val onEmergencyClicked: (Emergency) -> Unit
+) : ListAdapter<Emergency, ListEmergencyAdapter.EmergencyViewHolder>(DIFF_CALLBACK) {
 
 
     companion object {
@@ -41,21 +41,21 @@ private val onEmergencyClicked: (Emergency) -> Unit
         }
     }
 
-    class EmergencyViewHolder(val binding: EmergencyItemBinding):
+    class EmergencyViewHolder(val binding: EmergencyItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(emergencies: Emergency,onEmergencyClicked: (Emergency) -> Unit) {
+        fun bind(emergencies: Emergency, onEmergencyClicked: (Emergency) -> Unit) {
 
-            if(emergencies.location != null && AddressPrimaryId.addressGeoPoint != null){
-                binding.locationTextView.text = Utils.calculateDistance(
-                    GeoPoint(emergencies.location[0],emergencies.location[1]),
-                    AddressPrimaryId.addressGeoPoint!!
-                )
+            val myLocation = MyLocation(binding.root.context)
+            myLocation.getCurrentLocation { location: Location? ->
+                if (emergencies.location != null && location != null) {
+                    binding.locationTextView.text = formatDistance(Utils.calculateDistance(
+                        GeoPoint(emergencies.location[0], emergencies.location[1]),
+                        GeoPoint(location.latitude, location.longitude)
+                    ))
+                }
             }
 
-
-
-
-            Utils.setStatusIconColor(binding.statusIcon,emergencies.status!!)
+            Utils.setStatusIconColor(binding.statusIcon, emergencies.status!!)
             binding.nameTextView.text = emergencies.name
             binding.phoneTextView.text = emergencies.phoneNumber
             binding.tvStatus.text = Utils.translateStatus(emergencies.status)
@@ -64,7 +64,6 @@ private val onEmergencyClicked: (Emergency) -> Unit
                 onEmergencyClicked(emergencies)
             }
         }
-
 
 
     }

@@ -30,7 +30,6 @@ class HomeFragment : Fragment(){
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-//    private lateinit var userViewModel: UserViewModel
 
     private lateinit var listMyEmergenciesAdapter: ListMyEmergenciesAdapter
 
@@ -81,13 +80,6 @@ class HomeFragment : Fragment(){
             val dao = UserDao(requireContext())
             dao.fakeReview(onSuccess = {}, onFailure = {})
         }
-        binding.btnNoti.setOnClickListener{
-            requestNotificationPermission(requireContext())
-//            val intent = Intent(activity,MapaActivity::class.java)
-//            startActivity(intent)
-//            activity?.finish()
-         //   requestNotificationPermission(requireContext())
-        }
 
         binding.btnTest.setOnClickListener{
             val dao = UserDao(requireContext())
@@ -120,37 +112,7 @@ class HomeFragment : Fragment(){
         binding.listMyEmergency.adapter = listMyEmergenciesAdapter
     }
 
-    private fun requestNotificationPermission(context: Context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            // Cria um canal de notificação para o Android 8.0 ou superior
-            val channel = NotificationChannel(
-                "channelId",
-                "channelName",
-                NotificationManager.IMPORTANCE_DEFAULT
-            ).apply {
-                description = "channelDescription"
-            }
 
-            // Registra o canal de notificação na NotificationManager
-            val notificationManager: NotificationManager =
-                context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
-        }
-
-        // Solicita a permissão de notificação
-        if (!NotificationManagerCompat.from(context).areNotificationsEnabled()) {
-            val intent = Intent().apply {
-                action = "android.settings.APP_NOTIFICATION_SETTINGS"
-                putExtra("android.provider.extra.APP_PACKAGE", context.packageName)
-            }
-            context.startActivity(intent)
-        }
-    }
-
-//    private fun setupListAdapter() {
-//        listMyEmergenciesAdapter = listMyEmergenciesAdapter(requireContext())
-//        binding.listMyEmergency.adapter = listMyEmergenciesAdapter
-//    }
 
 
     private fun loadEmergencies() {

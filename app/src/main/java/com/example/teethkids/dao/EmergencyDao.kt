@@ -10,6 +10,7 @@ import com.example.teethkids.model.ResponseEmergency
 class EmergencyDao(){
 
 
+    // Função para criar uma resposta de emergência
     fun createResponseEmergency(
         responseEmergency: ResponseEmergency,
         onSuccess: () -> Unit,
@@ -38,6 +39,8 @@ class EmergencyDao(){
             }
     }
 
+
+    // Função para atualizar o status da resposta de emergência
     fun updateStatusEmergency(
         emergencyId: String,
         status: String,
@@ -55,6 +58,7 @@ class EmergencyDao(){
             }
     }
 
+    // Função para atualizar o status da  emergência atual.
     fun updateStatusMyEmergency(
         emergencyId: String,
         status: String,
@@ -71,6 +75,12 @@ class EmergencyDao(){
                 onFailure(exception)
             }
     }
+
+    // Função para atualizar o willProfessionalMove da resposta de emergência.
+   // willProfessionalMove:
+   // -1 : não está definido ainda - "aguardando dentista"/não definido mesmo
+   // 0 : venha até o consultorio - "enviar localização"
+   // 1 : dentista vai até o socorrista - "solicitar localização"
 
     fun updateStatusMove(
         emergencyId: String,
@@ -103,6 +113,8 @@ class EmergencyDao(){
             }
     }
 
+
+    // Função para atualizar o status de uma resposta de emergência
     fun updateStatusResponse(
         emergencyId: String,
         status: String,

@@ -1,27 +1,15 @@
 package com.example.teethkids.ui.dialog
 
-import android.Manifest
-import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
-import android.location.Location
-import android.util.Log
 import android.widget.CheckBox
 import android.widget.LinearLayout
-import androidx.core.app.ActivityCompat
 import com.example.teethkids.dao.EmergencyDao
-import com.example.teethkids.service.MyLocation
-import com.example.teethkids.ui.home.MyEmergencyDetailsFragment
-import com.example.teethkids.utils.AddressPrimaryId
 
 class SendLocationEmergency(
     context: Context,
     emergencyId: String
 ) : AlertDialog(context) {
-
-    companion object {
-        private const val REQUEST_CALL_PERMISSION = 456
-    }
 
     init {
         setTitle("Envio de Localização")

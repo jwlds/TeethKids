@@ -1,37 +1,22 @@
 package com.example.teethkids.utils
 
-import android.app.Activity
+
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.*
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
-import android.location.Geocoder
 import android.net.Uri
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.UnderlineSpan
-import android.util.Log
-import android.view.Gravity
 import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.teethkids.R
-import com.example.teethkids.databinding.AddressItemBinding
-import com.example.teethkids.databinding.StatusBarBinding
 import com.example.teethkids.model.Address
-import com.google.android.gms.maps.model.RuntimeRemoteException
 import com.google.android.gms.tasks.Task
-import com.google.android.libraries.places.api.model.Place
-import com.google.android.libraries.places.api.net.FetchPlaceRequest
-import com.google.android.libraries.places.api.net.FetchPlaceResponse
-import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.FirebaseException
@@ -58,35 +43,14 @@ object Utils {
 
     private lateinit var storageReference: StorageReference
 
-    private lateinit var placesClient: PlacesClient
 
-    fun setPrimaryAddressStyle(isPrimary: Boolean,binding: AddressItemBinding) {
-        if (isPrimary) {
-            binding.root.strokeColor = Color.argb(100, 234, 2, 46)
-            binding.root.strokeWidth = 3
-
-            val layoutParams = binding.root.layoutParams as ViewGroup.MarginLayoutParams
-            layoutParams.bottomMargin = 8
-            binding.root.layoutParams = layoutParams
-
-            binding.btnOption.imageTintList = ColorStateList.valueOf(Color.rgb(234, 2, 46))
-            binding.btnOption.imageTintMode = PorterDuff.Mode.SRC_IN
-        } else {
-            binding.root.strokeColor = Color.TRANSPARENT
-            binding.root.strokeWidth = 0
-
-            val layoutParams = binding.root.layoutParams as ViewGroup.MarginLayoutParams
-            layoutParams.bottomMargin = 0
-            binding.root.layoutParams = layoutParams
-        }
-    }
-
-
+    // Exibe um toast .
     fun showToast(context: Context, message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
-    fun calculateDistance(geoPoint1: GeoPoint, geoPoint2: GeoPoint): String {
+    //  Calcula a distância entre duas coordenadas geográficas.
+    fun calculateDistance(geoPoint1: GeoPoint, geoPoint2: GeoPoint): Double {
         val raio = 6371
         val lat1 = geoPoint1.latitude
         val lon1 = geoPoint1.longitude
@@ -99,13 +63,20 @@ object Utils {
         val lat2Radians = Math.toRadians(lat2)
 
         val a =
-            sin(dLat / 2) * sin(dLat / 2) + sin(dLon / 2) * sin(dLon / 2) * cos(lat1Radians) * cos(lat2Radians)
+            sin(dLat / 2) * sin(dLat / 2) + sin(dLon / 2) * sin(dLon / 2) * cos(lat1Radians) * cos(
+                lat2Radians
+            )
         val c = 2 * atan2(sqrt(a), sqrt(1 - a))
-        val distance = raio * c
 
-        return DecimalFormat("#.#").format(distance) + " km"
+        return raio * c
     }
 
+    fun formatDistance(distance: Double): String {
+        val roundedDistance = String.format("%.2f", distance)
+        return "$roundedDistance km"
+    }
+
+    //  Exibe um snackbar com styles de error.
     fun showSnackBarError(view: View, message: String) {
         val snackBar = Snackbar.make(view, message, Snackbar.LENGTH_LONG)
         val snackBarView = snackBar.view
@@ -116,21 +87,7 @@ object Utils {
     }
 
 
-
-
-    fun closeKeyboard(activity: Activity) {
-        val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        val view = activity.currentFocus ?: View(activity)
-        imm.hideSoftInputFromWindow(view.windowToken, 0)
-    }
-
-    fun getCurrentDateTime(): String {
-        val calendar = Calendar.getInstance()
-        val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
-        return dateFormat.format(calendar.time)
-    }
-
-
+    // Formata um objeto Timestamp para uma string de data e hora
     fun formatTimestamp(timestamp: Timestamp): String {
         val dateFormat = SimpleDateFormat("dd/MM/yy HH:mm", Locale.getDefault())
         val date = timestamp.toDate()
@@ -138,6 +95,7 @@ object Utils {
     }
 
 
+    // Retorna as iniciais de um nome, separando-o por espaços.
     fun getInitials(name: String): String {
         val words = name.split(" ")
         val initials = StringBuilder()
@@ -150,17 +108,18 @@ object Utils {
     }
 
 
+    // Calcula a média da nota, com base da lista de reviews.
     fun calculateAverageRating(ratings: List<Float>): Double {
         if (ratings.isEmpty()) {
             return 0.0
         }
-
         val totalRating = ratings.sum()
-        ratings.average()
         return totalRating.toDouble() / ratings.size
     }
+
+    // Realiza a geocodificação de um endereço usando a API do Google Maps
     fun geocodeAddress(address: String): Pair<Double, Double>? {
-        val apiKey = "AIzaSyC84r-IA5PPwDiicNuIRS_kH2weH1zsu5o" // Substitua pelo seu próprio API Key do Google Maps
+        val apiKey = "AIzaSyC84r-IA5PPwDiicNuIRS_kH2weH1zsu5o" // chave
         val geoApiContext = GeoApiContext.Builder()
             .apiKey(apiKey)
             .build()
@@ -182,25 +141,21 @@ object Utils {
         }
     }
 
+    /// Formata um objeto Timestamp para uma string de data ( dd / mm / yy)
     fun formatTimestampReviews(timestamp: Timestamp): String {
         val dateFormat = SimpleDateFormat("dd/MM/yy", Locale.getDefault())
         val date = timestamp.toDate()
         return dateFormat.format(date)
     }
 
+    // Formata um valor de classificação (rating) para uma string com uma casa decimal.
     fun formatRating(rating: Double?): String {
         val decimalFormat = DecimalFormat("#.#")
         decimalFormat.maximumFractionDigits = 1
         return decimalFormat.format(rating)
     }
 
-    fun Button.setUnderlinedText(text: String) {
-        val underlineSpan = UnderlineSpan()
-        val spannableString = SpannableString(text)
-        spannableString.setSpan(underlineSpan, 0, text.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        this.text = spannableString
-    }
-
+    // Traduz um status para outro idioma, com base em uma correspondência específica.
     fun translateStatus(status: String?): String {
         return when (status) {
             "drafting" -> "rascunho"
@@ -215,17 +170,19 @@ object Utils {
         }
     }
 
+    // Define a cor do ícone de status em um ImageView com base em um status específico
      fun setStatusIconColor(imageView: ImageView, status: String) {
         val colorResId = when (status) {
             "waiting" -> R.color.colorStatus2
             "onGoing" -> R.color.orange
             "finished" -> R.color.red
-            else -> R.color.white // Cor padrão caso o status não corresponda a nenhum caso acima
+            else -> R.color.white
         }
         val color = ContextCompat.getColor(imageView.context, colorResId)
         imageView.setColorFilter(color, PorterDuff.Mode.SRC_IN)
     }
 
+    // Define um texto sublinhado em um TextView
     fun TextView.setUnderlinedText(text: String){
         val underlineSpan = UnderlineSpan()
         val spannableString = SpannableString(text)
@@ -233,6 +190,7 @@ object Utils {
         this.text = spannableString
     }
 
+    // Define o estado de erro em um TextInputLayout, alterando as cores e os ícones.
     fun TextInputLayout.setErrorState() {
         val errorColor = Color.parseColor("#FF5252")
         val errorColorStateList = ColorStateList.valueOf(errorColor)
@@ -244,38 +202,39 @@ object Utils {
         endIconDrawable?.colorFilter = errorColorFilter
     }
 
+    //Formata um objeto de  um endereço para uma string para usar no GeoApi.
     fun getFullAddress(street: String?, number: String?, neighborhood: String?, city: String?, state: String?, zipCode: String?): String {
         return "$street, $number, $neighborhood, $city, $state, $zipCode"
     }
 
 
 
+    // Exibe um snackbar.
     fun showSnackbar(view: View, message: String) {
         Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show()
     }
 
+
+    //Formata um objeto de  um endereço para uma string completa.
     fun formatAddress(address: Address): String {
         return "${address.street}, ${address.number}, ${address.neighborhood}, ${address.zipeCode}, ${address.city}, ${address.state}"
     }
 
+    //Carrega uma imagem de uma URL usando a biblioteca Glide.
     fun loadImageFromUrl(url: String, view: CircleImageView) {
         Glide.with(view.context)
             .load(url)
             .into(view)
     }
 
-
-    fun loadImageFromUrlIv(url: String, view: ImageView) {
-        Glide.with(view.context)
-            .load(url)
-            .into(view)
-    }
-
+    // Oculta o teclado.
     fun Fragment.hideKeyboard() {
         val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 
+
+    // Atualiza a imagem de perfil do usuário, fazendo upload de uma nova imagem para o Firebase Storage e retornando a URL da imagem atualizada.
     fun updateProfileImage(img: Bitmap?, userId: String): Task<Uri> {
         val baos = ByteArrayOutputStream()
         img?.compress(Bitmap.CompressFormat.JPEG, 100, baos)
@@ -297,6 +256,8 @@ object Utils {
         }
     }
 
+
+    // Faz o upload de uma  imagem de perfil do usuário para o Firebase Storage e retorna a URL da imagem.
     fun uploadProfileImage(img: Bitmap?, userId: String): Task<Uri> {
         val baos = ByteArrayOutputStream()
         img?.compress(Bitmap.CompressFormat.JPEG, 100, baos)
@@ -312,6 +273,8 @@ object Utils {
     }
 
 
+
+    // Obtém uma mensagem de erro amigável com base em uma exceção do Firebase.
     fun getFirebaseErrorMessage(exception: Exception): String {
         return when (exception) {
             is FirebaseNetworkException -> "Falha na conexão com a internet"

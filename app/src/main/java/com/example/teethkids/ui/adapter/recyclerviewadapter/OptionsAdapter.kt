@@ -21,9 +21,9 @@ class OptionsAdapter(
             icon = R.drawable.account_circle
         ),
         Option(
-          name = "Mini Currículo",
-          description = "Mini currículo cadastrado",
-          icon = R.drawable.baseline_menu_book_24
+            name = "Mini Currículo",
+            description = "Mini currículo cadastrado",
+            icon = R.drawable.baseline_menu_book_24
         ),
         Option(
             name = "Endereços",

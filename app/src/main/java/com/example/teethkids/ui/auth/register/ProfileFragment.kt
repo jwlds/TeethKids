@@ -7,8 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
-import androidx.navigation.fragment.findNavController
-import com.example.teethkids.R
 import com.example.teethkids.databinding.FragmentProfileBinding
 import com.example.teethkids.utils.RegistrationDataHolder
 import java.util.*
@@ -29,9 +27,6 @@ class ProfileFragment : Fragment(),DatePickerDialog.OnDateSetListener{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.edtDateBirth.setOnClickListener { showDatePicker() }
-//        binding.btnBack.setOnClickListener(this)
-//        binding.btnNext.setOnClickListener(this)
-
     }
 
     private fun showDatePicker() {

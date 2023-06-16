@@ -22,13 +22,11 @@ import com.google.firebase.firestore.GeoPoint
 import me.relex.circleindicator.CircleIndicator3
 import android.Manifest
 import android.location.Location
-import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.example.teethkids.dao.EmergencyDao
 import com.example.teethkids.service.MyLocation
 import com.example.teethkids.ui.dialog.SendLocationEmergency
 import com.example.teethkids.viewmodel.EmergencyResponseViewModel
-import com.google.android.material.snackbar.Snackbar
 
 class MyEmergencyDetailsFragment : Fragment() {
 
@@ -99,11 +97,16 @@ class MyEmergencyDetailsFragment : Fragment() {
             }
         }
 
-        if (locationArray != null) {
-            binding.tvLocation.text = Utils.calculateDistance(
-                AddressPrimaryId.addressGeoPoint!!,
-                GeoPoint(locationArray[0], locationArray[1])
-            )
+        val myLocation = MyLocation(requireContext())
+        myLocation.getCurrentLocation { location: Location? ->
+            if (locationArray != null && location != null) {
+                binding.tvLocation.text = Utils.formatDistance(
+                    Utils.calculateDistance(
+                        GeoPoint(locationArray[0], locationArray[1]),
+                        GeoPoint(location.latitude, location.longitude)
+                    )
+                )
+            }
         }
 
         binding.toolbar.btnBack.setOnClickListener {
@@ -117,7 +120,6 @@ class MyEmergencyDetailsFragment : Fragment() {
         binding.btnViewMap.setOnClickListener {
             val dao = EmergencyDao()
             dao.updateStatusMove(emergencyId.toString(),1, onSuccess = {}, onFailure = {})
-            val addressGeoPoint = AddressPrimaryId.addressGeoPoint
 
             val myLocation = MyLocation(context)
             myLocation.getCurrentLocation { location: Location? ->

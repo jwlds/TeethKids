@@ -9,6 +9,7 @@ import kotlinx.parcelize.Parcelize
 // Classe representando os dados do processo de registro.
 @Parcelize
 data class RegistrationData(
+    val userUid: String? = "",
     var email: String? = "",
     var password: String? = "",
     var name: String? = null,

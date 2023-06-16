@@ -98,7 +98,7 @@ class AddressDao(context: Context) {
     }
 
     fun updatePrimaryAddress(isPrimary: Boolean,addressId: String,onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
-         val ref = FirebaseHelper.getDatabase().collection("profiles").document(getIdUser().toString())
+         val ref = getDatabase().collection("profiles").document(userPreferencesRepository.uid)
              .collection("addresses").document(addressId)
          ref.update("primary", isPrimary)
             .addOnSuccessListener {
@@ -108,7 +108,5 @@ class AddressDao(context: Context) {
                 onFailure(exception)
             }
     }
-
-
 
 }

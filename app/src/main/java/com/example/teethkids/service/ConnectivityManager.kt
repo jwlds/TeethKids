@@ -8,27 +8,29 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 
-//class ConnectivityManager(val context: Context) {
-//
 
-//}
 
-@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+// Classe para controlar o status da internet do dispositivo.
 class ConnectivityManager(private val context: Context) : LiveData<Boolean>() {
 
     private lateinit var networkCallback: ConnectivityManager.NetworkCallback
 
+
+    // Sobrescreve o método onActive() para registrar o callback quando há observadores ativos
     override fun onActive() {
         super.onActive()
         registerNetworkCallback()
     }
 
+
+    // Sobrescreve o método onInactive() para remover o callback quando não há observadores ativos
     override fun onInactive() {
         super.onInactive()
         unregisterNetworkCallback()
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+
+    // Registra o callback para receber notificações sobre a disponibilidade e perda de redes
     private fun registerNetworkCallback() {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -46,6 +48,7 @@ class ConnectivityManager(private val context: Context) : LiveData<Boolean>() {
         connectivityManager.registerDefaultNetworkCallback(networkCallback)
     }
 
+    // Remove o callback de notificação de rede
     private fun unregisterNetworkCallback() {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -53,6 +56,7 @@ class ConnectivityManager(private val context: Context) : LiveData<Boolean>() {
         connectivityManager.unregisterNetworkCallback(networkCallback)
     }
 
+    // Verifica se há conectividade com a Internet sem live data.
     fun checkInternet(): Boolean {
 
         val connectivityManager =

@@ -1,5 +1,6 @@
 package com.example.teethkids.ui.home
 
+import android.Manifest
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,20 +13,21 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.teethkids.R
 import com.example.teethkids.dao.UserDao
-import com.example.teethkids.database.FirebaseHelper
 import com.example.teethkids.databinding.FragmentEmergencyListBinding
 import com.example.teethkids.ui.adapter.recyclerviewadapter.ListEmergencyAdapter
-import com.example.teethkids.utils.AddressPrimaryId
 import com.example.teethkids.utils.Utils
-import com.example.teethkids.viewmodel.AddressViewModel
 import com.example.teethkids.viewmodel.EmergencyResponseViewModel
 import com.example.teethkids.viewmodel.EmergencyViewModel
 import com.example.teethkids.viewmodel.UserViewModel
-import com.google.firebase.firestore.GeoPoint
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.Location
 import android.provider.Settings
+import androidx.core.app.ActivityCompat
+import com.example.teethkids.service.MyLocation
+import com.google.firebase.firestore.GeoPoint
 
 
 class EmergencyListFragment : Fragment() {
@@ -36,6 +38,8 @@ class EmergencyListFragment : Fragment() {
     private lateinit var listEmergenciesAdapter: ListEmergencyAdapter
 
     private lateinit var userViewModel: UserViewModel
+
+    private val LOCATION_PERMISSION_REQUEST_CODE = 111
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,12 +52,12 @@ class EmergencyListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setAddressPrimary()
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         setupListAdapter()
         userViewModel.user.observe(viewLifecycleOwner) { user ->
             binding.statusBar.btnStatus.isChecked = user.status
             if (user.status) {
+                checkLocationPermission()
                 binding.toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->
                     if (isChecked) {
                         when (checkedId) {
@@ -113,7 +117,7 @@ class EmergencyListFragment : Fragment() {
 
             emergencyViewModel.emergencyList.observe(viewLifecycleOwner) { emergencies ->
                 val filteredEmergencies =
-                    emergencies.filter { it.rescuerUid in acceptedResourceIds }
+                    emergencies.filter { it.rescuerUid !in acceptedResourceIds }
                 listEmergenciesAdapter.submitList(filteredEmergencies)
             }
         }
@@ -148,39 +152,47 @@ class EmergencyListFragment : Fragment() {
 
     private fun loadEmergencies() {
         val emergencyViewModel = ViewModelProvider(this).get(EmergencyViewModel::class.java)
-        val emergencyResponseViewModel =
-            ViewModelProvider(this).get(EmergencyResponseViewModel::class.java)
+        val emergencyResponseViewModel = ViewModelProvider(this).get(EmergencyResponseViewModel::class.java)
 
         emergencyResponseViewModel.emergencyResponseList.observe(viewLifecycleOwner) { responses ->
             val acceptedResourceIds = responses
-                .filter { it.status in listOf("rejected", "finished", "expired","waiting","onGoing") }
+                .filter { it.status in listOf("rejected", "finished", "expired", "waiting", "onGoing") }
                 .map { it.rescuerUid }
 
             emergencyViewModel.emergencyList.observe(viewLifecycleOwner) { emergencies ->
-                val filteredEmergencies =
-                    emergencies.filter { it.rescuerUid !in acceptedResourceIds }
-                listEmergenciesAdapter.submitList(filteredEmergencies)
+                val myLocation = MyLocation(requireContext())
+                myLocation.getCurrentLocation { location: Location? ->
+                    if (location != null) {
+                        val  filteredStatus = emergencies.filter { it.rescuerUid !in acceptedResourceIds }
+                        val filteredEmergencies = filteredStatus.filter { emergency ->
+                            val distance = Utils.calculateDistance(
+                                GeoPoint(location.latitude, location.longitude),
+                                GeoPoint(emergency.location!![0], emergency.location[1])
+                            )
+                            distance <= 20.00
+                        }
+
+                        listEmergenciesAdapter.submitList(filteredEmergencies)
+                    }
+                }
             }
         }
     }
 
-    private fun setAddressPrimary() {
-        val addressViewModel = ViewModelProvider(this).get(AddressViewModel::class.java)
-        addressViewModel.addressList.observe(viewLifecycleOwner) { addresses ->
-            Log.d("test1", addresses.toString())
-            val primaryAddress = addresses.find { it.primary }
-            val primaryAddressId = primaryAddress?.addressId
-            if (primaryAddress != null) {
-                val lat = primaryAddress.lat
-                val lng = primaryAddress.lng
-                val geoPoint = GeoPoint(lat!!, lng!!)
-                Log.d("444", geoPoint.toString())
-                AddressPrimaryId.addressPrimaryId = primaryAddressId
-                AddressPrimaryId.addressGeoPoint = geoPoint
-            }
 
+    private fun checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED) {
+
+            // Solicita permissão de GPS
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                LOCATION_PERMISSION_REQUEST_CODE
+            )
         }
     }
+
 
     override fun onDestroy() {
         super.onDestroy()

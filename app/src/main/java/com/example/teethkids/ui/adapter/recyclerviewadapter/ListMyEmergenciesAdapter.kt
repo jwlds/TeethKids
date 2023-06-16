@@ -2,6 +2,7 @@ package com.example.teethkids.ui.adapter.recyclerviewadapter
 
 import android.content.Context
 import android.content.Intent
+import android.location.Location
 import android.net.Uri
 import android.os.CountDownTimer
 import android.view.LayoutInflater
@@ -14,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.teethkids.dao.EmergencyDao
 import com.example.teethkids.databinding.MyEmergencyItemBinding
 import com.example.teethkids.model.Emergency
-import com.example.teethkids.utils.AddressPrimaryId
+import com.example.teethkids.service.MyLocation
 import com.example.teethkids.utils.Utils
 import com.google.firebase.firestore.GeoPoint
 
@@ -24,6 +25,7 @@ class ListMyEmergenciesAdapter(
 ) : ListAdapter<Emergency, ListMyEmergenciesAdapter.MyEmergencyViewHolder>(DIFF_CALLBACK) {
 
     companion object {
+        // DiffUtil
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Emergency>() {
             override fun areItemsTheSame(oldItem: Emergency, newItem: Emergency): Boolean {
                 return oldItem.rescuerUid == newItem.rescuerUid
@@ -40,13 +42,18 @@ class ListMyEmergenciesAdapter(
         private var countDownTimer: CountDownTimer? = null
 
         fun bind(emergencies: Emergency, onEmergencyClicked: (Emergency) -> Unit) {
-            if (emergencies.location != null && AddressPrimaryId.addressGeoPoint != null) {
-                binding.myEmergencyDistance.text = Utils.calculateDistance(
-                    GeoPoint(emergencies.location[0], emergencies.location[1]),
-                    AddressPrimaryId.addressGeoPoint!!
-                )
+            val myLocation = MyLocation(binding.root.context)
+            myLocation.getCurrentLocation { location: Location? ->
+                if (emergencies.location != null && location != null) {
+                    binding.myEmergencyDistance.text = Utils.formatDistance(
+                        Utils.calculateDistance(
+                            GeoPoint(emergencies.location[0], emergencies.location[1]),
+                            GeoPoint(location.latitude, location.longitude)
+                        )
+                    )
+                }
             }
-            Utils.setStatusIconColor(binding.statusIcon,emergencies.status!!)
+            Utils.setStatusIconColor(binding.statusIcon, emergencies.status!!)
             binding.btnDetails.isEnabled = emergencies.status != "waiting"
             binding.btnCall.isVisible = emergencies.status != "onGoing"
             binding.myEmergencyTimeRemaing.isVisible = emergencies.status != "onGoing"
@@ -112,7 +119,7 @@ class ListMyEmergenciesAdapter(
             countDownTimer?.start()
         }
 
-         fun stopCountDownTimer() {
+        fun stopCountDownTimer() {
             countDownTimer?.cancel()
             countDownTimer = null
         }

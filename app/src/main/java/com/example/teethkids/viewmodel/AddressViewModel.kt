@@ -8,6 +8,7 @@ import com.example.teethkids.database.FirebaseHelper
 import com.example.teethkids.database.FirebaseHelper.Companion.getAuth
 import com.example.teethkids.database.FirebaseHelper.Companion.getDatabase
 import com.example.teethkids.database.FirebaseHelper.Companion.getIdUser
+import com.example.teethkids.datastore.UserPreferencesRepository
 import com.example.teethkids.model.Address
 import com.example.teethkids.utils.AddressPrimaryId
 
@@ -15,33 +16,32 @@ import com.example.teethkids.utils.AddressPrimaryId
 // Classe é responsável por gerencia os endereço do usuario atual e fornece um objeto
 //LiveData de somente leitura chamado user para observar as alterações nos endereços do usuário
 class AddressViewModel : ViewModel() {
-    private val _addressList = MutableLiveData<List<Address>>()
-    val addressList: LiveData<List<Address>> = _addressList
+    private val _addressList =
+        MutableLiveData<List<Address>>() // Armazena os dados dos endereços como MutableLiveData.
+    val addressList: LiveData<List<Address>> = _addressList  // LiveData para observação externa
 
     init {
-        val authUid = getIdUser()
+        val authUid = getIdUser() // Obtém o ID do usuário autenticado
         if (authUid != null) {
-            val profilesRef = getDatabase().collection("profiles").document(authUid)
-            val addressRef = profilesRef.collection("addresses")
+            val profilesRef = getDatabase().collection("profiles")
+                .document(authUid) // Obtém a referência da  coleção de responses.
+            val addressRef =
+                profilesRef.collection("addresses") // Obtém a referência da sub coleção de addresses  no documento do usuário
             addressRef.addSnapshotListener { querySnapshot, error ->
                 if (error != null) {
                     return@addSnapshotListener
                 }
-
-                val addressList = mutableListOf<Address>()
+                val addressList = mutableListOf<Address>() // Lista temporária
                 for (documentSnapshot in querySnapshot?.documents ?: emptyList()) {
-                    Log.d("444",documentSnapshot.toString())
-                    val address = documentSnapshot.toObject(Address::class.java)
+                    val address =
+                        documentSnapshot.toObject(Address::class.java) // Converte o documento em um objeto "Address".
                     address?.let {
-                        addressList.add(it)
+                        addressList.add(it) // Adiciona o endereço à lista temporária ser for diferente de null.
                     }
                 }
-                _addressList.value = addressList
+                _addressList.value =
+                    addressList // Atualiza o valor do _addressList com a lista de endereços.
             }
         }
-    }
-
-    fun updateAddressList(addressList: List<Address>) {
-        _addressList.value = addressList
     }
 }

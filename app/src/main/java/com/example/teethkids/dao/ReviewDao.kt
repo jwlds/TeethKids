@@ -10,7 +10,11 @@ import com.google.firebase.Timestamp
 
 class ReviewDao(context: Context){
 
+
+    // Instância do repositório UserPreferencesRepository
     private val userPreferencesRepository = UserPreferencesRepository.getInstance(context)
+
+    // Função para relatar uma avaliação (Criado um documento na coleção "disputes ")
     fun reportReview(
         review: Review,
         onSuccess: () -> Unit,
@@ -39,6 +43,7 @@ class ReviewDao(context: Context){
             }
     }
 
+    // Função para atualizar o status da revisão
     fun updateStatusReview(id: String, onSuccess: () -> Unit) {
         val userRef = FirebaseHelper.getDatabase().collection("profiles").document(userPreferencesRepository.uid)
         val reviewRef = userRef.collection("reviews").document(id)
