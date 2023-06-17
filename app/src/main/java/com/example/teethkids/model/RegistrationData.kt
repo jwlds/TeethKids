@@ -2,7 +2,7 @@ package com.example.teethkids.model
 
 import android.graphics.Bitmap
 import android.os.Parcelable
-import com.example.teethkids.database.FirebaseHelper
+import com.example.teethkids.Helper.FirebaseHelper
 import kotlinx.parcelize.Parcelize
 
 

@@ -10,15 +10,11 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.teethkids.R
-import com.example.teethkids.dao.AddressDao
-import com.example.teethkids.database.FirebaseHelper
 import com.example.teethkids.databinding.FragmentMyAddressesBinding
 import com.example.teethkids.model.Address
 import com.example.teethkids.ui.adapter.recyclerviewadapter.ListAddressesAdapter
 import com.example.teethkids.ui.dialog.AddAddressDialog
-import com.example.teethkids.ui.dialog.OptionAddressDialog
 import com.example.teethkids.utils.AddressPrimaryId
-import com.example.teethkids.utils.Utils
 import com.example.teethkids.viewmodel.AddressViewModel
 import com.google.firebase.firestore.GeoPoint
 

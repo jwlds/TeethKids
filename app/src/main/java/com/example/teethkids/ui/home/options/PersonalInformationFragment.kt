@@ -1,30 +1,21 @@
 package com.example.teethkids.ui.home.options
 
 import android.app.DatePickerDialog
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.teethkids.R
-import com.example.teethkids.dao.AuthenticationDAO
 import com.example.teethkids.dao.UserDao
-import com.example.teethkids.database.FirebaseHelper
-import com.example.teethkids.database.FirebaseHelper.Companion.getIdUser
 import com.example.teethkids.databinding.FragmentPersonalInformationBinding
-import com.example.teethkids.databinding.FragmentProfileMainBinding
-import com.example.teethkids.ui.dialog.AddAddressDialog
 import com.example.teethkids.ui.dialog.UpdateImgProfileDialog
-import com.example.teethkids.ui.home.MainActivity
 import com.example.teethkids.utils.Utils
 import com.example.teethkids.viewmodel.UserViewModel
-import com.google.firebase.firestore.auth.User
 import java.util.*
 
 

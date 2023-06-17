@@ -1,11 +1,9 @@
 package com.example.teethkids.viewmodel
 
-import android.content.Context
-import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.teethkids.database.FirebaseHelper.Companion.getDatabase
+import com.example.teethkids.Helper.FirebaseHelper.Companion.getDatabase
 import com.example.teethkids.model.Emergency
 import com.google.firebase.firestore.Query
 

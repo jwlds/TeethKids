@@ -1,17 +1,13 @@
 package com.example.teethkids.dao
 
-import android.content.Context
-import com.example.teethkids.database.FirebaseHelper
-import com.example.teethkids.database.FirebaseHelper.Companion.getFcmToken
-import com.example.teethkids.database.FirebaseHelper.Companion.getFunctions
-import com.example.teethkids.database.FirebaseHelper.Companion.getIdUser
-import com.example.teethkids.datastore.UserPreferencesRepository
+import com.example.teethkids.Helper.FirebaseHelper
+import com.example.teethkids.Helper.FirebaseHelper.Companion.getFcmToken
+import com.example.teethkids.Helper.FirebaseHelper.Companion.getFunctions
+import com.example.teethkids.Helper.FirebaseHelper.Companion.getIdUser
 import com.example.teethkids.model.RegistrationData
 import com.example.teethkids.utils.Utils
 import com.example.teethkids.utils.Utils.getFirebaseErrorMessage
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.GeoPoint
-import com.google.firebase.messaging.FirebaseMessaging
 
 class AuthenticationDAO(){
 

@@ -24,7 +24,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.example.teethkids.R
 import com.example.teethkids.dao.UserDao
-import com.example.teethkids.database.FirebaseHelper.Companion.getIdUser
+import com.example.teethkids.Helper.FirebaseHelper.Companion.getIdUser
 import com.example.teethkids.databinding.DialogContentOptionsUpdateImgProfileBinding
 import com.example.teethkids.utils.RegistrationDataHolder
 import com.example.teethkids.utils.Utils
@@ -34,7 +34,6 @@ import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import java.io.ByteArrayOutputStream
-import java.util.Locale
 import java.util.Random
 
 class UpdateImgProfileDialog(private val name: String?) : BottomSheetDialogFragment(),

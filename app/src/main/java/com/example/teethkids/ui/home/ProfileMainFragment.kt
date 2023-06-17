@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.teethkids.R
 import com.example.teethkids.dao.AuthenticationDAO
-import com.example.teethkids.database.FirebaseHelper
 import com.example.teethkids.databinding.FragmentProfileMainBinding
 import com.example.teethkids.datastore.UserPreferencesRepository
 import com.example.teethkids.ui.adapter.recyclerviewadapter.OptionsAdapter
@@ -60,10 +59,6 @@ class ProfileMainFragment : Fragment(),View.OnClickListener{
         binding.listOptions.adapter = adapter
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
 
     override fun onClick(v: View?) {
         when(v!!.id) {
@@ -77,6 +72,11 @@ class ProfileMainFragment : Fragment(),View.OnClickListener{
                 activity?.finish()
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 

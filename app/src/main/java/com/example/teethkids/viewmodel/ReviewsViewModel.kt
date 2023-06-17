@@ -1,12 +1,10 @@
 package com.example.teethkids.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.teethkids.database.FirebaseHelper
-import com.example.teethkids.database.FirebaseHelper.Companion.getDatabase
-import com.example.teethkids.database.FirebaseHelper.Companion.getIdUser
+import com.example.teethkids.Helper.FirebaseHelper.Companion.getDatabase
+import com.example.teethkids.Helper.FirebaseHelper.Companion.getIdUser
 import com.example.teethkids.model.Review
 import com.google.firebase.firestore.Query
 

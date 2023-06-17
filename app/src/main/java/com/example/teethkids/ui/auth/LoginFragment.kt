@@ -1,14 +1,7 @@
 package com.example.teethkids.ui.auth
 
 import android.content.Intent
-import android.content.res.ColorStateList
-import android.graphics.Color
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.style.UnderlineSpan
 import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -19,20 +12,16 @@ import androidx.navigation.fragment.findNavController
 import com.example.teethkids.R
 import com.example.teethkids.dao.AuthenticationDAO
 import com.example.teethkids.dao.UserDao
-import com.example.teethkids.database.FirebaseHelper
+import com.example.teethkids.Helper.FirebaseHelper
 import com.example.teethkids.databinding.FragmentLoginBinding
 import com.example.teethkids.datastore.UserPreferencesRepository
 import com.example.teethkids.service.ConnectivityManager
-import com.example.teethkids.service.FirebaseMessagingService
 import com.example.teethkids.ui.home.MainActivity
 import com.example.teethkids.utils.Utils
 import com.example.teethkids.utils.Utils.hideKeyboard
 import com.example.teethkids.utils.Utils.setErrorState
 import com.example.teethkids.utils.Utils.setUnderlinedText
 import com.example.teethkids.utils.Utils.showSnackBarError
-import com.example.teethkids.utils.Utils.showSnackbar
-import com.google.android.material.textfield.TextInputLayout
-import com.google.firebase.messaging.FirebaseMessaging
 
 class LoginFragment : Fragment(), View.OnClickListener {
     private var _binding: FragmentLoginBinding? = null

@@ -2,19 +2,15 @@ package com.example.teethkids.ui.dialog
 
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import com.example.teethkids.dao.AddressDao
-import com.example.teethkids.database.FirebaseHelper.Companion.getIdUser
 import com.example.teethkids.databinding.DialogContentOptionsAddressBinding
 import com.example.teethkids.model.Address
-import com.example.teethkids.ui.home.options.MyAddressesFragment
 import com.example.teethkids.utils.Utils
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 

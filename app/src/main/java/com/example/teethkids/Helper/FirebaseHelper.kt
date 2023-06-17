@@ -1,10 +1,8 @@
-package com.example.teethkids.database
+package com.example.teethkids.Helper
 
-import com.example.teethkids.datastore.UserPreferencesRepository
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.functions.FirebaseFunctions
-import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 

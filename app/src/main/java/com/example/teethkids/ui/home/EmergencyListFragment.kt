@@ -58,21 +58,7 @@ class EmergencyListFragment : Fragment() {
             binding.statusBar.btnStatus.isChecked = user.status
             if (user.status) {
                 checkLocationPermission()
-                binding.toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->
-                    if (isChecked) {
-                        when (checkedId) {
-                            R.id.filterAvailable -> {
-                                loadEmergencies()
-                            }
-
-                            R.id.filterWaiting -> {
-                                loadEmergenciesByAccepted()
-                            }
-                        }
-                    }
-                }
-                binding.toggleButton.isEnabled = true
-                binding.toggleButton.check(R.id.filterAvailable)
+                setupToggleListener()
                 binding.textViewStateList.isVisible = false
                 loadEmergencies()
             } else {
@@ -80,47 +66,54 @@ class EmergencyListFragment : Fragment() {
                 listEmergenciesAdapter.submitList(null)
                 binding.toggleButton.isEnabled = false
             }
-
-            val color = if (binding.statusBar.btnStatus.isChecked)
-                ContextCompat.getColor(requireContext(), R.color.greenStatus)
-            else
-                ContextCompat.getColor(requireContext(), R.color.redStatus)
-            binding.statusBar.toolbar.setBackgroundColor(color)
+            updateStatusBarColor()
         }
+        initClicks()
+    }
 
+
+
+    private fun initClicks() {
         binding.statusBar.btnStatus.setOnCheckedChangeListener { _, isChecked ->
             val dao = UserDao(requireContext())
-            dao.updateStatus(isChecked,
-                onSuccess = {
-                    if (isChecked && !isNotificationPermissionGranted()) {
-                        requestNotificationPermission()
-                    }
-                })
+            dao.updateStatus(isChecked) {
+                if (isChecked && !isNotificationPermissionGranted()) {
+                    requestNotificationPermission()
+                }
+            }
         }
-
     }
 
     private fun isNotificationPermissionGranted(): Boolean {
-        val notificationManager = requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager =
+            requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         return notificationManager.areNotificationsEnabled()
     }
 
-    private fun loadEmergenciesByAccepted() {
-        val emergencyViewModel = ViewModelProvider(this).get(EmergencyViewModel::class.java)
-        val emergencyResponseViewModel =
-            ViewModelProvider(this).get(EmergencyResponseViewModel::class.java)
-
-        emergencyResponseViewModel.emergencyResponseList.observe(viewLifecycleOwner) { responses ->
-            val acceptedResourceIds = responses
-                .filter { it.status == "waiting" }
-                .map { it.rescuerUid }
-
-            emergencyViewModel.emergencyList.observe(viewLifecycleOwner) { emergencies ->
-                val filteredEmergencies =
-                    emergencies.filter { it.rescuerUid !in acceptedResourceIds }
-                listEmergenciesAdapter.submitList(filteredEmergencies)
+    private fun setupToggleListener() {
+        binding.toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->
+            if (isChecked) {
+                when (checkedId) {
+                    R.id.filterAvailable -> {
+                        loadEmergencies()
+                    }
+                    R.id.filterWaiting -> {
+                        loadEmergenciesByAccepted()
+                    }
+                }
             }
         }
+        binding.toggleButton.isEnabled = true
+        binding.toggleButton.check(R.id.filterAvailable)
+    }
+
+    private fun updateStatusBarColor() {
+        val color = if (binding.statusBar.btnStatus.isChecked) {
+            ContextCompat.getColor(requireContext(), R.color.greenStatus)
+        } else {
+            ContextCompat.getColor(requireContext(), R.color.redStatus)
+        }
+        binding.statusBar.toolbar.setBackgroundColor(color)
     }
 
     private fun setupListAdapter() {
@@ -149,29 +142,41 @@ class EmergencyListFragment : Fragment() {
         startActivity(intent)
     }
 
-
-    private fun loadEmergencies() {
+    private fun loadEmergenciesByAccepted() {
         val emergencyViewModel = ViewModelProvider(this).get(EmergencyViewModel::class.java)
         val emergencyResponseViewModel = ViewModelProvider(this).get(EmergencyResponseViewModel::class.java)
 
         emergencyResponseViewModel.emergencyResponseList.observe(viewLifecycleOwner) { responses ->
             val acceptedResourceIds = responses
-                .filter { it.status in listOf("rejected", "finished", "expired", "waiting", "onGoing") }
+                .filter { it.status == "waiting" }
                 .map { it.rescuerUid }
 
             emergencyViewModel.emergencyList.observe(viewLifecycleOwner) { emergencies ->
-                val myLocation = MyLocation(requireContext())
-                myLocation.getCurrentLocation { location: Location? ->
-                    if (location != null) {
-                        val  filteredStatus = emergencies.filter { it.rescuerUid !in acceptedResourceIds }
-                        val filteredEmergencies = filteredStatus.filter { emergency ->
-                            val distance = Utils.calculateDistance(
-                                GeoPoint(location.latitude, location.longitude),
-                                GeoPoint(emergency.location!![0], emergency.location[1])
-                            )
-                            distance <= 20.00
-                        }
+                val filteredEmergencies = emergencies.filter { it.rescuerUid in acceptedResourceIds }
+                listEmergenciesAdapter.submitList(filteredEmergencies)
+            }
+        }
+    }
 
+    private fun loadEmergencies() {
+        val emergencyViewModel = ViewModelProvider(this).get(EmergencyViewModel::class.java)
+        val emergencyResponseViewModel = ViewModelProvider(this).get(EmergencyResponseViewModel::class.java)
+        val myLocation = MyLocation(requireContext())
+
+        emergencyResponseViewModel.emergencyResponseList.observe(viewLifecycleOwner) { responses ->
+            val acceptedStatusList = listOf("rejected", "finished", "expired", "waiting", "onGoing")
+            val acceptedResourceIds = responses.filter { it.status in acceptedStatusList }.map { it.rescuerUid }
+
+            myLocation.getCurrentLocation { location: Location? ->
+                location?.let {
+                    emergencyViewModel.emergencyList.observe(viewLifecycleOwner) { emergencies ->
+                        val filteredEmergencies = emergencies.filter { emergency ->
+                            emergency.rescuerUid !in acceptedResourceIds &&
+                                    Utils.calculateDistance(
+                                        GeoPoint(it.latitude, it.longitude),
+                                        GeoPoint(emergency.location!![0], emergency.location[1])
+                                    ) <= 20.00
+                        }
                         listEmergenciesAdapter.submitList(filteredEmergencies)
                     }
                 }
@@ -179,11 +184,13 @@ class EmergencyListFragment : Fragment() {
         }
     }
 
-
     private fun checkLocationPermission() {
-        if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED) {
-
+        if (ContextCompat.checkSelfPermission(
+                requireActivity(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+            != PackageManager.PERMISSION_GRANTED
+        ) {
             // Solicita permissão de GPS
             ActivityCompat.requestPermissions(
                 requireActivity(),
@@ -193,12 +200,9 @@ class EmergencyListFragment : Fragment() {
         }
     }
 
-
     override fun onDestroy() {
         super.onDestroy()
-        _binding
+        _binding = null
     }
-
-
 }
 

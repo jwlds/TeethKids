@@ -7,16 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.teethkids.R
 import com.example.teethkids.dao.EmergencyDao
-import com.example.teethkids.dao.UserDao
-import com.example.teethkids.database.FirebaseHelper
+import com.example.teethkids.Helper.FirebaseHelper
 import com.example.teethkids.databinding.FragmentEmergencyDetailsBinding
-import com.example.teethkids.databinding.FragmentEmergencyListBinding
 import com.example.teethkids.model.ResponseEmergency
 import com.example.teethkids.service.MyLocation
 import com.example.teethkids.ui.adapter.viewPagerAdapter.PhotoAdapter
@@ -35,7 +32,6 @@ class EmergencyDetailsFragment : Fragment(), OnClickListener {
     private lateinit var circleIndicator: CircleIndicator3
 
     private lateinit var viewPager: ViewPager2
-    private lateinit var adapter: PhotoAdapter
 
     private var response: ResponseEmergency? = null
 
@@ -49,16 +45,15 @@ class EmergencyDetailsFragment : Fragment(), OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
         binding.toolbar.screenName.text = "Detalhes"
-        binding.toolbar.btnBack.setOnClickListener(this)
-
         circleIndicator = binding.indicator
-
+        binding.toolbar.btnBack.setOnClickListener(this)
         binding.btnAccept.setOnClickListener(this)
         binding.btnCancel.setOnClickListener(this)
+        loadData()
+    }
 
+    private fun loadData() {
         val emergencyId = arguments?.getString("emergencyId")
         val name = arguments?.getString("name")
         val status = arguments?.getString("status")
@@ -66,21 +61,17 @@ class EmergencyDetailsFragment : Fragment(), OnClickListener {
         val locationArray = arguments?.getDoubleArray("location")
         val photos = arguments?.getStringArrayList("photos")
 
-        val emergencyResponseViewModel =
-            ViewModelProvider(this).get(EmergencyResponseViewModel::class.java)
+        val emergencyResponseViewModel = ViewModelProvider(this).get(EmergencyResponseViewModel::class.java)
 
         emergencyResponseViewModel.emergencyResponseList.observe(viewLifecycleOwner) { emergencies ->
             response = emergencies.find { it.rescuerUid == emergencyId }
-            if (response?.status == "waiting") {
-                binding.btnAccept.isEnabled = false
-                binding.btnCancel.text = "Cancelar"
-            }
+            binding.btnAccept.isEnabled = response?.status != "waiting"
+            binding.btnCancel.text = if (response?.status == "waiting") "Cancelar" else "Rejeitar"
         }
 
-        Utils.setStatusIconColor(binding.tvStatus,status!!)
+        Utils.setStatusIconColor(binding.tvStatus, status!!)
         binding.tvDate.text = createdAt
         binding.tvNome.text = name
-        binding.tvDate.text = createdAt
         binding.tvStatusText.text = Utils.translateStatus(status)
 
         val adapter = photos?.let { PhotoAdapter(it) }
@@ -92,21 +83,17 @@ class EmergencyDetailsFragment : Fragment(), OnClickListener {
         val myLocation = MyLocation(requireContext())
         myLocation.getCurrentLocation { location: Location? ->
             if (locationArray != null && location != null) {
-                binding.tvLocation.text =formatDistance(Utils.calculateDistance(
+                val distance = Utils.calculateDistance(
                     GeoPoint(locationArray[0], locationArray[1]),
                     GeoPoint(location.latitude, location.longitude)
-                ))
+                )
+                binding.tvLocation.text = formatDistance(distance)
             }
         }
-
-
     }
 
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
+
 
     override fun onClick(v: View?) {
         when (v!!.id) {
@@ -160,7 +147,7 @@ class EmergencyDetailsFragment : Fragment(), OnClickListener {
         }
     }
 
-    fun updateStatusEmergencyResponse(status: String, id: String?, onSuccess: () -> Unit) {
+    private fun updateStatusEmergencyResponse(status: String, id: String?, onSuccess: () -> Unit) {
         val collectionRef = FirebaseHelper.getDatabase().collection("responses")
         val query = collectionRef.whereEqualTo("rescuerUid", id)
 
@@ -182,12 +169,10 @@ class EmergencyDetailsFragment : Fragment(), OnClickListener {
         }
     }
 
-//    fun updateStatusEmergencyResponse(status: String, id: String?, onSuccess: () -> Unit) {
-//        val responseRef = FirebaseHelper.getDatabase().collection("responses").document(id!!)
-//        responseRef.update("status", status)
-//            .addOnSuccessListener {
-//                onSuccess()
-//            }
-//    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }
 

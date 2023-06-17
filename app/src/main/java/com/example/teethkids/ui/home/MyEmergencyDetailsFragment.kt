@@ -16,12 +16,10 @@ import com.example.teethkids.R
 import com.example.teethkids.databinding.FragmentMyEmergencyDetailsBinding
 import com.example.teethkids.ui.adapter.viewPagerAdapter.PhotoAdapter
 import com.example.teethkids.ui.dialog.ConfirmationFinalizeEmergency
-import com.example.teethkids.utils.AddressPrimaryId
 import com.example.teethkids.utils.Utils
 import com.google.firebase.firestore.GeoPoint
 import me.relex.circleindicator.CircleIndicator3
 import android.Manifest
-import android.location.Location
 import androidx.lifecycle.ViewModelProvider
 import com.example.teethkids.dao.EmergencyDao
 import com.example.teethkids.service.MyLocation
@@ -40,10 +38,8 @@ class MyEmergencyDetailsFragment : Fragment() {
     private lateinit var viewPager: ViewPager2
     private lateinit var circleIndicator: CircleIndicator3
 
-
     private var lat2: String? = null
     private var lon2: String? = null
-
     private var phone: String? = null
 
     override fun onCreateView(
@@ -56,14 +52,17 @@ class MyEmergencyDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        loadData()
+        initClicks()
+        updateEmergencyResponseStatus()
+    }
 
 
 
-
-        val context = requireContext()
-
+    private fun loadData() {
         circleIndicator = binding.indicator
-        val emergencyId = arguments?.getString("emergencyId")
+
+
         val name = arguments?.getString("name")
         phone = arguments?.getString("phone")
         val createdAt = arguments?.getString("createdAt")
@@ -80,25 +79,8 @@ class MyEmergencyDetailsFragment : Fragment() {
         viewPager.adapter = adapter
         circleIndicator.setViewPager(viewPager)
 
-        val emergencyResponseViewModel =
-            ViewModelProvider(this).get(EmergencyResponseViewModel::class.java)
-
-        emergencyResponseViewModel.emergencyResponseList.observe(viewLifecycleOwner) { emergencies ->
-            val response = emergencies.find { it.rescuerUid == emergencyId }
-            if(response?.willProfessionalMove == 0)
-            {
-                binding.btnViewMap.isEnabled = false
-                binding.btnSendLoc.isEnabled = true
-            }
-            if(response?.willProfessionalMove == 1)
-            {
-                binding.btnSendLoc.isEnabled = false
-                binding.btnViewMap.isEnabled = true
-            }
-        }
-
         val myLocation = MyLocation(requireContext())
-        myLocation.getCurrentLocation { location: Location? ->
+        myLocation.getCurrentLocation { location ->
             if (locationArray != null && location != null) {
                 binding.tvLocation.text = Utils.formatDistance(
                     Utils.calculateDistance(
@@ -108,26 +90,32 @@ class MyEmergencyDetailsFragment : Fragment() {
                 )
             }
         }
+    }
 
+    private fun initClicks() {
+
+        val emergencyId = arguments?.getString("emergencyId")
+        val locationArray = arguments?.getDoubleArray("location")
         binding.toolbar.btnBack.setOnClickListener {
             findNavController().navigate(R.id.action_myEmergencyDetailsFragment_to_homeFragment)
         }
+
         binding.btnFinish.setOnClickListener {
-            val dialog = ConfirmationFinalizeEmergency(context, emergencyId.toString())
+            val dialog = ConfirmationFinalizeEmergency(requireContext(), emergencyId.toString())
             dialog.show()
         }
 
         binding.btnViewMap.setOnClickListener {
             val dao = EmergencyDao()
-            dao.updateStatusMove(emergencyId.toString(),1, onSuccess = {}, onFailure = {})
+            dao.updateStatusMove(emergencyId.toString(), 1, onSuccess = {}, onFailure = {})
 
-            val myLocation = MyLocation(context)
-            myLocation.getCurrentLocation { location: Location? ->
+            val myLocation = MyLocation(requireContext())
+            myLocation.getCurrentLocation { location ->
                 if (location != null) {
                     val lat1 = location.latitude
                     val lon1 = location.longitude
 
-                    if(locationArray != null) {
+                    if (locationArray != null) {
                         lat2 = locationArray[0].toString()
                         lon2 = locationArray[1].toString()
                     }
@@ -155,7 +143,7 @@ class MyEmergencyDetailsFragment : Fragment() {
 
         binding.btnStartCall.setOnClickListener {
             if (ContextCompat.checkSelfPermission(
-                    context,
+                    requireContext(),
                     Manifest.permission.CALL_PHONE
                 ) == PackageManager.PERMISSION_GRANTED
             ) {
@@ -170,9 +158,27 @@ class MyEmergencyDetailsFragment : Fragment() {
             }
         }
 
-        binding.btnSendLoc.setOnClickListener{
-            val dialogLoc = SendLocationEmergency(context, emergencyId.toString())
+        binding.btnSendLoc.setOnClickListener {
+            val dialogLoc = SendLocationEmergency(requireContext(), emergencyId.toString())
             dialogLoc.show()
+        }
+    }
+
+    private fun updateEmergencyResponseStatus() {
+        val emergencyId = arguments?.getString("emergencyId")
+        val emergencyResponseViewModel =
+            ViewModelProvider(this).get(EmergencyResponseViewModel::class.java)
+
+        emergencyResponseViewModel.emergencyResponseList.observe(viewLifecycleOwner) { emergencies ->
+            val response = emergencies.find { it.rescuerUid == emergencyId }
+            if (response?.willProfessionalMove == 0) {
+                binding.btnViewMap.isEnabled = false
+                binding.btnSendLoc.isEnabled = true
+            }
+            if (response?.willProfessionalMove == 1) {
+                binding.btnSendLoc.isEnabled = false
+                binding.btnViewMap.isEnabled = true
+            }
         }
     }
 

@@ -2,16 +2,9 @@ package com.example.teethkids.dao
 
 import android.content.Context
 import android.util.Log
-import com.example.teethkids.database.FirebaseHelper
-import com.example.teethkids.database.FirebaseHelper.Companion.getDatabase
-import com.example.teethkids.database.FirebaseHelper.Companion.getIdUser
+import com.example.teethkids.Helper.FirebaseHelper.Companion.getDatabase
 import com.example.teethkids.datastore.UserPreferencesRepository
-import com.example.teethkids.model.Address
-import com.example.teethkids.model.User
-import com.example.teethkids.utils.Utils
 import com.google.firebase.Timestamp
-import com.google.firebase.firestore.GeoPoint
-import kotlinx.coroutines.tasks.await
 
 class UserDao(context: Context) {
 

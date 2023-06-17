@@ -1,13 +1,9 @@
 package com.example.teethkids.dao
 import android.content.Context
-import android.util.Log
-import androidx.core.content.ContentProviderCompat.requireContext
-import com.example.teethkids.database.FirebaseHelper
-import com.example.teethkids.database.FirebaseHelper.Companion.getDatabase
-import com.example.teethkids.database.FirebaseHelper.Companion.getIdUser
+import com.example.teethkids.Helper.FirebaseHelper
+import com.example.teethkids.Helper.FirebaseHelper.Companion.getDatabase
 import com.example.teethkids.datastore.UserPreferencesRepository
 import com.example.teethkids.model.Address
-import com.example.teethkids.service.ConnectivityManager
 
 //Classe responsável por acessar e manipular dados de endereços no Firebase
 class AddressDao(context: Context) {

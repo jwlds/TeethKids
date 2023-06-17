@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.example.teethkids.R
 import com.example.teethkids.dao.AddressDao
-import com.example.teethkids.database.FirebaseHelper.Companion.getIdUser
+import com.example.teethkids.Helper.FirebaseHelper.Companion.getIdUser
 import com.example.teethkids.databinding.DialogContentAddAddressBinding
 import com.example.teethkids.model.Address
 import com.example.teethkids.repository.ViaCepRepository

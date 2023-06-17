@@ -8,12 +8,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat
 import androidx.navigation.NavDeepLinkBuilder
 import com.example.teethkids.R
 import com.example.teethkids.dao.NotificationDao
-import com.example.teethkids.database.FirebaseHelper.Companion.getDatabase
-import com.example.teethkids.database.FirebaseHelper.Companion.getIdUser
+import com.example.teethkids.Helper.FirebaseHelper.Companion.getDatabase
+import com.example.teethkids.Helper.FirebaseHelper.Companion.getIdUser
 import com.example.teethkids.model.Emergency
 import com.example.teethkids.model.Notification
 import com.example.teethkids.ui.auth.AuthenticateActivity
@@ -21,7 +20,6 @@ import com.example.teethkids.ui.home.MainActivity
 import com.example.teethkids.utils.Utils
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import com.google.type.Date
 import org.json.JSONArray
 import org.json.JSONObject
 

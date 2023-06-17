@@ -1,11 +1,8 @@
 package com.example.teethkids.model
 
 import android.os.Parcelable
-import com.example.teethkids.database.FirebaseHelper
-import com.google.android.gms.maps.model.LatLng
-import com.google.firebase.firestore.GeoPoint
+import com.example.teethkids.Helper.FirebaseHelper
 import kotlinx.parcelize.Parcelize
-import kotlinx.parcelize.RawValue
 
 
 @Parcelize
