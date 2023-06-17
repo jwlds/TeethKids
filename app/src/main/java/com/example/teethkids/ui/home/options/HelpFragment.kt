@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.example.teethkids.R
 import com.example.teethkids.databinding.FragmentHelpBinding
@@ -30,9 +31,7 @@ class HelpFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.toolbar.screenName.text = "Ajuda"
-        binding.toolbar.btnBack.setOnClickListener {
-            findNavController().navigate(R.id.action_helpFragment_to_profileMainFragment)
-        }
+        setupActionBar()
         binding.listHelp.setHasFixedSize(true)
         val adapter = ListHelpOptionAdapter(requireContext()) { option ->
             when (option.name) {
@@ -45,6 +44,15 @@ class HelpFragment : Fragment() {
         }
 
         binding.listHelp.adapter = adapter
+    }
+
+
+    private fun setupActionBar() {
+        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbar.toolbar)
+        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        binding.toolbar.toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
     override fun onDestroy() {

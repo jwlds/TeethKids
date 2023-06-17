@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -45,6 +46,8 @@ class ReviewFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setupActionBar()
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
         userViewModel.user.observe(viewLifecycleOwner) { user ->
@@ -54,10 +57,6 @@ class ReviewFragment : Fragment() {
         setupListAdapter()
         loadReviews()
         binding.toolbar.screenName.text = "Avaliações"
-
-        binding.toolbar.btnBack.setOnClickListener {
-            findNavController().navigate(R.id.action_reviewFragment_to_profileMainFragment)
-        }
 
 
         val mUnderlineSpan = UnderlineSpan()
@@ -79,6 +78,14 @@ class ReviewFragment : Fragment() {
         }
 
         binding.pageDiscription.text = mBSpannableStringDescription
+    }
+
+    private fun setupActionBar() {
+        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbar.toolbar)
+        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        binding.toolbar.toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
     private fun setupListAdapter() {

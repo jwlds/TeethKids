@@ -33,7 +33,6 @@ class NotificationFragment : Fragment() {
         val adapter = ListNotificationsAdapter(requireContext(),notifications)
         binding.listNotifications.adapter = adapter
         binding.listNotifications.layoutManager = LinearLayoutManager(requireContext())
-        binding.toolbar.btnBack.isVisible = false
         binding.toolbar.screenName.text = "Notificações"
     }
 

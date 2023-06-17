@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -33,6 +34,11 @@ class MyDescriptionFragment : Fragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.toolbar.screenName.text = "Mini Currículo"
+
+        setupActionBar()
+
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
         userViewModel.user.observe(viewLifecycleOwner) { user ->
@@ -40,9 +46,16 @@ class MyDescriptionFragment : Fragment(), View.OnClickListener {
         }
         binding.btnUpdate.setOnClickListener(this)
 
-        binding.toolbar.screenName.text = "Mini Currículo"
-        binding.toolbar.btnBack.setOnClickListener {
-            findNavController().navigate(R.id.action_myDescriptionFragment_to_profileMainFragment)
+
+
+
+    }
+
+    private fun setupActionBar() {
+        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbar.toolbar)
+        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        binding.toolbar.toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
         }
     }
 

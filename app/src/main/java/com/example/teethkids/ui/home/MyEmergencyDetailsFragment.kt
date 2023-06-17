@@ -20,6 +20,7 @@ import com.example.teethkids.utils.Utils
 import com.google.firebase.firestore.GeoPoint
 import me.relex.circleindicator.CircleIndicator3
 import android.Manifest
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.teethkids.dao.EmergencyDao
 import com.example.teethkids.service.MyLocation
@@ -52,6 +53,7 @@ class MyEmergencyDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupActionBar()
         loadData()
         initClicks()
         updateEmergencyResponseStatus()
@@ -92,13 +94,18 @@ class MyEmergencyDetailsFragment : Fragment() {
         }
     }
 
+    private fun setupActionBar() {
+        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbar.toolbar)
+        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        binding.toolbar.toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
+    }
+
     private fun initClicks() {
 
         val emergencyId = arguments?.getString("emergencyId")
         val locationArray = arguments?.getDoubleArray("location")
-        binding.toolbar.btnBack.setOnClickListener {
-            findNavController().navigate(R.id.action_myEmergencyDetailsFragment_to_homeFragment)
-        }
 
         binding.btnFinish.setOnClickListener {
             val dialog = ConfirmationFinalizeEmergency(requireContext(), emergencyId.toString())

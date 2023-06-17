@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
@@ -46,8 +47,8 @@ class EmergencyDetailsFragment : Fragment(), OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.toolbar.screenName.text = "Detalhes"
+        setupActionBar()
         circleIndicator = binding.indicator
-        binding.toolbar.btnBack.setOnClickListener(this)
         binding.btnAccept.setOnClickListener(this)
         binding.btnCancel.setOnClickListener(this)
         loadData()
@@ -89,6 +90,14 @@ class EmergencyDetailsFragment : Fragment(), OnClickListener {
                 )
                 binding.tvLocation.text = formatDistance(distance)
             }
+        }
+    }
+
+    private fun setupActionBar() {
+        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbar.toolbar)
+        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        binding.toolbar.toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
         }
     }
 

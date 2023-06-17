@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -37,15 +38,23 @@ class MyAddressesFragment : Fragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.toolbar.screenName.text = "Meus endereços"
+        setupActionBar()
+
         binding.textAddressNull.isVisible = false
         binding.textAddressNull.isVisible = false
         binding.fab.setOnClickListener(this)
-        binding.toolbar.screenName.text = "Meus endereços"
-        binding.toolbar.btnBack.setOnClickListener {
-            findNavController().navigate(R.id.action_myAndressesFragment_to_profileMainFragment)
-        }
+
         setupListAdapter()
         loadAddresses()
+    }
+
+    private fun setupActionBar() {
+        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbar.toolbar)
+        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        binding.toolbar.toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
     private fun setupListAdapter() {
@@ -65,12 +74,7 @@ class MyAddressesFragment : Fragment(), View.OnClickListener {
             val primaryAddress = addresses.find { it.primary }
             val primaryAddressId = primaryAddress?.addressId
             if(primaryAddress != null) {
-                val lat = primaryAddress.lat
-                val lng= primaryAddress.lng
-                val geoPoint = GeoPoint(lat!!,lng!!)
-                Log.d("444",geoPoint.toString())
                 AddressPrimaryId.addressPrimaryId = primaryAddressId
-                AddressPrimaryId.addressGeoPoint = geoPoint
             }
 
         }
@@ -94,7 +98,6 @@ class MyAddressesFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.fab -> showDialogAdd()
-
         }
     }
 

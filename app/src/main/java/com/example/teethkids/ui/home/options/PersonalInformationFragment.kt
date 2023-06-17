@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -35,6 +36,8 @@ class PersonalInformationFragment : Fragment(),View.OnClickListener, DatePickerD
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setupActionBar()
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
         userViewModel.user.observe(viewLifecycleOwner) { user ->
@@ -51,8 +54,15 @@ class PersonalInformationFragment : Fragment(),View.OnClickListener, DatePickerD
         binding.btnUpdateImgProfile.setOnClickListener(this)
         binding.edtDateBirth.setOnClickListener { showDatePicker() }
         binding.toolbar.screenName.text = "Meus dados"
-        binding.toolbar.btnBack.setOnClickListener{
-            findNavController().navigate(R.id.action_personalInformationFragment_to_profileMainFragment)
+
+
+    }
+
+    private fun setupActionBar() {
+        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbar.toolbar)
+        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        binding.toolbar.toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
         }
     }
 
