@@ -47,7 +47,7 @@ O módulo do profissional é dedicado aos dentistas e tem como objetivo facilita
   </p>
 
 
-  # O aplicativo possui mais funcionalidades, porém, elas dependem do app do socorrista, que faz parte da segunda parte do projeto e não foi demonstrada aqui.
+  O aplicativo possui mais funcionalidades, porém, elas dependem do app do socorrista, que faz parte da segunda parte do projeto e não foi demonstrada aqui.
 
 
 
