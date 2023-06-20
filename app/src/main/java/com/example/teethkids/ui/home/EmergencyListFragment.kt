@@ -1,8 +1,8 @@
 package com.example.teethkids.ui.home
 
+import EmergencyViewModel
 import android.Manifest
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +17,6 @@ import com.example.teethkids.databinding.FragmentEmergencyListBinding
 import com.example.teethkids.ui.adapter.recyclerviewadapter.ListEmergencyAdapter
 import com.example.teethkids.utils.Utils
 import com.example.teethkids.viewmodel.EmergencyResponseViewModel
-import com.example.teethkids.viewmodel.EmergencyViewModel
 import com.example.teethkids.viewmodel.UserViewModel
 import android.app.NotificationManager
 import android.content.Context

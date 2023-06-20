@@ -1,5 +1,6 @@
 package com.example.teethkids.ui.home
 
+import EmergencyViewModel
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -36,7 +37,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
+        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
         userViewModel.user.observe(viewLifecycleOwner) { user ->
             Utils.loadImageFromUrl(user.urlImg, binding.toolbar.profileImage)

@@ -16,9 +16,9 @@
 
         <TextView
             android:id="@+id/screen_name"
-            android:layzout_width="wrap_content"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/string_card_title"
+            android:text="Nome da Tela"
             android:textColor="@color/grey"
             android:textSize="16sp"
             android:layout_centerInParent="true"

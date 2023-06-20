@@ -2,6 +2,7 @@ package com.example.teethkids.ui.home
 
 import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -83,7 +84,9 @@ class EmergencyDetailsFragment : Fragment(), OnClickListener {
 
         val myLocation = MyLocation(requireContext())
         myLocation.getCurrentLocation { location: Location? ->
+            Log.d("333",location.toString())
             if (locationArray != null && location != null) {
+
                 val distance = Utils.calculateDistance(
                     GeoPoint(locationArray[0], locationArray[1]),
                     GeoPoint(location.latitude, location.longitude)
