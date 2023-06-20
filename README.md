@@ -28,7 +28,7 @@ O módulo do profissional é dedicado aos dentistas e tem como objetivo facilita
 - **Emergências:** Nesta funcionalidade, os dentistas receberão notificações de emergências odontológicas. Cada emergência será apresentada em uma lista, com informações sobre o caso e o contato do responsável. Os dentistas podem aceitar ou rejeitar as emergências com base em sua disponibilidade e localização.
 
    <p align="center" >
-    <img width="300" height="300" src="https://github.com/jwlds/TeethKids/blob/main/app/src/assets/emergencyGif.gif">
+    <img width="300" height="300" src="https://github.com/jwlds/TeethKids/blob/main/app/src/assets/emegencyGif.gif">
   </p>
 
 
