@@ -11,25 +11,45 @@ O módulo do profissional é dedicado aos dentistas e tem como objetivo facilita
 - **Gerenciar meu perfil:** Os dentistas podem criar uma conta no aplicativo, fornecendo suas informações pessoais, endereços de atendimento, mini currículo e foto. Após a criação da conta, ela será automaticamente aprovada pelo sistema.
 <table>
   <tr>
-    <td>
-      <img width="460" height="300" src="https://github.com/jwlds/TeethKids/blob/main/app/src/assets/addressGif.gif">
+      <td>
+      <img width="300" height="300" src="https://github.com/jwlds/TeethKids/blob/main/app/src/assets/registerLogin.gif">
     </td>
     <td>
-      <img width="460" height="300" src="https://github.com/jwlds/TeethKids/blob/main/app/src/assets/addressGif.gif">
+      <img width="300" height="300" src="https://github.com/jwlds/TeethKids/blob/main/app/src/assets/profileGif.gif">
+    </td>
+    <td>
+      <img width="300" height="300" src="https://github.com/jwlds/TeethKids/blob/main/app/src/assets/addressGif.gif">
     </td>
   </tr>
 </table>
 
+- **Notificações de emergência:** Quando uma emergência é relatada, todos os dentistas disponíveis na área recebem uma notificação para aceitar ou rejeitar o atendimento. O sistema organiza e apresenta as notificações aos chamadores para que eles possam escolher o dentista que desejam.
 
 - **Emergências:** Nesta funcionalidade, os dentistas receberão notificações de emergências odontológicas. Cada emergência será apresentada em uma lista, com informações sobre o caso e o contato do responsável. Os dentistas podem aceitar ou rejeitar as emergências com base em sua disponibilidade e localização.
 
+   <p align="center" >
+    <img width="300" height="300" src="https://github.com/jwlds/TeethKids/blob/main/app/src/assets/emergencyGif.gif">
+  </p>
+
+
 - **Minha reputação:** Os profissionais podem consultar sua reputação no aplicativo, verificando as avaliações e os comentários recebidos dos chamadores. Caso encontrem algum comentário problemático, como calúnia ou difamação, eles podem reportar o problema para uma revisão posterior.
+
+  <p align="center" >
+    <img width="300" height="300" src="https://github.com/jwlds/TeethKids/blob/main/app/src/assets/reviewGif.gif">
+  </p>
 
 - **Meu status:** Os dentistas podem definir seu status de disponibilidade para atender emergências. Eles podem alternar entre disponível e indisponível, dependendo de sua agenda e compromissos.
 
-- **Notificações de emergência:** Quando uma emergência é relatada, todos os dentistas disponíveis na área recebem uma notificação para aceitar ou rejeitar o atendimento. O sistema organiza e apresenta as notificações aos chamadores para que eles possam escolher o dentista que desejam.
+ <p align="center" >
+    <img width="300" height="300" src="https://github.com/jwlds/TeethKids/blob/main/app/src/assets/statusGif.gif">
+  </p>
 
-- **Pedir avaliação do meu atendimento:** Após o atendimento de uma emergência, os dentistas têm a opção de solicitar uma avaliação do atendimento prestado. Os responsáveis podem dar uma nota de 0 a 5 estrelas e fornecer um feedback sobre a experiência geral.
+
+  ** O aplicativo possui mais funcionalidades, porém, elas dependem do app do socorrista, que faz parte da segunda parte do projeto e não foi demonstrada aqui.** 
+
+
+
+
 
 
 
