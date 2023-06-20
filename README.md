@@ -26,6 +26,7 @@ O módulo do profissional é dedicado aos dentistas e tem como objetivo facilita
 - **Notificações de emergência:** Quando uma emergência é relatada, todos os dentistas disponíveis na área recebem uma notificação para aceitar ou rejeitar o atendimento. O sistema organiza e apresenta as notificações aos chamadores para que eles possam escolher o dentista que desejam.
 
 - **Emergências:** Nesta funcionalidade, os dentistas receberão notificações de emergências odontológicas. Cada emergência será apresentada em uma lista, com informações sobre o caso e o contato do responsável. Os dentistas podem aceitar ou rejeitar as emergências com base em sua disponibilidade e localização.
+     **Nota importante** para utilização no emulador: Caso o projeto seja executado em um emulador, é necessário configurar manualmente a localização do dispositivo emulador para simular a localização real. Certifique-se de acessar as configurações do emulador e definir a localização desejada, para que as notificações de emergência sejam apresentadas corretamente com base na localização simulada.
 
    <p align="center" >
     <img width="300" height="300" src="https://github.com/jwlds/TeethKids/blob/main/app/src/assets/emegencyGif.gif">
@@ -45,7 +46,7 @@ O módulo do profissional é dedicado aos dentistas e tem como objetivo facilita
   </p>
 
 
-  ** O aplicativo possui mais funcionalidades, porém, elas dependem do app do socorrista, que faz parte da segunda parte do projeto e não foi demonstrada aqui.** 
+  ## O aplicativo possui mais funcionalidades, porém, elas dependem do app do socorrista, que faz parte da segunda parte do projeto e não foi demonstrada aqui.
 
 
 
