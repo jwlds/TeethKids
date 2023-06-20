@@ -9,9 +9,17 @@ O módulo do profissional é dedicado aos dentistas e tem como objetivo facilita
 ### Funcionalidades
 
 - **Gerenciar meu perfil:** Os dentistas podem criar uma conta no aplicativo, fornecendo suas informações pessoais, endereços de atendimento, mini currículo e foto. Após a criação da conta, ela será automaticamente aprovada pelo sistema.
-  <p align="center" >
-    <img width="460" height="300" src="https://github.com/jwlds/TeethKids/blob/main/app/src/assets/addressGif.gif">
-  </p>
+<table>
+  <tr>
+    <td>
+      <img width="460" height="300" src="https://github.com/jwlds/TeethKids/blob/main/app/src/assets/addressGif.gif">
+    </td>
+    <td>
+      <img width="460" height="300" src="https://github.com/jwlds/TeethKids/blob/main/app/src/assets/addressGif.gif">
+    </td>
+  </tr>
+</table>
+
 
 - **Emergências:** Nesta funcionalidade, os dentistas receberão notificações de emergências odontológicas. Cada emergência será apresentada em uma lista, com informações sobre o caso e o contato do responsável. Os dentistas podem aceitar ou rejeitar as emergências com base em sua disponibilidade e localização.
 
