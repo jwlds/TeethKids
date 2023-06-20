@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.teethkids.Helper.FirebaseHelper
 import com.example.teethkids.dao.UserDao
 import com.example.teethkids.databinding.FragmentHomeBinding
 import com.example.teethkids.utils.Utils
@@ -35,7 +36,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+        userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
 
         userViewModel.user.observe(viewLifecycleOwner) { user ->
             Utils.loadImageFromUrl(user.urlImg, binding.toolbar.profileImage)
