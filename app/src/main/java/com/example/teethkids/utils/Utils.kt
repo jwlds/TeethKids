@@ -119,7 +119,7 @@ object Utils {
 
     // Realiza a geocodificação de um endereço usando a API do Google Maps
     fun geocodeAddress(address: String): Pair<Double, Double>? {
-        val apiKey = "AIzaSyC84r-IA5PPwDiicNuIRS_kH2weH1zsu5o" // chave
+        val apiKey = "KEYMAP" // chave
         val geoApiContext = GeoApiContext.Builder()
             .apiKey(apiKey)
             .build()

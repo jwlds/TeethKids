@@ -30,7 +30,7 @@
         tools:targetApi="tiramisu">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyC84r-IA5PPwDiicNuIRS_kH2weH1zsu5o" />
+            android:value="{KEYMAP}" />
         <service
             android:name=".service.FirebaseMessagingService"
             android:exported="false">
