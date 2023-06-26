@@ -2,6 +2,8 @@
 
 Este é um projeto elaborado por alunos da PUC Campinas de Engenharia de Software para o Projeto Integrador III.
 
+O projeto ainda está em desenvolvimento e continuará sendo atualizado à medida que minhas habilidades forem aprimoradas.
+
 ## Visão do Aplicativo TeethKids - Módulo do Profissional
 
 O módulo do profissional é dedicado aos dentistas e tem como objetivo facilitar o atendimento de emergências odontológicas envolvendo crianças. Ele fornece recursos e funcionalidades específicas para os profissionais de odontologia.
