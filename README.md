@@ -20,6 +20,9 @@ O módulo do profissional é dedicado aos dentistas e tem como objetivo facilita
     <td>
       <img width="200" height="300" src="https://github.com/jwlds/TeethKids/blob/main/app/src/assets/addressGif.gif">
     </td>
+    <td>
+      <img width="200" height="300" src="https://github.com/jwlds/TeethKids/blob/main/app/src/assets/netGif.gif">
+    </td>
   </tr>
 </table>
 
