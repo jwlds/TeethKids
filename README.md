@@ -14,16 +14,16 @@ O módulo do profissional é dedicado aos dentistas e tem como objetivo facilita
 <table>
   <tr>
       <td>
-      <img width="200" height="300" src="https://github.com/jwlds/TeethKids/blob/main/app/src/assets/registerLogin.gif">
+      <img width="200" height="350" src="https://github.com/jwlds/TeethKids/blob/main/app/src/assets/registerLogin.gif">
     </td>
     <td>
-      <img width="200" height="300" src="https://github.com/jwlds/TeethKids/blob/main/app/src/assets/profileGif.gif">
+      <img width="200" height="350" src="https://github.com/jwlds/TeethKids/blob/main/app/src/assets/profileGif.gif">
     </td>
     <td>
-      <img width="200" height="300" src="https://github.com/jwlds/TeethKids/blob/main/app/src/assets/addressGif.gif">
+      <img width="200" height="350" src="https://github.com/jwlds/TeethKids/blob/main/app/src/assets/addressGif.gif">
     </td>
     <td>
-      <img width="200" height="300" src="https://github.com/jwlds/TeethKids/blob/main/app/src/assets/netGif.gif">
+      <img width="200" height="350" src="https://github.com/jwlds/TeethKids/blob/main/app/src/assets/netGif.gif">
     </td>
   </tr>
 </table>
@@ -42,13 +42,13 @@ O módulo do profissional é dedicado aos dentistas e tem como objetivo facilita
 - **Minha reputação:** Os profissionais podem consultar sua reputação no aplicativo, verificando as avaliações e os comentários recebidos dos chamadores. Caso encontrem algum comentário problemático, como calúnia ou difamação, eles podem reportar o problema para uma revisão posterior.
 
   <p align="center" >
-    <img width="200" height="300" src="https://github.com/jwlds/TeethKids/blob/main/app/src/assets/reviewGif.gif">
+    <img width="200" height="350" src="https://github.com/jwlds/TeethKids/blob/main/app/src/assets/reviewGif.gif">
   </p>
 
 - **Meu status:** Os dentistas podem definir seu status de disponibilidade para atender emergências. Eles podem alternar entre disponível e indisponível, dependendo de sua agenda e compromissos.
 
  <p align="center" >
-    <img width="200" height="300" src="https://github.com/jwlds/TeethKids/blob/main/app/src/assets/statusGif.gif">
+    <img width="200" height="350" src="https://github.com/jwlds/TeethKids/blob/main/app/src/assets/statusGif.gif">
   </p>
 
 
